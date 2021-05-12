@@ -1,0 +1,127 @@
+@import "../index.css";
+
+/* GRID */
+
+  .row {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    border-left: 50px solid var(--border-color);
+    border-right: 50px solid var(--border-color);
+  }
+  
+  .row-middle {
+    align-items: center;
+  }
+  
+  .col {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+  }
+  
+  .col-start {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  
+  .col-center {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .col-end {
+    justify-content: flex-end;
+    text-align: right;
+  }
+  
+  
+
+/* Calendar */
+
+.calendar {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: var(--main-color);
+}
+
+.calendar .header {
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 54px;
+  padding: .05em 0;
+  color: var(--text-blue);
+}
+
+.calendar .header .icon {
+  cursor: pointer;
+  transition: .15s ease-out;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.calendar .header .icon:hover {
+  transform: scale(1.75);
+  transition: .25s ease-out;
+  color: var(--lighter-blue);
+}
+
+.calendar .days {
+  font-weight: 100;
+  font-size: 20px;
+  color: black;
+  padding: .5em 0;
+}
+
+.calendar .body .cell {
+  position: relative;
+  height: 6em;
+  line-height: 5em;
+  text-align: center;
+  border-right: 50px solid var(--border-color);
+  border-left: 50px solid var(--border-color);
+  border-top: 5px solid var(--border-color);
+  border-bottom: 5px solid var(--border-color);
+  cursor: pointer;
+  background-color: #fcfcfc;
+  transition: 0.25s ease-out;
+  border-radius: 50%;
+}
+
+.calendar .body .cell:hover {
+  background: var(--bg-color);
+  transition: 0.5s ease-out;
+}
+
+.calendar .body .today {
+  text-decoration: underline;
+  color: var(--darker-orange);
+  font-weight: bold;
+}
+
+.calendar .body .row {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .body .row:last-child {
+  border-bottom: 175px solid var(--border-color);
+}
+
+.calendar .body .cell .dayNum {
+  font-size: 25px;
+}
+
+.calendar .body .notInMonth {
+  color: var(--text-color-light);
+  pointer-events: none;
+}
+
+.calendar .body .col {
+  flex-grow: 0;
+  flex-basis: calc(100%/7);
+  width: calc(100%/7);
+}
