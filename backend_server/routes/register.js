@@ -6,14 +6,8 @@ import login_scripts from '../login_scripts/verifyLogin.js'
 
 const router = express.Router();
 
-//Routes to register page
-router.get('/', login_scripts.notLoggedIn, (req, res) => {
-
-});
-
-
 //Registers a new user
-router.post('/', (req, res) => {
+router.post('/', login_scripts.notLoggedIn, (req, res) => {
     //Sets up query string for db
     var queryString = {};
     queryString.username = req.body.username;

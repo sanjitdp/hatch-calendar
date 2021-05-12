@@ -19,8 +19,12 @@ var schema = mongoose.Schema({
     },
 
 
-    data: {
-        type: Array
+    dataSpecific: {
+        type: Object
+    },
+
+    dataWeekly: {
+        type:Array   
     }
 });
 

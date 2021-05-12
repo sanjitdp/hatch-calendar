@@ -1,5 +1,5 @@
-
 //Verifies if user is logged in or not
+//Will help to mainatain user login when later implemented
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
