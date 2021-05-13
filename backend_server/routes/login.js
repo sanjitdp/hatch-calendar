@@ -8,10 +8,10 @@ const router = express.Router();
 
 router.post('/', loginScripts.notLoggedIn, (req, res) => {
     passport.authenticate('local', (req, res) => {
-        //If we are autheticated, send 200 meaning we are good
-        res.send(200);
+        //If we are authenticated, send 200 meaning we are good
+        res.send("Authenticated!");
     })
-    res.send(404);
+    res.send("Not authenticated!");
 });
 
 export default router;

@@ -12,30 +12,38 @@ router.post('/', login_scripts.notLoggedIn, (req, res) => {
     var queryString = {};
     queryString.username = req.body.username;
     queryString.email = req.body.email;
-    
-    dataBase.findOne(queryString).then((obj)=>{
-        if(obj !== null){
+
+    const email_format = /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z0-9-]+)$/
+    const username_format = /^[a-zA-Z0-9_-]+$/
+
+    dataBase.findOne(queryString).then((obj) => {
+        if (obj !== null) {
             //There is a user of that name or password in the system
-            res.send(404);
-        }else{
+            res.send("There is already a user with that username!");
+        } else if (!(username_format.test(req.body.username))) {
+            res.send("Username invalid! You can only use letters, numbers, hyphens, and underscores.");
+        } else if (!(email_format.test(req.body.email))) {
+            res.send("Please input a valid email.")
+        } else {
             //Register a new user
+
             User.register(new User({
                 username: req.body.username,
                 email: req.body.email
             }),
-            req.body.password, function (err, user){
-                if(err){
-                    //If there is an error send status 404 back
-                    res.send(404);
-                }
+                req.body.password, function (err, user) {
+                    if (err) {
+                        //If there is an error send status 404 back
+                        res.send("Error!");
+                    }
 
-                //After registering, we authenticate
-                passport.authenticate("local")(req, res, () =>{
-                    console.log("Authenticated!");
-                    res.send("Success!");
+                    //After registering, we authenticate
+                    passport.authenticate("local")(req, res, () => {
+                        console.log("Authenticated!");
+                        res.send("Success!");
+                    });
+
                 });
-
-            });
         }
     });
 });
