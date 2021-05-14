@@ -9,8 +9,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    border-left: 50px solid var(--border-color);
-    border-right: 50px solid var(--border-color);
+    border-left: 3em solid var(--border-color);
+    border-right: 3em solid var(--border-color);
   }
   
   .row-middle {
@@ -46,15 +46,18 @@
     display: block;
     position: relative;
     width: 100%;
+    height: 100%;
     background-color: var(--main-color);
 }
 
 .calendar .header {
   text-transform: uppercase;
-  font-weight: 100;
-  font-size: 54px;
+  font-family:'Open Sans', sans-serif;
+  font-weight: 800;
+  font-size: 2.75em;
   padding: .05em 0;
   color: var(--text-blue);
+  user-select: none;
 }
 
 .calendar .header .icon {
@@ -62,19 +65,21 @@
   transition: .15s ease-out;
   margin-left: 1em;
   margin-right: 1em;
+  user-select: none;
 }
 
 .calendar .header .icon:hover {
   transform: scale(1.75);
-  transition: .25s ease-out;
+  transition: .1s ease-out;
   color: var(--lighter-blue);
 }
 
 .calendar .days {
-  font-weight: 100;
-  font-size: 20px;
+  font-weight: 800;
+  font-size: 1.2em;
   color: black;
   padding: .5em 0;
+  user-select: none;
 }
 
 .calendar .body .cell {
@@ -82,37 +87,37 @@
   height: 6em;
   line-height: 5em;
   text-align: center;
-  border-right: 50px solid var(--border-color);
-  border-left: 50px solid var(--border-color);
-  border-top: 5px solid var(--border-color);
-  border-bottom: 5px solid var(--border-color);
+  border-right: 2em solid var(--border-color);
+  border-left: 3em solid var(--border-color);
+  border-top: .5em solid var(--border-color);
+  border-bottom: .5em solid var(--border-color);
   cursor: pointer;
   background-color: #fcfcfc;
-  transition: 0.25s ease-out;
+  transition: 0.1s ease-out;
   border-radius: 50%;
 }
 
 .calendar .body .cell:hover {
   background: var(--bg-color);
-  transition: 0.5s ease-out;
+  transition: 0.1s ease-out;
 }
 
 .calendar .body .today {
-  text-decoration: underline;
   color: var(--darker-orange);
-  font-weight: bold;
+  font-weight: 800;
 }
 
 .calendar .body .row {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: .05em solid var(--border-color);
 }
 
 .calendar .body .row:last-child {
-  border-bottom: 175px solid var(--border-color);
+  border-bottom: 1.5em solid var(--border-color);
 }
 
 .calendar .body .cell .dayNum {
-  font-size: 25px;
+  font-size: 1.5em;
+  user-select: none;
 }
 
 .calendar .body .notInMonth {
