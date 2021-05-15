@@ -1,61 +1,63 @@
 import React from "react";
-import './NewEvent.css';
-import '../index.css';
+import "../index.css";
+import "./NewEvent.css";
 
 class newEvent extends React.Component {
     renderTitle() {
         return (
-            <input type="text" placeholder="event title"></input>
+            <input type="text" placeholder="event title" id="ename" name="ename"></input>
         )
     }
-    renderDetails() {
+    renderDetails() { //TODO: make this textarea
         return (
-            <textarea rows="6" cols="50" placeholder="details" class="scrollable"></textarea>
+            <textarea rows="6" cols="50" placeholder="details" class="scrollable" id="edetails" name="edetails"></textarea>
         )
     }
     renderLink() {
         return (
-            <input type="text" placeholder="link"></input>
+            <input type="text" placeholder="link" id="elink" name="elink"></input>
         )
     }
     renderTimeInput() { //TODO: Make this
         return (
             <div class="grid-container">
-                <div class="grid-item"><span></span></div>
-                <div class="grid-item"><label>FROM </label></div>
-                <div class="grid-item"><label>TO</label></div>
-                <div class="grid-item"><span></span></div>
-                <div class="grid-item"><span></span></div>
-                <div class="grid-item"><input type="time" ></input></div>
-                <div class="grid-item"><input type="time" ></input></div>
+                <div class = "grid-item"><span></span></div>
+                <div class = "grid-item"><label>FROM </label></div>
+                <div class = "grid-item"><label>TO</label></div>
+                <div class = "grid-item"><span></span></div>
+                <div class = "grid-item"><span></span></div>
+                <div class = "grid-item"><input type="time" id="sTime" name="sTime"></input></div>
+                <div class = "grid-item"><input type="time" id="eTime" name="eTime"></input></div>
             </div>
         )
     }
     renderWeeklyButton() { //TODO: method to show clicked color
         return (
-            <button class="button">make weekly</button>
+            <button type="weekly" value="weekly" class="button">make weekly</button>
         )
     }
     renderAddEventButton() {
         return (
-            <button class="button">add event</button>
+            <button type="submit" value="Submit" class="button">add event</button>
         )
     }
     renderCancel() {
         return (
-            <button class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+            <button type="cancel" value="cancel" class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
         )
     }
 
     render() {
         return (
             <div className="newEvent">
+            <form>
                 <div class="center">{this.renderTitle()}</div>
-                <div class="center">{this.renderDetails()}</div>
-                <div class="center">{this.renderLink()}</div>
-                <div class="center">{this.renderTimeInput()}</div>
-                <div class="center">{this.renderWeeklyButton()}</div>
-                <div class="center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
+                <div class = "center">{this.renderDetails()}</div>
+                <div class = "center">{this.renderLink()}</div>
+                <div class = "center">{this.renderTimeInput()}</div>
+                <div class = "center">{this.renderWeeklyButton()}</div>
+                <div class = "center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
+            </form>
             </div>
         )
     }
