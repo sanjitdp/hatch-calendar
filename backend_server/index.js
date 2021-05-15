@@ -5,6 +5,7 @@ import cors from 'cors';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import expressSession from 'express-session';
+import cookieParser from 'cookie-parser';
 
 
 import login from './routes/login.js';
@@ -32,6 +33,7 @@ app.use(expressSession({
 //JSON Stuff
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cookieParser);
 
 //Sets up passport functionality
 passport.use(new passportLocal(User.authenticate()));

@@ -29,6 +29,16 @@ const funcs = {
         mongoose.set("useUnifiedTopology", true);
         mongoose.set("useNewUrlParser", true);
         mongoose.connect(uri);
+    },
+    //Modifies the database
+    async modifyUniqueEvents(query, newDate, newInfo){
+        var tempDb = client.db(config.Database.Name);
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$addFields: {dateSpecific: {newDate: newInfo}}});
+    },
+
+    async setWeeklySchedule(query, weeklySchedule){
+        var tempDB = client.db(config.Database.DBName);
+        await tempDB.collection(config.Database.Colleciton).updateOne(query, {dataWeekly: weeklySchedule});
     }
 
 }

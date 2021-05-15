@@ -18,10 +18,17 @@ router.post('/', login_scripts.notLoggedIn, (req, res) => {
             //There is a user of that name or password in the system
             res.send(404);
         }else{
+            var tempArray = [7];
+            for(var i = 0; i < 7; i++){
+                tempArray = null;
+            }
+
             //Register a new user
             User.register(new User({
                 username: req.body.username,
-                email: req.body.email
+                email: req.body.email,
+                dataWeekly: tempArray,
+                dateSpecific: {}
             }),
             req.body.password, function (err, user){
                 if(err){

@@ -7,11 +7,11 @@ const router = express.Router();
 //Login verification
 
 router.post('/', loginScripts.notLoggedIn, (req, res) => {
-    passport.authenticate('local', (req, res) => {
+    passport.authenticate('local', req, res, () => {
         //If we are autheticated, send 200 meaning we are good
-        res.send(200);
+        res.status(200).send("Successful login");
     })
-    res.send(404);
+    res.status(500).send("Unauthorized user >:O")
 });
 
 export default router;
