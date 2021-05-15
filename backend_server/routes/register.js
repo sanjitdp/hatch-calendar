@@ -33,17 +33,17 @@ router.post('/', login_scripts.notLoggedIn, (req, res) => {
                 dataWeekly: tempArray,
                 dateSpecific: {}
             }),
-                req.body.password, function (err, user) {
-                    if (err) {
-                        //If there is an error send status 404 back
-                        res.send("Error!");
-                    }
+            req.body.password, function (err, user){
+                if(err){
+                    //If there is an error send status 404 back
+                    res.send(404);
+                }
 
-                    //After registering, we authenticate
-                    passport.authenticate("local")(req, res, () => {
-                        console.log("Authenticated!");
-                        res.send("Success!");
-                    });
+                //After registering, we authenticate
+                passport.authenticate("local")(req, res, () =>{
+        
+                    res.status(200).send("Success!");
+                });
 
                 });
         }

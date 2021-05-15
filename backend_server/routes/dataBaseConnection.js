@@ -30,16 +30,18 @@ const funcs = {
         mongoose.set("useNewUrlParser", true);
         mongoose.connect(uri);
     },
-    //Modifies the database
-    async modifyUniqueEvents(query, newDate, newInfo){
-        var tempDb = client.db(config.Database.Name);
-        await tempDb.collection(config.Database.Collection).updateOne(query, {$addFields: {dateSpecific: {newDate: newInfo}}});
+    //Call and modify weekly schedule
+    async setWeeklySchedule(query, newSchedule){
+        var tempDb = client.db(config.Database.Name); 
+        await tempDb.collection(config.Database.Colleciton).updateOne(query, {$set: {dataWeekly: newSchedule}});
     },
 
-    async setWeeklySchedule(query, weeklySchedule){
-        var tempDB = client.db(config.Database.DBName);
-        await tempDB.collection(config.Database.Colleciton).updateOne(query, {dataWeekly: weeklySchedule});
+    //Update the param of an object
+    async setDailyEvent(query, date, newEvent){
+        var tempDb = client.db(config.Database.Name);
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$addFields: {dateSpecific: {date: newEvent}}});
     }
+
 
 }
 
