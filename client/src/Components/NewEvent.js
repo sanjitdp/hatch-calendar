@@ -8,7 +8,7 @@ class newEvent extends React.Component {
             <input type="text" placeholder="event title"></input>
         )
     }
-    renderDetails() { //TODO: make this textarea
+    renderDetails() {
         return (
             <textarea rows="6" cols="50" placeholder="details" class="scrollable"></textarea>
         )
@@ -21,13 +21,13 @@ class newEvent extends React.Component {
     renderTimeInput() { //TODO: Make this
         return (
             <div class="grid-container">
-                <div class = "grid-item"><span></span></div>
-                <div class = "grid-item"><label>FROM </label></div>
-                <div class = "grid-item"><label>TO</label></div>
-                <div class = "grid-item"><span></span></div>
-                <div class = "grid-item"><span></span></div>
-                <div class = "grid-item"><input type="time" ></input></div>
-                <div class = "grid-item"><input type="time" ></input></div>
+                <div class="grid-item"><span></span></div>
+                <div class="grid-item"><label>FROM </label></div>
+                <div class="grid-item"><label>TO</label></div>
+                <div class="grid-item"><span></span></div>
+                <div class="grid-item"><span></span></div>
+                <div class="grid-item"><input type="time" ></input></div>
+                <div class="grid-item"><input type="time" ></input></div>
             </div>
         )
     }
@@ -51,11 +51,11 @@ class newEvent extends React.Component {
         return (
             <div className="newEvent">
                 <div class="center">{this.renderTitle()}</div>
-                <div class = "center">{this.renderDetails()}</div>
-                <div class = "center">{this.renderLink()}</div>
-                <div class = "center">{this.renderTimeInput()}</div>
-                <div class = "center">{this.renderWeeklyButton()}</div>
-                <div class = "center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
+                <div class="center">{this.renderDetails()}</div>
+                <div class="center">{this.renderLink()}</div>
+                <div class="center">{this.renderTimeInput()}</div>
+                <div class="center">{this.renderWeeklyButton()}</div>
+                <div class="center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
             </div>
         )
     }

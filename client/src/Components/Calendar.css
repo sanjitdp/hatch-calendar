@@ -103,7 +103,7 @@
 }
 
 .calendar .body .today {
-  color: var(--darker-orange);
+  color: #9e2222;
   font-weight: 800;
 }
 
