@@ -31,8 +31,8 @@ router.post('/', login_scripts.notLoggedIn, (req, res) => {
 
                 //After registering, we authenticate
                 passport.authenticate("local")(req, res, () =>{
-                    console.log("Authenticated!");
-                    res.send("Success!");
+        
+                    res.status(200).send("Success!");
                 });
 
             });

@@ -8,6 +8,7 @@ import expressSession from 'express-session';
 
 
 import login from './routes/login.js';
+import logout from './routes/logout.js';
 import register from './routes/register.js';
 import rest from './routes/REST.js';
 import dataBase from './routes/dataBaseConnection.js';
@@ -31,7 +32,12 @@ app.use(expressSession({
 
 //JSON Stuff
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
+
+/*app.get('*', function (req, res, next) {
+    res.locals.user = req.user || null;
+    next();
+  });*/
 
 //Sets up passport functionality
 passport.use(new passportLocal(User.authenticate()));
@@ -42,6 +48,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/login', login);
 app.use('/register', register);
 app.use('/DBInfo', rest);
+app.use('/logout', logout);
 
 
 //Listens on port 5000

@@ -29,7 +29,19 @@ const funcs = {
         mongoose.set("useUnifiedTopology", true);
         mongoose.set("useNewUrlParser", true);
         mongoose.connect(uri);
+    },
+    //Call and modify weekly schedule
+    async setWeeklySchedule(query, newSchedule){
+        var tempDb = client.db(config.Database.Name); 
+        await tempDb.collection(config.Database.Colleciton).updateOne(query, {$set: {dataWeekly: newSchedule}});
+    },
+
+    //Update the param of an object
+    async setDailyEvent(query, date, newEvent){
+        var tempDb = client.db(config.Database.Name);
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$addFields: {dateSpecific: {date: newEvent}}});
     }
+
 
 }
 
