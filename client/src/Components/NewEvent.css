@@ -1,0 +1,21 @@
+@import "../index.css";
+
+.newEvent {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: var(--main-color);
+}
+
+.center {
+    padding-top: 1em;
+    padding-bottom:1em;
+    margin: auto;
+    text-align: center;
+    position: center;
+}
+
+#details {
+    height: 275px;
+    width: 500px;
+}
