@@ -24,20 +24,19 @@ router.get('/', (req, res) => {
 //Handles adding of a weekly schedule
 router.post('/Weekly', (req, res)=> {
     var queryString = {};
-    queryString.username = "newUser";
-    console.log(req.user.username);
+    queryString.username = req.user.username;
+
     //res.send(req.user);
     dataBase.setWeeklySchedule(queryString, req.body.weekly);
 
-    res.send("Success!");
+    res.status(200).send("Success!");
 
 });
 
 //Handles the adding of an individual unqiue event
 router.post('/Individual', (req, res)=> {
     var queryString = {};
-    //queryString.username = req.user.username;
-    queryString.username = "newUser";
+    queryString.username = req.user.username;
     
     const dateNew = req.body.dateNew;
     const newInfo = req.body.newInfo;
@@ -49,8 +48,8 @@ router.post('/Individual', (req, res)=> {
 
 router.delete('/DeleteEvent', (req, res)=> {
     var queryString = {};
-
     queryString.username = "newUser";
+
     const dateRemove = req.body.dateRemove;
 
     dataBase.deleteCertainEvent(queryString, dateRemove);
