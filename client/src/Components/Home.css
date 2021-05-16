@@ -2,3 +2,31 @@ img{
 width: 500px;
 }
 
+.home{
+display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inlinehatch{
+font-size: 16px;
+margin: 0px;
+}
+
+p{
+text-align: center;
+color: black;
+}
+.wording{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.wording .hatch{
+position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+}
