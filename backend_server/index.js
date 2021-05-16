@@ -19,26 +19,28 @@ import User from './models/userInfo.js'
 dataBase.connectMongoose();
 
 const app = express();
+//Sets up express session
+
+app.use(expressSession({
+    secret: "hatch",
+    resave: false,
+    saveUninitialized: false
+}));
 
 //Initializes passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Sets up express session
-app.use(expressSession({
-    secret: "hatch",
-    resave: false,
-    saveUninitialized: false
-}))
-
 //JSON Stuff
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/*app.get('*', function (req, res, next) {
+
+//Exposes user's username
+app.get('*', function (req, res, next) {
     res.locals.user = req.user || null;
     next();
-  });*/
+});
 
 //Sets up passport functionality
 passport.use(new passportLocal(User.authenticate()));

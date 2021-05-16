@@ -33,13 +33,26 @@ const funcs = {
     //Call and modify weekly schedule
     async setWeeklySchedule(query, newSchedule){
         var tempDb = client.db(config.Database.Name); 
-        await tempDb.collection(config.Database.Colleciton).updateOne(query, {$set: {dataWeekly: newSchedule}});
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$set: {dataWeekly: newSchedule}});
     },
 
     //Update the param of an object
-    async setDailyEvent(query, date, newEvent){
+    async setDailyEvent(query, dateNew, newEvent){
         var tempDb = client.db(config.Database.Name);
-        await tempDb.collection(config.Database.Collection).updateOne(query, {$addFields: {dateSpecific: {date: newEvent}}});
+        var tempObj = {};
+        
+        var tempString = "dateSpecific." + String(dateNew);
+        tempObj[tempString] = newEvent;
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$set: tempObj});
+    },
+
+    //Delete Event on Certain Date
+    async deleteCertainEvent(query, dateDelete){
+        var tempDb = client.db(config.Database.Name);
+        var tempObj = {};
+        var tempString = "dateSpecific." + String(dateDelete);
+        tempObj[tempString] = "";
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$unset: tempObj});
     }
 
 

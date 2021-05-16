@@ -7,9 +7,9 @@ const router = express.Router();
 //Logout
 
 router.get('/', (req, res) => {
-    req.session.destroy((req, res) => {
-        res.status(200).send("Logout");
-    })
+    req.logout();
+    res.send("Logged out");
+
 });
 
 export default router;
