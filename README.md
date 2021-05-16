@@ -6,6 +6,7 @@ Full-stack calendar web application. Created for CS 35L at UCLA in Spring 2021. 
 You can follow these instructions to run the calendar web application.
 
 - Clone this repository onto your local machine. This can be done with ```git clone https://github.com/sanjitdp/hatch-calendar.git```.
+- Run ```npm init``` in the root directory.
 - Run ```npm start``` in the ```client``` directory.
 - Run ```npm start``` in the ```backend_server``` directory.
 
