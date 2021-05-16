@@ -1,7 +1,7 @@
 import React from "react";
 import '../index.css';
 import './Login.css'
-
+import egg from '../images/full_egg.png';
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -35,17 +35,23 @@ class Login extends React.Component {
 
     render() {
         return (
+<div className="loginPageMain">
+<img src={egg} alt="login" />
             <div className="loginForm">
+<span>
+Welcome Back!
+</span>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Username: <input type="text" value={this.state.username} onChange={this.handleUserChange} />
+                         <input placeholder="email" type="text" value={this.state.username} onChange={this.handleUserChange} />
                     </label> <br /><br />
                     <label>
-                        Password: <input type="password" value={this.state.password} onChange={this.handlePassChange} />
+                         <input placeholder="password" type="password" value={this.state.password} onChange={this.handlePassChange} />
                     </label> <br /><br />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="login" />
                 </form>
             </div>
+</div>
         );
     }
 }
