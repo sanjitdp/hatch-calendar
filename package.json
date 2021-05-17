@@ -1,0 +1,19 @@
+{
+  "name": "hatch-calendar",
+  "version": "1.0.0",
+  "description": "Full-stack calendar web application. Created for CS 35L at UCLA in Spring 2021. For personal use only - do not copy. Written using React.js, Node.js, Express.js, and MongoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanjitdp/hatch-calendar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanjitdp/hatch-calendar/issues"
+  },
+  "homepage": "https://github.com/sanjitdp/hatch-calendar#readme"
+}

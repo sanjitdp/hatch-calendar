@@ -1,0 +1,68 @@
+@import "../index.css";
+
+/* EVENTS */
+
+    .eventBox {
+        display: inline-flex;
+        justify-content: center;
+        flex-direction: column;
+        border-left: 20px;
+        border-right: 20px;
+        margin-left: 12em;
+        margin-bottom: 5em;
+        gap: 20px;
+    }
+    .col {
+        flex-grow: 1;
+        flex-basis: 0;
+        max-width: 100%;
+      }
+      
+    .col-start {
+        justify-content: flex-start;
+        text-align: left;
+      }
+      
+    .col-center {
+        justify-content: center;
+        text-align: center;
+      }
+      
+    .col-end {
+        justify-content: flex-end;
+        text-align: right;
+      }
+    
+    .buttons {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: right;
+        gap: 20px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        gap: 10px;
+      }
+
+    #weekdayBanner {
+        font-size: 30px;
+        border-bottom: 1em solid var(--border-color);
+    }
+
+    #eventsTitle {
+        font-size: 30px;
+        justify-content: center;
+    }
+
+    #growIcons {
+        font-size: 20px;
+    }
+
+    #buttonBorder {
+        margin: 20px;
+    }
+
+/* MISC */

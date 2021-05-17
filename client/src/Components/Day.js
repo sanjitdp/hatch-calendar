@@ -1,39 +1,67 @@
 import React from "react";
+import "./Day.css";
 
 class Day extends React.Component {
     renderHeader() {
+        const DateFormat = "MMMM YYYY";
         return (
-            <div> THIS IS THE DAY PAGE </div>
-            // needs prev and next buttons
+            <div className="header row flex-middle">
+            <div className="col col-start" id="growIcons" >
+              <div className="icon" onClick={this.prevDay}>
+                chevron_left
+              </div>
+            </div>
+            <div className="col col-center">
+                <span> DATE! </span>
+            </div>
+            <div className="col col-end" id="growIcons" onClick={this.nextDay}>
+              <div className="icon" >chevron_right</div>
+            </div>
+            </div>
+      );
+            // needs prev and next buttons to actually go to prev / next day
             // load date in header
-            // load day of the week here
-        )
+            // load day of the week here 
+    }
+    renderHeader2() {
+        return(
+        <div className="header2 row flex-middle">
+            <div className="col col-center"  >
+                <div id="weekdayBanner"> day of the week </div>
+            </div>
+        </div>
+        );
     }
     renderEvent() {
         return (
-            <div> EVENTS </div>
+            <div className = "container">
+                <div className="col col-center"> 
+                    <div className = "eventBox">
+                        <div id="eventsTitle"> EVENTS </div> 
+                        <textarea rows="18" cols="50" placeholder="EVENTS" class="scrollable" id="edetails" name="edetails"></textarea>
+                    </div>
+                </div>
+                <div className = "col col-center">
+                    <div className="buttons"> 
+                        <button type="CSV" value="CSV" class="button">export as CSV</button>
+                        <button type="addE" value="addE" class="button">add event</button>
+                        <button type="addE" value="addE" class="button">go back to calendar</button>
+                    </div>
+                </div>
+            </div>
             // generate times (...idk how to do this)
             // write TIMES and EVENTS as header
             // load events (?)
         )
     }
-    renderOptions() {
-        return (
-            <div> export csv / add event</div>
-            // export as csv button (this will have to be a separate thing)
-            // add event button
-            // go to date 
-        )
-    }    
-    renderFooter() {
-        return(
-            <div> back to calendar </div>
-            // return to calendar button
-        )
-    }
+
     render() {
         return (
-            <div>This is the DAY page</div>
+            <div className = "day"> 
+                {this.renderHeader()}
+                {this.renderHeader2()}
+                {this.renderEvent()}
+            </div>
         )
     }
 }
