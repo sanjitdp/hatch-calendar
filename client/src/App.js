@@ -9,7 +9,7 @@ import Day from './Components/Day';
 import newEvent from './Components/NewEvent';
 import Home from './Components/Home';
 import Register from './Components/Register';
-
+import editEvent from './Components/EditEvent';
 
 class App extends React.Component {
     render() {
@@ -21,12 +21,13 @@ class App extends React.Component {
                         <ul className="navbar-nav mr-auto">
 				 <li><Link to={'/'} className="nav-link">Home</Link></li>
                             <li><Link to={'/login'} className="nav-link">Login</Link></li>
-                      <li><Link to={'/register'} className="nav-link">Register</Link></li>
-			       <li><Link to={'/newAccount'} className="nav-link">New Account</Link></li>
+                     	    <li><Link to={'/register'} className="nav-link">Register</Link></li>
+			    <li><Link to={'/newAccount'} className="nav-link">New Account</Link></li>
                             <li><Link to={'/calendar'} className="nav-link">Calendar</Link></li>
                             <li><Link to={'/day'} className="nav-link">Day</Link></li>
                             <li><Link to={'/newEvent'} className="nav-link">New Event</Link></li>
-                        </ul>
+            		    <li><Link to={'/editEvent'} className="nav-link">Edit Event</Link></li>
+	             </ul>
                     </nav>
                     <hr />
                     <Switch>
@@ -37,6 +38,7 @@ class App extends React.Component {
                         <Route exact path='/day' component={Day} />
                         <Route path='/newEvent' component={newEvent} />
 			<Route exact path='/register' component={Register} />
+			<Route path='/editEvent' component={editEvent} />
                     </Switch>
                 </div>
             </Router>
