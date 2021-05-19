@@ -15,13 +15,14 @@ const funcs = {
     //Returns an array of all the elements that match the query
     async callDataBase(query){
         var tempDb = client.db(config.Database.Name);
-        var resulted = await tempDb.collection(config.Database.Collection).find(query).toArray();
+        var resulted = await tempDb.collection(config.Database.Collection).findOne(query);
         return resulted;
     },
     //Verifies if a user exists by returning one instance of a matching query
-    async findOne(query){
+    async findEvents(query, projectionNew){
         var tempDb = client.db(config.Database.Name);
-        var resulted = await tempDb.collection(config.Database.Collection).findOne(query);
+        //Result of querying the collection
+        var resulted = await tempDb.collection(config.Database.Collection).findOne(query, {projection: projectionNew });
         return resulted;
     },
     //Connects mongoose to our database
