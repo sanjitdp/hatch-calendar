@@ -1,5 +1,6 @@
 import React from "react";
 import "./Day.css";
+import {Link} from 'react-router-dom'
 
 class Day extends React.Component {
     renderHeader() {
@@ -44,9 +45,13 @@ class Day extends React.Component {
                 <div className = "col col-center">
                     <div className="buttons"> 
                         <button type="CSV" value="CSV" class="button">export as CSV</button>
-                        <button type="addE" value="addE" class="button">add event</button>
-                        <button type="addE" value="addE" class="button">go back to calendar</button>
-                    </div>
+                        <Link to = 'newEvent'>	
+				<button type="addE" value="addE" class="button">add event</button>
+                	</Link>
+		        <Link to = '/calendar'>
+				<button type="addE" value="addE" class="button">go back to calendar</button>
+                    	</Link>
+			</div>
                 </div>
             </div>
             // generate times (...idk how to do this)

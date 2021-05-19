@@ -1,6 +1,7 @@
 import React from "react";
 import "../index.css";
 import "./EditEvent.css";
+import {Link} from 'react-router-dom'
 
 class editEvent extends React.Component {
     renderTitle() {
@@ -31,19 +32,25 @@ class editEvent extends React.Component {
             </div>
         )
     }
-renderWeeklyButton() { //TODO: method to show clicked color
+    renderWeeklyButton() { 
         return (
+	<Link to='/day'>
             <button type="weekly" value="weekly" class="button">make weekly</button>
-        )
+        </Link>
+	 )
     }
     renderEditEventButton() {
         return (
+	<Link to='/day'>
             <button type="submit" value="Submit" class="button">edit event</button>
-        )
+        </Link>
+	 )
     }
     renderCancel() {
         return (
-            <button type="cancel" value="cancel" class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+	    <Link to='/day'>
+            	<button type="cancel" value="cancel" class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+            </Link>
         )
     }
 
