@@ -11,7 +11,7 @@
   --main-color: #FFE37E;
   --border-color: #FFE37E;
   --text-blue: #174774;
-  --lighter-blue: #2b76bd;
+  --lighter-blue: #1681AB;
   --bg-color: #FFE37E;
   --text-color: black;
   --text-color-light: #ccc;
@@ -71,7 +71,7 @@ main {
 
 /*buttons*/
 .button {
-  background-color: #174774;
+  background-color: #1681AB;
   border: none;
   color: white;
   padding: 1em 1em;
@@ -85,7 +85,7 @@ main {
 }
 
 .button:hover {
-background-color: #2b76bd;
+background-color: #174774;
 transition: 0.1s ease-out;    
 }
 
@@ -186,3 +186,13 @@ padding: 10px;
 border: none;
 text-align: center;
 }
+
+/* links */
+a{
+color: #1681AB;
+}
+
+a:hover{
+color: #174774;
+}
+
