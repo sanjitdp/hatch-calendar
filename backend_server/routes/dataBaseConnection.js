@@ -25,6 +25,12 @@ const funcs = {
         var resulted = await tempDb.collection(config.Database.Collection).findOne(query, {projection: projectionNew });
         return resulted;
     },
+    async findOne(query){
+        var tempDb = client.db(config.Database.Name);
+        //Result of querying the collection
+        var resulted = await tempDb.collection(config.Database.Collection).findOne(query);
+        return resulted; 
+    },
     //Connects mongoose to our database
     connectMongoose(){
         mongoose.set("useUnifiedTopology", true);
