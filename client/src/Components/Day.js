@@ -1,51 +1,62 @@
+import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
 
 class Day extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            passDate: props.setDate,
+            currentDate: props.currentDate,
+        };
+        console.log(this.state.currentDate)
+
+        this.goBack = this.goBack.bind(this)
+    }
+
     renderHeader() {
-        const DateFormat = "MMMM YYYY";
         return (
             <div className="header row flex-middle">
-            <div className="col col-start" id="growIcons" >
-              <div className="icon" onClick={this.prevDay}>
-                chevron_left
-              </div>
+                <div className="col col-center">
+                    <span> {this.state.currentDate} </span>
+                </div>
+                <div className="col col-center"  >
+                    <div id="weekdayBanner"> day of the week </div>
+                </div>
             </div>
-            <div className="col col-center">
-                <span> DATE! </span>
-            </div>
-            <div className="col col-end" id="growIcons" onClick={this.nextDay}>
-              <div className="icon" >chevron_right</div>
-            </div>
-            </div>
-      );
-            // needs prev and next buttons to actually go to prev / next day
-            // load date in header
-            // load day of the week here 
-    }
-    renderHeader2() {
-        return(
-        <div className="header2 row flex-middle">
-            <div className="col col-center"  >
-                <div id="weekdayBanner"> day of the week </div>
-            </div>
-        </div>
         );
     }
+
+    getEvents() {
+        const daily_options = {
+            method: 'get'
+        }
+
+        // temporary GET request, move as desired, gets object containing all of user's specific events
+        // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
+        fetch('http://localhost:3000/DBInfo/Specific', daily_options)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+    }
+
+    goBack() {
+        this.state.passDate("")
+    }
+
     renderEvent() {
         return (
-            <div className = "container">
-                <div className="col col-center"> 
-                    <div className = "eventBox">
-                        <div id="eventsTitle"> EVENTS </div> 
-                        <textarea rows="18" cols="50" placeholder="EVENTS" class="scrollable" id="edetails" name="edetails"></textarea>
+            <div className="container">
+                <div className="col col-center">
+                    <div className="eventBox">
+                        <div id="eventsTitle"> EVENTS </div>
+                        <textarea rows="18" cols="50" placeholder="EVENTS" className="scrollable" id="edetails" name="edetails"></textarea>
                     </div>
                 </div>
-                <div className = "col col-center">
-                    <div className="buttons"> 
-                        <button type="CSV" value="CSV" class="button">export as CSV</button>
-                        <button type="addE" value="addE" class="button">add event</button>
-                        <button type="addE" value="addE" class="button">go back to calendar</button>
+                <div className="col col-center">
+                    <div className="buttons">
+                        <button type="CSV" value="CSV" className="button" onClick={this.getEvents}>export as CSV</button>
+                        <button type="addE" value="addE" className="button">add event</button>
+                        <button type="back" value="back" className="button" onClick={this.goBack}>go back to calendar</button>
                     </div>
                 </div>
             </div>
@@ -57,9 +68,8 @@ class Day extends React.Component {
 
     render() {
         return (
-            <div className = "day"> 
+            <div className="day">
                 {this.renderHeader()}
-                {this.renderHeader2()}
                 {this.renderEvent()}
             </div>
         )

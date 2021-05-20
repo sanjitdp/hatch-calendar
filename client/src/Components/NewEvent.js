@@ -10,7 +10,7 @@ class newEvent extends React.Component {
     }
     renderDetails() { //TODO: make this textarea
         return (
-            <textarea rows="6" cols="50" placeholder="details" class="scrollable" id="edetails" name="edetails"></textarea>
+            <textarea rows="6" cols="50" placeholder="details" className="scrollable" id="edetails" name="edetails"></textarea>
         )
     }
     renderLink() {
@@ -20,44 +20,44 @@ class newEvent extends React.Component {
     }
     renderTimeInput() { //TODO: Make this
         return (
-            <div class="grid-container">
-                <div class = "grid-item"><span></span></div>
-                <div class = "grid-item"><label>FROM </label></div>
-                <div class = "grid-item"><label>TO</label></div>
-                <div class = "grid-item"><span></span></div>
-                <div class = "grid-item"><span></span></div>
-                <div class = "grid-item"><input type="time" id="sTime" name="sTime"></input></div>
-                <div class = "grid-item"><input type="time" id="eTime" name="eTime"></input></div>
+            <div className="grid-container">
+                <div className="grid-item"><span></span></div>
+                <div className="grid-item"><label>FROM </label></div>
+                <div className="grid-item"><label>TO</label></div>
+                <div className="grid-item"><span></span></div>
+                <div className="grid-item"><span></span></div>
+                <div className="grid-item"><input type="time" id="sTime" name="sTime"></input></div>
+                <div className="grid-item"><input type="time" id="eTime" name="eTime"></input></div>
             </div>
         )
     }
     renderWeeklyButton() { //TODO: method to show clicked color
         return (
-            <button type="weekly" value="weekly" class="button">make weekly</button>
+            <button type="weekly" value="weekly" className="button">make weekly</button>
         )
     }
     renderAddEventButton() {
         return (
-            <button type="submit" value="Submit" class="button">add event</button>
+            <button type="submit" value="Submit" className="button">add event</button>
         )
     }
     renderCancel() {
         return (
-            <button type="cancel" value="cancel" class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+            <button type="cancel" value="cancel" className="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
         )
     }
 
     render() {
         return (
             <div className="newEvent">
-            <form>
-                <div class="center">{this.renderTitle()}</div>
-                <div class = "center">{this.renderDetails()}</div>
-                <div class = "center">{this.renderLink()}</div>
-                <div class = "center">{this.renderTimeInput()}</div>
-                <div class = "center">{this.renderWeeklyButton()}</div>
-                <div class = "center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
-            </form>
+                <form>
+                    <div className="center">{this.renderTitle()}</div>
+                    <div className="center">{this.renderDetails()}</div>
+                    <div className="center">{this.renderLink()}</div>
+                    <div className="center">{this.renderTimeInput()}</div>
+                    <div className="center">{this.renderWeeklyButton()}</div>
+                    <div className="center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
+                </form>
             </div>
         )
     }

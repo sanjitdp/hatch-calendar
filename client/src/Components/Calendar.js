@@ -1,11 +1,18 @@
 import React from "react";
 import * as dateFns from "date-fns";
+import format from 'date-fns/format'
 
 class Calendar extends React.Component {
-  state = {
-    currentMonth: new Date(),
-    selectedDate: new Date()
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentMonth: new Date(),
+      selectedDate: new Date(),
+      passDate: props.setDate,
+    };
+  }
+
   renderHeader() {
     const dateFormat = 'MMMM yyyy';
     return (
@@ -85,15 +92,9 @@ class Calendar extends React.Component {
       selectedDate: day
     });
 
-    const daily_options = {
-      method: 'get'
-    }
+    console.log(format(day, 'MM/dd/yyyy'));
 
-    // temporary GET request, move as desired, gets object containing all of user's specific events
-    // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
-    fetch('http://localhost:3000/DBInfo/Specific', daily_options)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    this.state.passDate(format(day, 'MM/dd/yyyy'));
   };
 
   nextMonth = () => {
