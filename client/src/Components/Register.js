@@ -68,7 +68,7 @@ class Register extends React.Component {
                 <img src={egg} alt="register" />
                 <div className="registerForm">
                     <span className="registerHeader">
-                        Thank you for choosing Hatch!
+                        Thank you for choosing HATCH!
 </span>
                     <form onSubmit={this.handleSubmit}>
                         <label>
@@ -83,8 +83,7 @@ class Register extends React.Component {
                         <label>
                             <input placeholder="confirm password" type="password" value={this.state.confirm_password} onChange={this.handleConfirmPassChange} />
                         </label> <br />
-
-                        <input type="submit" value="register" />
+		      <button type="submit" value="Submit" class="button">register</button>
                     </form>
                 </div>
             </div>

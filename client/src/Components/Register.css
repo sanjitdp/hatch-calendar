@@ -19,7 +19,7 @@
 .registerHeader{
 font-size: 20px;
 margin-bottom: 20px;
-
+color: black;
 }
 
 .registerMain{
@@ -28,24 +28,6 @@ margin-bottom: 20px;
 display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-
-
-
-
-input[type="submit"] {
-  background-color: #174774;
-  border: none;
-  color: white;
-  padding: 1em 1em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  /*margin: 4px 2px;*/
-  cursor: pointer;
-  border-radius: 14px
 }
 
 input[type="password"] {
@@ -59,4 +41,8 @@ input[type="password"] {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   outline: none;
+}
+
+input[type="password"]:focus {
+  border: 4px solid var(--text-blue);
 }

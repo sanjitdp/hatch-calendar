@@ -1,6 +1,7 @@
 import React from "react";
 import "../index.css";
 import "./NewEvent.css";
+import { Link } from 'react-router-dom'
 
 class newEvent extends React.Component {
     renderTitle() {
@@ -33,17 +34,23 @@ class newEvent extends React.Component {
     }
     renderWeeklyButton() { //TODO: method to show clicked color
         return (
-            <button type="weekly" value="weekly" className="button">make weekly</button>
+            <Link to='/day'>
+                <button type="weekly" value="weekly" class="button">make weekly</button>
+            </Link>
         )
     }
     renderAddEventButton() {
         return (
-            <button type="submit" value="Submit" className="button">add event</button>
+            <Link to='/day'>
+                <button type="submit" value="Submit" class="button">add event</button>
+            </Link>
         )
     }
     renderCancel() {
         return (
-            <button type="cancel" value="cancel" className="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+            <Link to='/day'>
+                <button type="cancel" value="cancel" class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+            </Link>
         )
     }
 
