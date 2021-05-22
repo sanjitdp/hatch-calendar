@@ -9,7 +9,7 @@
         border-left: 20px;
         border-right: 20px;
         margin-left: 12em;
-        margin-bottom: 5em;
+        margin-bottom: 2em;
         gap: 20px;
     }
     .col {
@@ -36,7 +36,6 @@
     .buttons {
         display: inline-flex;
         flex-direction: column;
-        align-items: right;
         gap: 20px;
     }
 
@@ -47,9 +46,16 @@
         gap: 10px;
       }
 
+    .goToDay {
+        display: flex;
+        flex-direction: row;
+        margin-top: 100px;
+        gap: 10px;
+    }
+
     #weekdayBanner {
-        font-size: 30px;
-        border-bottom: 1em solid var(--border-color);
+        font-size: 25px;
+        border-bottom: 0.25em solid var(--border-color);
     }
 
     #eventsTitle {
@@ -58,11 +64,17 @@
     }
 
     #growIcons {
-        font-size: 20px;
+        font-size: 50px;
+        line-height: 1;
+        font-weight: 10;
     }
 
-    #buttonBorder {
-        margin: 20px;
+    #makeDateSmall {
+        font-size: 30px;
+    }
+
+    .footer {
+        margin: 15px
     }
 
 /* MISC */
