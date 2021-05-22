@@ -6,27 +6,49 @@ import login_scripts from '../login_scripts/verifyLogin.js';
 
 const router = express.Router();
 
-//Handles general DB requests
-router.get('/', (req, res) => {
+//Handles general DB requests to a specific User
+router.get('/', login_scripts.isLoggedIn, (req, res) => {
     //Assign various params
     var queryString = {};
+    queryString.username = req.user.username;
 
     //Assign various params
 
     //Call database with necessary params
-    dataBase.callDataBase(queryString, (results)=>{
+    dataBase.callDataBase(queryString).then((results)=>{
         res.send(results);
-    })
+    });
 
 
 });
+//Returns the weekly schedule of a user
+router.get('/Weekly', login_scripts.isLoggedIn, (req, res)=> {
+    var queryString = {};
+    queryString.username = req.user.username;
+    //Finds based on username
+    dataBase.findEvents(queryString, {dataWeekly: 1}).then((results)=> {
+        //Returns found weekly data
+        res.send(results);
+    });
+    
+});
+
+//Queries for user's specific events
+router.get('/Specific', login_scripts.isLoggedIn, (req, res)=> {
+    var queryString = {};
+    queryString.username = req.user.username;
+    //Find based on username
+    dataBase.findEvents(queryString, {dateSpecific: 1}).then((results)=>{
+        res.send(results);
+    });
+    
+});
 
 //Handles adding of a weekly schedule
-router.post('/Weekly', (req, res)=> {
+router.post('/Weekly', login_scripts.isLoggedIn, (req, res)=> {
     var queryString = {};
     queryString.username = req.user.username;
 
-    //res.send(req.user);
     dataBase.setWeeklySchedule(queryString, req.body.weekly);
 
     res.status(200).send("Success!");
@@ -34,7 +56,7 @@ router.post('/Weekly', (req, res)=> {
 });
 
 //Handles the adding of an individual unqiue event
-router.post('/Individual', (req, res)=> {
+router.post('/Individual', login_scripts.isLoggedIn, (req, res)=> {
     var queryString = {};
     queryString.username = req.user.username;
     
@@ -46,6 +68,7 @@ router.post('/Individual', (req, res)=> {
 
 });
 
+//Deletes a certain specific event
 router.delete('/DeleteEvent', (req, res)=> {
     var queryString = {};
     queryString.username = "newUser";

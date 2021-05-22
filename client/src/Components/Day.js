@@ -1,9 +1,22 @@
+import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
 import * as dateFns from "date-fns";
+import {Link} from 'react-router-dom';
+
 
 class Day extends React.Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            passDate: props.setDate,
+            currentDate: props.currentDate,
+        };
+        console.log(this.state.currentDate)
+
+        this.goBack = this.goBack.bind(this)
+    }
+
     renderHeader() {
         const DateFormat = "MMDDYYYY";
         //TO DO: make the chevrons bigger
@@ -13,7 +26,8 @@ class Day extends React.Component {
               <div id="growIcons" className="icon" onClick={this.prevDay}> chevron_left</div>
             </div>
             <div className="col col-center">
-                <span id="makeDateSmall"> DATE! </span>
+                <span id="makeDateSmall">
+                    <span> {this.state.currentDate} </span> </span>
             </div>
             <div className="col col-end" onClick={this.nextDay}>
               <div id="growIcons" className="icon">chevron_right</div>
@@ -26,28 +40,45 @@ class Day extends React.Component {
     renderHeader2() {
         const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         return(
-        <div className="header2 row flex-middle">
-            <div className="col col-center"  >
-                <div id="weekdayBanner">
-                    {formattedDays[6]}
+            <div className="header2 row flex-middle">
+                <div className="col col-center"  >
+                    <div id="weekdayBanner">
+                        {formattedDays[6]}
+                    </div>
                 </div>
             </div>
-        </div>
-        );
+        )
+        }
+                    
+    getEvents() {
+        const daily_options = {
+            method: 'get'
+        }
+
+        // temporary GET request, move as desired, gets object containing all of user's specific events
+        // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
+        fetch('http://localhost:3000/DBInfo/Specific', daily_options)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
     }
+
+    goBack() {
+        this.state.passDate("")
+    }
+
     renderEvent() {
         return (
-            <div className = "container">
-                <div className="col col-center"> 
-                    <div className = "eventBox">
-                        <div id="eventsTitle"> EVENTS </div> 
-                        <textarea rows="18" cols="50" placeholder="EVENTS" class="scrollable" id="edetails" name="edetails"></textarea>
+            <div className="container">
+                <div className="col col-center">
+                    <div className="eventBox">
+                        <div id="eventsTitle"> EVENTS </div>
+                        <textarea rows="18" cols="50" placeholder="EVENTS" className="scrollable" id="edetails" name="edetails"></textarea>
                     </div>
                 </div>
                 <div className = "col col-center">
                     <div className="buttons"> 
-                        <button type="CSV" value="CSV" class="button">export as CSV</button>
-                        <button type="addE" value="addE" class="button">add event</button>
+                        <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
+                        <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
                             <textarea rows="1" cols="15" placeholder="MM/DD/YYYY" id="edetails" name="edetails"></textarea>
                             <button type="addE" value="addE" class="button"> GO
@@ -75,7 +106,7 @@ class Day extends React.Component {
 
     render() {
         return (
-            <div className = "day"> 
+            <div className="day">
                 {this.renderHeader()}
                 {this.renderHeader2()}
                 {this.renderEvent()}
