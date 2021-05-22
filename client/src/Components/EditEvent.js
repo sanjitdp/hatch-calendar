@@ -42,7 +42,7 @@ class editEvent extends React.Component {
     renderEditEventButton() {
         return (
 	<Link to='/day'>
-            <button type="submit" value="Submit" class="button">edit event</button>
+            <button type="submit" value="Submit" class="button">save changes</button>
         </Link>
 	 )
     }

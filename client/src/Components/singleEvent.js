@@ -2,7 +2,7 @@ import React from "react";
 import "../index.css";
 import "./NewEvent.css";
 import "./Calendar.css";
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 
 class singleEvent extends React.Component {
     renderTitle() {
@@ -36,7 +36,7 @@ class singleEvent extends React.Component {
     }
     renderEditEventButton() {
         return (
-            <button class="button">edit</button>
+            <Link to= "/editEvent"><button class="button">edit</button></Link>
 	    )
     }
     render() {

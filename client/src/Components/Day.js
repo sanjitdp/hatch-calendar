@@ -1,6 +1,7 @@
 import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
+import {Link} from 'react-router-dom';
 
 class Day extends React.Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class Day extends React.Component {
                 <div className="col col-center">
                     <div className="buttons">
                         <button type="CSV" value="CSV" className="button" onClick={this.getEvents}>export as CSV</button>
-                        <button type="addE" value="addE" className="button">add event</button>
+                        <Link to="/newEvent"><button type="addE" value="addE" className="button">add event</button></Link>
                         <button type="back" value="back" className="button" onClick={this.goBack}>go back to calendar</button>
                     </div>
                 </div>

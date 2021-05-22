@@ -23,8 +23,8 @@ class App extends React.Component {
                             <li><Link to={'/login'} className="nav-link">Login</Link></li>
                             <li><Link to={'/register'} className="nav-link">Register</Link></li>
                             <li><Link to={'/newEvent'} className="nav-link">New Event</Link></li>
-                            <li><Link to={'/eventView'} className="nav-link">Event View</Link></li>
                             <li><Link to={'/editEvent'} className="nav-link">Edit Event</Link></li>
+                            <li><Link to={'/eventView'} className="nav-link">Event View</Link></li>
                             <li><Link to={'/singleEvent'} className="nav-link">Single Event</Link></li>
                         </ul>
                     </nav>
