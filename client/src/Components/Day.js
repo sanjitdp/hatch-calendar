@@ -1,9 +1,8 @@
-import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
-import * as dateFns from "date-fns";
 import {Link} from 'react-router-dom';
-
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 class Day extends React.Component {
     constructor(props) {
@@ -17,9 +16,14 @@ class Day extends React.Component {
         this.goBack = this.goBack.bind(this)
     }
 
+    setDateText(newDate) {
+        this.setState({
+            currentDate: newDate
+        });
+    }
+
     renderHeader() {
         const DateFormat = "MMDDYYYY";
-        //TO DO: make the chevrons bigger
         return (
             <div className="header row flex-middle">
             <div className="col col-start" >
@@ -27,7 +31,7 @@ class Day extends React.Component {
             </div>
             <div className="col col-center">
                 <span id="makeDateSmall">
-                    <span> {this.state.currentDate} </span> </span>
+                    {this.state.currentDate} </span>
             </div>
             <div className="col col-end" onClick={this.nextDay}>
               <div id="growIcons" className="icon">chevron_right</div>
@@ -80,10 +84,10 @@ class Day extends React.Component {
                         <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
-                            <textarea rows="1" cols="15" placeholder="MM/DD/YYYY" id="edetails" name="edetails"></textarea>
+                            <DatePicker id="daydatepicker" value={this.state.date} onChange={date => this.setDateText(date)}/>
+                            <textarea rows="1" cols="15" placeholder="MM/DD/YYYY" id="edetails" name="edetails" value={this.state.currentDate}></textarea>
                             <button type="addE" value="addE" class="button"> GO
                             </button>
-                            {}
                         </div>
                     </div>
                 </div>
