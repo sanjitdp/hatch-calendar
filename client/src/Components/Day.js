@@ -3,13 +3,18 @@ import "./Day.css";
 import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import * as dateFns from "date-fns";
+import format from 'date-fns/format'
+
 
 class Day extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             passDate: props.setDate,
-            currentDate: props.currentDate,
+            //currentDate: props.currentDate,
+            currentDateObject: new Date(props.currentDate),
+            currentDateString: props.currentDate
         };
         console.log(this.state.currentDate)
 
@@ -17,8 +22,10 @@ class Day extends React.Component {
     }
 
     setDateText(newDate) {
+        const DateFormat = "MMMM dd yyyy";
         this.setState({
-            currentDate: newDate
+            currentDateObject: newDate,
+            currentDateString: dateFns.format(newDate, DateFormat)
         });
     }
 
@@ -31,7 +38,7 @@ class Day extends React.Component {
             </div>
             <div className="col col-center">
                 <span id="makeDateSmall">
-                    {this.state.currentDate} </span>
+                    {this.state.currentDateString} </span>
             </div>
             <div className="col col-end" onClick={this.nextDay}>
               <div id="growIcons" className="icon">chevron_right</div>
@@ -84,10 +91,10 @@ class Day extends React.Component {
                         <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
-                            <DatePicker id="daydatepicker" value={this.state.date} onChange={date => this.setDateText(date)}/>
-                            <textarea rows="1" cols="15" placeholder="MM/DD/YYYY" id="edetails" name="edetails" value={this.state.currentDate}></textarea>
-                            <button type="addE" value="addE" class="button"> GO
-                            </button>
+                            <DatePicker id="daydatepicker" s
+                            selected={this.state.currentDateObject} 
+                            onChange={date => this.setDateText(date)}
+                            showTimeSelect/>
                         </div>
                     </div>
                 </div>
@@ -101,7 +108,7 @@ class Day extends React.Component {
         return (
             <div className = "col col-center">
                 <div className="footer">
-                     <button type="addE" value="addE" class="button">back to calendar</button>
+                     <button type="addE" value="addE" className="button">back to calendar</button>
                 </div>
             </div>
 
