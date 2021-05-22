@@ -196,3 +196,8 @@ a:hover{
 color: #174774;
 }
 
+.title {
+  font-size:30px;
+  color: var(--text-blue);
+}
+

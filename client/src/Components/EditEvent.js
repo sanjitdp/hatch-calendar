@@ -1,6 +1,6 @@
 import React from "react";
 import "../index.css";
-import "./EditEvent.css";
+import "./NewEvent.css";
 import {Link} from 'react-router-dom'
 
 class editEvent extends React.Component {
@@ -56,7 +56,7 @@ class editEvent extends React.Component {
 
     render() {
         return (
-            <div className="editEvent">
+            <div className="newEvent">
             <form>
                 <div class="center">{this.renderTitle()}</div>
                 <div class = "center">{this.renderDetails()}</div>
