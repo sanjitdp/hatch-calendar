@@ -37,6 +37,9 @@
         display: inline-flex;
         flex-direction: column;
         gap: 20px;
+        align-items: center;
+        flex-basis: 100%;
+        flex: 0 1 auto;
     }
 
     .container {
