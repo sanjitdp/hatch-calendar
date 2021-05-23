@@ -9,7 +9,8 @@ class Day extends React.Component {
         this.state = {
             passDate: props.setDate,
             currentDate: props.currentDate,
-            events: null
+            events: null,
+            weeklyEvents: null
         };
         console.log(this.state.currentDate)
 
@@ -29,6 +30,22 @@ class Day extends React.Component {
         );
     }
 
+    getWeeklySchedule(){
+        const weekly_options = {
+            method: 'get',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            referrer: 'no-referrer'
+        } 
+
+        return fetch('http://localhost:3000/DBInfo/Weekly', weekly_options);
+
+    }
+
     getEventsListed() {
         const daily_options = {
             method: 'get',
@@ -43,6 +60,16 @@ class Day extends React.Component {
 
         // temporary GET request, move as desired, gets object containing all of user's specific events
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
+        
+
+        var weeklyInfo = this.getWeeklySchedule()
+            .then((response) => response.json())
+            .then((data) => {
+                return data;
+            });
+        console.log(weeklyInfo);
+        
+
         fetch('http://localhost:3000/DBInfo/Specific', daily_options)
             .then((response) => response.json())
             .then((data) => {
@@ -54,13 +81,14 @@ class Day extends React.Component {
                     var keysAndValues = ListOfKeys.map((value)=>{ 
                         const strTitle = desiredValue[value].title;
                         const strDate = "Date: " + desiredValue[value].date;
-                        const fromTime = "From: " + desiredValue[value].from + "To: " + desiredValue[value].to;
+                        const fromTime = "From: " + desiredValue[value].from;
+                        const timeTo = "To: " + desiredValue[value].to;
                         const details = "Description: " + desiredValue[value].details;
                         return (
                             <ul key={value}>{strTitle}
-                                 <li>{strTitle}</li>
                                  <li>{strDate}</li>
                                  <li>{fromTime}</li>
+                                 <li>{timeTo}</li>
                                  <li>{details}</li>
                             </ul>
                                 )

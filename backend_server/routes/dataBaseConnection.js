@@ -40,7 +40,7 @@ const funcs = {
     //Call and modify weekly schedule
     async setWeeklySchedule(query, newSchedule){
         var tempDb = client.db(config.Database.Name); 
-        await tempDb.collection(config.Database.Collection).updateOne(query, {$set: {dataWeekly: newSchedule}});
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$push: {dataWeekly: newSchedule}});
     },
 
     //Update the param of an object

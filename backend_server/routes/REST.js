@@ -72,11 +72,12 @@ router.post('/Individual', login_scripts.isLoggedIn, (req, res)=> {
 //Deletes a certain specific event
 router.delete('/DeleteEvent', (req, res)=> {
     var queryString = {};
-    queryString.username = "newUser";
+    queryString.username = req.user.username;
 
     const dateRemove = req.body.dateRemove;
+    const evtTitle = req.body.evtTitle;
 
-    dataBase.deleteCertainEvent(queryString, dateRemove);
+    dataBase.deleteCertainEvent(queryString, dateRemove, evtTitle);
 
     res.status(200).send("Date Deleted");
 });
