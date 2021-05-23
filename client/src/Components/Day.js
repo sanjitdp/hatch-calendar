@@ -51,9 +51,26 @@ class Day extends React.Component {
 
                     var desiredValue = data.dateSpecific[currParam];
                     var ListOfKeys = Object.keys(desiredValue);
+                    var keysAndValues = ListOfKeys.map((value)=>{ 
+                        const strTitle = desiredValue[value].title;
+                        const strDate = "Date: " + desiredValue[value].date;
+                        const fromTime = "From: " + desiredValue[value].from + "To: " + desiredValue[value].to;
+                        const details = "Description: " + desiredValue[value].details;
+                        return (
+                            <ul key={value}>{strTitle}
+                                 <li>{strTitle}</li>
+                                 <li>{strDate}</li>
+                                 <li>{fromTime}</li>
+                                 <li>{details}</li>
+                            </ul>
+                                )
+                             });
                     this.setState({ 
-                        events: ListOfKeys.map((value)=>{ return <li>{value}</li>})
+
+                        events: keysAndValues
+                        
                     })
+
 
                 }
                 
@@ -77,7 +94,7 @@ class Day extends React.Component {
                 <div className="col col-center">
                     <div className="eventBox">
                         <div id="eventsTitle"> EVENTS </div>
-                            <ul onLoad = {this.getEventsListed()}> {this.state.events} </ul>
+                            <ul textalign="left" onLoad = {this.getEventsListed()}> {this.state.events} </ul>
                     </div>
                 </div>
                 <div className="col col-center">

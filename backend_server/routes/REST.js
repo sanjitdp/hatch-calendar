@@ -62,7 +62,8 @@ router.post('/Individual', login_scripts.isLoggedIn, (req, res)=> {
     
     const dateNew = req.body.dateNew;
     const newInfo = req.body.newInfo;
-    dataBase.setDailyEvent(queryString, dateNew, newInfo);
+    const evtTitle = req.body.eventTitle;
+    dataBase.setDailyEvent(queryString, dateNew, newInfo, evtTitle);
 
     res.status(200).send("Changed daily info");
 
