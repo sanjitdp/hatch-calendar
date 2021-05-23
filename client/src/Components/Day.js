@@ -9,6 +9,7 @@ class Day extends React.Component {
         this.state = {
             passDate: props.setDate,
             currentDate: props.currentDate,
+            events: null
         };
         console.log(this.state.currentDate)
 
@@ -28,7 +29,7 @@ class Day extends React.Component {
         );
     }
 
-    getEvents() {
+    getEventsListed() {
         const daily_options = {
             method: 'get',
             mode: 'cors',
@@ -49,13 +50,20 @@ class Day extends React.Component {
                 if(data.dateSpecific.hasOwnProperty(currParam)){
 
                     var desiredValue = data.dateSpecific[currParam];
-                }else{
-                    //Handle no value loadable
+                    var ListOfKeys = Object.keys(desiredValue);
+                    this.setState({ 
+                        events: ListOfKeys.map((value)=>{ return <li>{value}</li>})
+                    })
 
                 }
                 
 
-            });
+            })
+        //return listElements;
+    }
+
+    getEvents(){
+        
     }
 
     goBack() {
@@ -63,19 +71,20 @@ class Day extends React.Component {
     }
 
     renderEvent() {
+        //this.getEventsListed();
         return (
             <div className="container">
                 <div className="col col-center">
                     <div className="eventBox">
                         <div id="eventsTitle"> EVENTS </div>
-                        <textarea rows="18" cols="50" placeholder="EVENTS" className="scrollable" id="edetails" name="edetails" onLoad={this.getEvents()}></textarea>
+                            <ul onLoad = {this.getEventsListed()}> {this.state.events} </ul>
                     </div>
                 </div>
                 <div className="col col-center">
                     <div className="buttons">
-                        <button type="CSV" value="CSV" className="button" onClick={this.getEvents()}>export as CSV</button>
+                        <button type="CSV" value="CSV" className="button" onClick={this.getEvents}>export as CSV</button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button">add event</button></Link>
-                        <button type="back" value="back" className="button" onClick={this.goBack}>go back to calendar</button>
+                        <button type="back" value="back" className="button" onClick={this.getEventsListed}>go back to calendar</button>
                     </div>
                 </div>
             </div>
