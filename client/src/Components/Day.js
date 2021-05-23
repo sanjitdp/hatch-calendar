@@ -30,14 +30,32 @@ class Day extends React.Component {
 
     getEvents() {
         const daily_options = {
-            method: 'get'
+            method: 'get',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            referrer: 'no-referrer'
         }
 
         // temporary GET request, move as desired, gets object containing all of user's specific events
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
         fetch('http://localhost:3000/DBInfo/Specific', daily_options)
             .then((response) => response.json())
-            .then((data) => console.log(data));
+            .then((data) => {
+                const currParam = (this.state.currentDate).toString();
+                if(data.dateSpecific.hasOwnProperty(currParam)){
+
+                    var desiredValue = data.dateSpecific[currParam];
+                }else{
+                    //Handle no value loadable
+
+                }
+                
+
+            });
     }
 
     goBack() {
@@ -50,12 +68,12 @@ class Day extends React.Component {
                 <div className="col col-center">
                     <div className="eventBox">
                         <div id="eventsTitle"> EVENTS </div>
-                        <textarea rows="18" cols="50" placeholder="EVENTS" className="scrollable" id="edetails" name="edetails"></textarea>
+                        <textarea rows="18" cols="50" placeholder="EVENTS" className="scrollable" id="edetails" name="edetails" onLoad={this.getEvents()}></textarea>
                     </div>
                 </div>
                 <div className="col col-center">
                     <div className="buttons">
-                        <button type="CSV" value="CSV" className="button" onClick={this.getEvents}>export as CSV</button>
+                        <button type="CSV" value="CSV" className="button" onClick={this.getEvents()}>export as CSV</button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button">add event</button></Link>
                         <button type="back" value="back" className="button" onClick={this.goBack}>go back to calendar</button>
                     </div>

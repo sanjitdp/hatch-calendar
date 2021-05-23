@@ -56,7 +56,13 @@ class Register extends React.Component {
             }
 
             // console.log() for debugging purposes only, delete later
-            fetch('http://localhost:3000/register', register_options).then((data) => console.log(data));
+            fetch('http://localhost:3000/register', register_options)
+            .then((data) => (data.json()))
+            .then((result) => {
+                if(result.user){
+                    window.location.href = "/eventView";
+                }
+            })
         } else {
             alert("You must enter a username and password! Passwords must match!"); // TODO: separate errors
         }

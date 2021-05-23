@@ -1,16 +1,18 @@
 import express from 'express';
 import loginScripts from '../login_scripts/verifyLogin.js';
 import passport from 'passport';
-import dataBase from '../routes/dataBaseConnection.js'
+import dataBase from '../routes/dataBaseConnection.js';
+import cookieParser from 'cookie-parser';
 
 const router = express.Router();
 
 //Login verification
 
-router.post('/', loginScripts.notLoggedIn, (req, res) => {
+router.post('/', (req, res) => {
     passport.authenticate("local")(req, res, () =>{
-        res.status(200).send("Logged In");
-    })
+        //res.cookie('session', req.user, { secure: true, signed: true, expires: new Date(Date.now() + 3600) });
+        res.send({user: req.user});
+    });
 });
 
 export default router;

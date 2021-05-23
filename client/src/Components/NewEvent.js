@@ -1,7 +1,12 @@
 import React from "react";
 import "../index.css";
 import "./NewEvent.css";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import EventObj from './EventObj.js';
+
+
+
+
 
 class newEvent extends React.Component {
     renderTitle() {
@@ -42,7 +47,7 @@ class newEvent extends React.Component {
     renderAddEventButton() {
         return (
             <Link to='/day'>
-                <button type="submit" value="Submit" class="button">add event</button>
+                <button type="submit" value="Submit" class="button" >add event</button>
             </Link>
         )
     }
@@ -52,12 +57,47 @@ class newEvent extends React.Component {
                 <button type="cancel" value="cancel" class="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
             </Link>
         )
+        
     }
+
+    submitAddEvent() {
+        const update_Event_options ={
+            method: 'post',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            referrer: 'no-referrer',
+            body: JSON.stringify({
+                
+            }),
+        }
+        fetch('http://localhost:3000/DBInfo/Individual', update_Event_options)
+        .then((response) => response.json())
+        .then((data) => {
+            const currParam = (this.state.currentDate).toString();
+            if(data.dateSpecific.hasOwnProperty(currParam)){
+
+                var desiredValue = data.dateSpecific[currParam];
+            }else{
+                //Handle no value loadable
+
+            }
+            
+
+        });
+
+    }
+
+
 
     render() {
         return (
             <div className="newEvent">
-                <form>
+                <form onSubmit={this.submitAddEvent()}>
                     <div className="center">{this.renderTitle()}</div>
                     <div className="center">{this.renderDetails()}</div>
                     <div className="center">{this.renderLink()}</div>
