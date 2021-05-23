@@ -1,5 +1,5 @@
 class EventObj {
-    constructor(title, date, from, to, details){
+    constructor(title, date, from, to, details) {
         this.title = title;
         this.date = date;
         this.from = from;

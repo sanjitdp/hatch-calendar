@@ -14,7 +14,7 @@ class Login extends React.Component {
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        
+
     }
 
     handleUserChange(event) {
@@ -47,7 +47,7 @@ class Login extends React.Component {
             fetch('http://localhost:3000/login', login_options)
                 .then((data) => (data.json()))
                 .then((result) => {
-                    if(result.user){
+                    if (result.user) {
                         window.location.href = "/eventView";
                     }
                 })
@@ -72,9 +72,9 @@ class Login extends React.Component {
                         <label>
                             <input placeholder="password" type="password" value={this.state.password} onChange={this.handlePassChange} />
                         </label> <br /><br />
-       
-            <button type="submit" value="Submit" class="button">login</button>
-        
+
+                        <button type="submit" value="Submit" className="button">login</button>
+
                     </form>
                 </div>
             </div>

@@ -57,12 +57,12 @@ class Register extends React.Component {
 
             // console.log() for debugging purposes only, delete later
             fetch('http://localhost:3000/register', register_options)
-            .then((data) => (data.json()))
-            .then((result) => {
-                if(result.user){
-                    window.location.href = "/eventView";
-                }
-            })
+                .then((data) => (data.json()))
+                .then((result) => {
+                    if (result.user) {
+                        window.location.href = "/eventView";
+                    }
+                })
         } else {
             alert("You must enter a username and password! Passwords must match!"); // TODO: separate errors
         }
@@ -89,7 +89,7 @@ class Register extends React.Component {
                         <label>
                             <input placeholder="confirm password" type="password" value={this.state.confirm_password} onChange={this.handleConfirmPassChange} />
                         </label> <br />
-		      <button type="submit" value="Submit" class="button">register</button>
+                        <button type="submit" value="Submit" className="button">register</button>
                     </form>
                 </div>
             </div>
