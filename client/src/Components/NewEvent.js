@@ -11,17 +11,17 @@ class newEvent extends React.Component {
             <input type="text" placeholder="event title" id="ename" name="ename"></input>
         )
     }
-    renderDetails() { //TODO: make this textarea
+    renderDetails() {
         return (
             <textarea rows="6" cols="50" placeholder="details" className="scrollable" id="edetails" name="edetails"></textarea>
         )
     }
-    renderLink() {
+    renderDate() {
         return (
-            <input type="text" placeholder="link" id="elink" name="elink"></input>
+            <input type="text" placeholder="date (format: MM/DD/YYYY)" id="edate" name="edate"></input>
         )
     }
-    renderTimeInput() { //TODO: Make this
+    renderTimeInput() {
         return (
             <div className="grid-container">
                 <div className="grid-item"><span></span></div>
@@ -34,9 +34,9 @@ class newEvent extends React.Component {
             </div>
         )
     }
-    renderWeeklyButton() { //TODO: method to show clicked color
+    renderWeeklyButton() {
         return (
-            <button type="weekly" value="weekly" className="button">make weekly</button>
+            <label> Make Weekly: <input type="checkbox" /> </label>
         )
     }
     renderAddEventButton() {
@@ -44,22 +44,28 @@ class newEvent extends React.Component {
             <button type="submit" value="Submit" className="button" >add event</button>
         )
     }
+
+    cancel = () => {
+        document.getElementById("newEventForm").reset();
+    }
+
     renderCancel() {
         return (
-            <button type="cancel" value="cancel" className="button">&nbsp;&nbsp;cancel&nbsp;&nbsp;</button>
+            <button type="cancel" value="cancel" className="button" onClick={this.cancel}>cancel</button>
         )
-
     }
 
     onSubmit(event) {
+        event.preventDefault();
+
         console.log(event.target.sTime.value)
 
-        let e = EventObj(
+        let e = new EventObj(
             event.target.ename.value,
             event.target.edate.value,
-            event.target.edetails.value,
             event.target.sTime.value,
             event.target.eTime.value,
+            event.target.edetails.value
         );
 
         const update_Event_options = {
@@ -73,34 +79,23 @@ class newEvent extends React.Component {
             redirect: 'follow',
             referrer: 'no-referrer',
             body: JSON.stringify({
-
+                'dateNew': event.target.edate.value,
+                'eventTitle': event.target.ename.value,
+                'newInfo': e,
             }),
         }
 
         fetch('http://localhost:3000/DBInfo/Individual', update_Event_options)
-            .then((response) => response.json())
-            .then((data) => {
-                const currParam = (this.state.currentDate).toString();
-                if (data.dateSpecific.hasOwnProperty(currParam)) {
-
-                    var desiredValue = data.dateSpecific[currParam];
-                } else {
-                    //Handle no value loadable
-
-                }
-
-
-            });
 
     }
 
     render() {
         return (
             <div className="newEvent">
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} id="newEventForm">
                     <div className="center">{this.renderTitle()}</div>
                     <div className="center">{this.renderDetails()}</div>
-                    <div className="center">{this.renderLink()}</div>
+                    <div className="center">{this.renderDate()}</div>
                     <div className="center">{this.renderTimeInput()}</div>
                     <div className="center">{this.renderWeeklyButton()}</div>
                     <div className="center">{this.renderAddEventButton()}<span></span>{this.renderCancel()}</div>
