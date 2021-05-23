@@ -36,7 +36,7 @@ class newEvent extends React.Component {
     }
     renderWeeklyButton() {
         return (
-            <label> Make Weekly: <input type="checkbox" /> </label>
+            <label> Make Weekly: <input type="checkbox" name="weekly" /> </label>
         )
     }
     renderAddEventButton() {
@@ -58,8 +58,6 @@ class newEvent extends React.Component {
     onSubmit(event) {
         event.preventDefault();
 
-        console.log(event.target.sTime.value)
-
         let e = new EventObj(
             event.target.ename.value,
             event.target.edate.value,
@@ -68,24 +66,54 @@ class newEvent extends React.Component {
             event.target.edetails.value
         );
 
-        const update_Event_options = {
-            method: 'post',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            redirect: 'follow',
-            referrer: 'no-referrer',
-            body: JSON.stringify({
-                'dateNew': event.target.edate.value,
-                'eventTitle': event.target.ename.value,
-                'newInfo': e,
-            }),
-        }
+        const date_regex = /^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20)\d\d$/
 
-        fetch('http://localhost:3000/DBInfo/Individual', update_Event_options)
+        if (e.title == "") {
+            alert("You must enter a title!")
+        }
+        else if (e.from == "" || e.to == "") {
+            alert("You must enter a starting and ending time!")
+        }
+        else if (!date_regex.test(e.date)) {
+            alert("Please enter a valid date in the format \'MM/DD/YYYY\'! Note that your year must be in the format 19xx or 20xx.")
+        }
+        else if (!event.target.weekly.checked) {
+            const update_Event_options = {
+                method: 'post',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                redirect: 'follow',
+                referrer: 'no-referrer',
+                body: JSON.stringify({
+                    'dateNew': event.target.edate.value,
+                    'eventTitle': event.target.ename.value,
+                    'newInfo': e,
+                }),
+            }
+
+            fetch('http://localhost:3000/DBInfo/Individual', update_Event_options)
+        } else {
+            const update_Event_options = {
+                method: 'post',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                redirect: 'follow',
+                referrer: 'no-referrer',
+                body: JSON.stringify({
+                    'weekly': e
+                }),
+            }
+
+            fetch('http://localhost:3000/DBInfo/Weekly', update_Event_options)
+        }
 
     }
 
