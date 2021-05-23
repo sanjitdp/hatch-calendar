@@ -2,6 +2,7 @@ import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
 import {Link} from 'react-router-dom';
+import * as dateFns from "date-fns";
 
 class Day extends React.Component {
     constructor(props) {
@@ -30,22 +31,6 @@ class Day extends React.Component {
         );
     }
 
-    getWeeklySchedule(){
-        const weekly_options = {
-            method: 'get',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            referrer: 'no-referrer'
-        } 
-
-        return fetch('http://localhost:3000/DBInfo/Weekly', weekly_options);
-
-    }
-
     getEventsListed() {
         const daily_options = {
             method: 'get',
@@ -62,45 +47,116 @@ class Day extends React.Component {
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
         
 
-        var weeklyInfo = this.getWeeklySchedule()
+        /*var weeklyInfo = this.getWeeklySchedule()
             .then((response) => response.json())
             .then((data) => {
                 return data;
             });
-        console.log(weeklyInfo);
-        
+        console.log(weeklyInfo);*/
+        const weekly_options = {
+            method: 'get',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            referrer: 'no-referrer'
+        }
 
         fetch('http://localhost:3000/DBInfo/Specific', daily_options)
             .then((response) => response.json())
             .then((data) => {
-                const currParam = (this.state.currentDate).toString();
-                if(data.dateSpecific.hasOwnProperty(currParam)){
+                fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
+                .then((response2) => response2.json())
+                .then((data2) => {
+                console.log(data2);
+                var dataArray = data2.dataWeekly;
+                var importantDates = [];
+                
+                var tempUserInfo = this.state.currentDate;
+                var monthUser = tempUserInfo.substr(0, 2);
+                var dayUser = tempUserInfo.substr(3, 2);
+                var yearUser = tempUserInfo.substr(6, 4);
 
-                    var desiredValue = data.dateSpecific[currParam];
-                    var ListOfKeys = Object.keys(desiredValue);
-                    var keysAndValues = ListOfKeys.map((value)=>{ 
-                        const strTitle = desiredValue[value].title;
-                        const strDate = "Date: " + desiredValue[value].date;
-                        const fromTime = "From: " + desiredValue[value].from;
-                        const timeTo = "To: " + desiredValue[value].to;
-                        const details = "Description: " + desiredValue[value].details;
-                        return (
-                            <ul key={value}>{strTitle}
-                                 <li>{strDate}</li>
-                                 <li>{fromTime}</li>
-                                 <li>{timeTo}</li>
-                                 <li>{details}</li>
-                            </ul>
-                                )
-                             });
-                    this.setState({ 
+                var monthNumUser = parseInt(monthUser);
+                var dayNumUser = parseInt(dayUser);
+                var yearNumUser = parseInt(yearUser);
 
-                        events: keysAndValues
-                        
-                    })
+                var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0,0,0,0);
+                var userdayOfWeek = userDate.getDay();
 
+                for(var obj in dataArray){
+                    if(obj.date !== undefined){
+                        obj = obj.date;
+                        var month = obj.substr(0, 2);
+                        var day = obj.substr(3, 2);
+                        var year = obj.substr(6, 4);
 
+                        var monthNum = parseInt(month);
+                        var dayNum = parseInt(day);
+                        var yearNum = parseInt(year);
+
+                        var tempDate = new Date(yearNum, monthNum, dayNum, 0,0,0,0);
+
+                        var dayOfWeek  = tempDate.getDay();
+
+                        if(userdayOfWeek === dayOfWeek){
+                            importantDates.push(obj);
+                        }
+                    }
+                    
                 }
+
+
+                const currParam = (this.state.currentDate).toString();
+                if(data.dateSpecific !== undefined){
+                    if(data.dateSpecific.hasOwnProperty(currParam)){
+                        
+                        var desiredValue = data.dateSpecific[currParam];
+                        var ListOfKeys = Object.keys(desiredValue);
+                        var keysAndValues = ListOfKeys.map((value)=>{ 
+                            const strTitle = desiredValue[value].title;
+                            const strDate = "Date: " + desiredValue[value].date;
+                            const fromTime = "From: " + desiredValue[value].from;
+                            const timeTo = "To: " + desiredValue[value].to;
+                            const details = "Description: " + desiredValue[value].details;
+                            return (
+                                <ul key={value}>{strTitle}
+                                    <li>{strDate}</li>
+                                    <li>{fromTime}</li>
+                                    <li>{timeTo}</li>
+                                    <li>{details}</li>
+                                </ul>
+                                    )
+                                });
+                        for(var obj in importantDates){
+                            const strTitle = obj.title;
+                            const strDate = "Date: " + obj.date;
+                            const fromTime = "From: " + obj.from;
+                            const timeTo = "To: " + obj.to;
+                            const details = "Description: " + obj.details;
+                            keysAndValues.push(
+                                <ul key={obj.title}>{strTitle}
+                                    <li>{strDate}</li>
+                                    <li>{fromTime}</li>
+                                    <li>{timeTo}</li>
+                                    <li>{details}</li>
+                                 </ul>
+
+                            )
+                        }
+                        this.setState({ 
+
+                            events: keysAndValues
+                            
+                        })
+
+
+                    }
+                }
+
+                });
                 
 
             })
@@ -129,7 +185,7 @@ class Day extends React.Component {
                     <div className="buttons">
                         <button type="CSV" value="CSV" className="button" onClick={this.getEvents}>export as CSV</button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button">add event</button></Link>
-                        <button type="back" value="back" className="button" onClick={this.getEventsListed}>go back to calendar</button>
+                        <button type="back" value="back" className="button" onClick={this.goBack}>go back to calendar</button>
                     </div>
                 </div>
             </div>
