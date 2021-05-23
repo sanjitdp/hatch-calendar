@@ -1,7 +1,6 @@
 import React from "react";
 import "../index.css";
 import "./NewEvent.css";
-import { Link } from 'react-router-dom';
 
 import EventObj from './EventObj.js';
 
@@ -68,14 +67,14 @@ class newEvent extends React.Component {
 
         const date_regex = /^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20)\d\d$/
 
-        if (e.title == "") {
+        if (e.title === "") {
             alert("You must enter a title!")
         }
-        else if (e.from == "" || e.to == "") {
+        else if (e.from === "" || e.to === "") {
             alert("You must enter a starting and ending time!")
         }
         else if (!date_regex.test(e.date)) {
-            alert("Please enter a valid date in the format \'MM/DD/YYYY\'! Note that your year must be in the format 19xx or 20xx.")
+            alert("Please enter a valid date in the format 'MM/DD/YYYY'! Note that your year must be in the format 19xx or 20xx.")
         }
         else if (!event.target.weekly.checked) {
             const update_Event_options = {

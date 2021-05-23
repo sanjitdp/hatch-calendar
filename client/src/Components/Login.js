@@ -1,8 +1,8 @@
 import React from "react";
 import '../index.css';
 import './Login.css';
-import { Redirect } from 'react-router-dom'
 import egg from '../images/full_egg.png';
+
 class Login extends React.Component {
     constructor(props) {
         super(props);

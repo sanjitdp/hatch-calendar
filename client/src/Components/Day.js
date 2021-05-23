@@ -1,7 +1,6 @@
-import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Day extends React.Component {
     constructor(props) {
@@ -30,7 +29,7 @@ class Day extends React.Component {
         );
     }
 
-    getWeeklySchedule(){
+    getWeeklySchedule() {
         const weekly_options = {
             method: 'get',
             mode: 'cors',
@@ -40,7 +39,7 @@ class Day extends React.Component {
                 'Content-Type': 'application/json',
             },
             referrer: 'no-referrer'
-        } 
+        }
 
         return fetch('http://localhost:3000/DBInfo/Weekly', weekly_options);
 
@@ -60,7 +59,7 @@ class Day extends React.Component {
 
         // temporary GET request, move as desired, gets object containing all of user's specific events
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
-        
+
 
         var weeklyInfo = this.getWeeklySchedule()
             .then((response) => response.json())
@@ -68,17 +67,17 @@ class Day extends React.Component {
                 return data;
             });
         console.log(weeklyInfo);
-        
+
 
         fetch('http://localhost:3000/DBInfo/Specific', daily_options)
             .then((response) => response.json())
             .then((data) => {
                 const currParam = (this.state.currentDate).toString();
-                if(data.dateSpecific.hasOwnProperty(currParam)){
+                if (data.dateSpecific.hasOwnProperty(currParam)) {
 
                     var desiredValue = data.dateSpecific[currParam];
                     var ListOfKeys = Object.keys(desiredValue);
-                    var keysAndValues = ListOfKeys.map((value)=>{ 
+                    var keysAndValues = ListOfKeys.map((value) => {
                         const strTitle = desiredValue[value].title;
                         const strDate = "Date: " + desiredValue[value].date;
                         const fromTime = "From: " + desiredValue[value].from;
@@ -86,29 +85,29 @@ class Day extends React.Component {
                         const details = "Description: " + desiredValue[value].details;
                         return (
                             <ul key={value}>{strTitle}
-                                 <li>{strDate}</li>
-                                 <li>{fromTime}</li>
-                                 <li>{timeTo}</li>
-                                 <li>{details}</li>
+                                <li>{strDate}</li>
+                                <li>{fromTime}</li>
+                                <li>{timeTo}</li>
+                                <li>{details}</li>
                             </ul>
-                                )
-                             });
-                    this.setState({ 
+                        )
+                    });
+                    this.setState({
 
                         events: keysAndValues
-                        
+
                     })
 
 
                 }
-                
+
 
             })
         //return listElements;
     }
 
-    getEvents(){
-        
+    getEvents() {
+
     }
 
     goBack() {
@@ -122,7 +121,7 @@ class Day extends React.Component {
                 <div className="col col-center">
                     <div className="eventBox">
                         <div id="eventsTitle"> EVENTS </div>
-                            <ul textalign="left" onLoad = {this.getEventsListed()}> {this.state.events} </ul>
+                        <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
                     </div>
                 </div>
                 <div className="col col-center">
