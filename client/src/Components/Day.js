@@ -12,7 +12,6 @@ class Day extends React.Component {
             events: null,
             weeklyEvents: null
         };
-        console.log(this.state.currentDate)
 
         this.goBack = this.goBack.bind(this)
     }
@@ -69,7 +68,6 @@ class Day extends React.Component {
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
                 .then((response2) => response2.json())
                 .then((data2) => {
-                console.log(data2);
                 var dataArray = data2.dataWeekly;
                 var importantDates = [];
                 
@@ -82,22 +80,23 @@ class Day extends React.Component {
                 var dayNumUser = parseInt(dayUser);
                 var yearNumUser = parseInt(yearUser);
 
+                                
+
                 var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0,0,0,0);
                 var userdayOfWeek = userDate.getDay();
-
-                for(var obj in dataArray){
+                console.log(dataArray);
+                for(var obj of dataArray){
                     if(obj.date !== undefined){
-                        obj = obj.date;
-                        var month = obj.substr(0, 2);
-                        var day = obj.substr(3, 2);
-                        var year = obj.substr(6, 4);
+                        var tempObj = obj.date;
+                        var month = tempObj.substr(0, 2);
+                        var day = tempObj.substr(3, 2);
+                        var year = tempObj.substr(6, 4);
 
                         var monthNum = parseInt(month);
                         var dayNum = parseInt(day);
                         var yearNum = parseInt(year);
 
                         var tempDate = new Date(yearNum, monthNum, dayNum, 0,0,0,0);
-
                         var dayOfWeek  = tempDate.getDay();
 
                         if(userdayOfWeek === dayOfWeek){
@@ -106,7 +105,7 @@ class Day extends React.Component {
                     }
                     
                 }
-
+                
 
                 const currParam = (this.state.currentDate).toString();
                 if(data.dateSpecific !== undefined){
@@ -129,7 +128,7 @@ class Day extends React.Component {
                                 </ul>
                                     )
                                 });
-                        for(var obj in importantDates){
+                        for(var obj of importantDates){
                             const strTitle = obj.title;
                             const strDate = "Date: " + obj.date;
                             const fromTime = "From: " + obj.from;
