@@ -7,8 +7,6 @@ import newEvent from './Components/NewEvent';
 import Home from './Components/Home';
 import Register from './Components/Register';
 import eventView from './Components/EventView';
-import editEvent from './Components/EditEvent';
-import singleEvent from './Components/singleEvent';
 
 
 class App extends React.Component {
@@ -23,7 +21,6 @@ class App extends React.Component {
                             <li><Link to={'/login'} className="nav-link">Login</Link></li>
                             <li><Link to={'/register'} className="nav-link">Register</Link></li>
                             <li><Link to={'/eventView'} className="nav-link">Event View</Link></li>
-                            <li><Link to={'/singleEvent'} className="nav-link">Single Event</Link></li>
                         </ul>
                     </nav>
                     <hr />
@@ -33,8 +30,6 @@ class App extends React.Component {
                         <Route exact path='/newEvent' component={newEvent} />
                         <Route exact path='/register' component={Register} />
                         <Route exact path='/eventView' component={eventView} />
-                        <Route exact path='/editEvent' component={editEvent} />
-                        <Route exact path='/singleEvent' component={singleEvent} />
                     </Switch>
                 </div>
             </Router>

@@ -23,7 +23,7 @@ class Calendar extends React.Component {
             </div>
         </div>
         <div className="col col-center">
-          <span style={{ "font-size": "0.75em" }}>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
+          <span style={{ "fontSize": "0.75em" }}>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
         </div>
         <div className="col col-end" onClick={this.nextMonth}>
           <div className="icon">chevron_right</div>

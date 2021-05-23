@@ -1,4 +1,3 @@
-import { setDate } from "date-fns";
 import React from "react";
 import "./Day.css";
 import {Link} from 'react-router-dom';
@@ -45,7 +44,7 @@ class Day extends React.Component {
 
         // temporary GET request, move as desired, gets object containing all of user's specific events
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
-        
+
 
         /*var weeklyInfo = this.getWeeklySchedule()
             .then((response) => response.json())
@@ -163,8 +162,8 @@ class Day extends React.Component {
         //return listElements;
     }
 
-    getEvents(){
-        
+    getEvents() {
+
     }
 
     goBack() {
@@ -178,7 +177,7 @@ class Day extends React.Component {
                 <div className="col col-center">
                     <div className="eventBox">
                         <div id="eventsTitle"> EVENTS </div>
-                            <ul textalign="left" onLoad = {this.getEventsListed()}> {this.state.events} </ul>
+                        <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
                     </div>
                 </div>
                 <div className="col col-center">

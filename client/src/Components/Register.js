@@ -37,7 +37,10 @@ class Register extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.username !== "" && this.state.password !== "" && this.state.email !== "" && this.state.password === this.state.confirm_password) {
+        if (!/[0-9]/.test(this.state.password) || !/[a-zA-Z]/.test(this.state.password) || this.state.password.length < 8) {
+            alert("Your password must be at least 8 characters long and contain at least one letter and one number.")
+        }
+        else if (this.state.username !== "" && this.state.password !== "" && this.state.email !== "" && this.state.password === this.state.confirm_password) {
             const register_options = {
                 method: 'post',
                 mode: 'cors',

@@ -1,8 +1,8 @@
 import React from "react";
 import '../index.css';
 import './Login.css';
-import { Redirect } from 'react-router-dom'
 import egg from '../images/full_egg.png';
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -64,10 +64,10 @@ class Login extends React.Component {
                 <div className="loginForm">
                     <span>
                         Welcome Back!
-</span>
+                    </span>
                     <form onSubmit={this.handleSubmit}>
                         <label>
-                            <input placeholder="email" type="text" value={this.state.username} onChange={this.handleUserChange} />
+                            <input placeholder="username" type="text" value={this.state.username} onChange={this.handleUserChange} />
                         </label> <br /><br />
                         <label>
                             <input placeholder="password" type="password" value={this.state.password} onChange={this.handlePassChange} />
