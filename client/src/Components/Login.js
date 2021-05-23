@@ -64,10 +64,10 @@ class Login extends React.Component {
                 <div className="loginForm">
                     <span>
                         Welcome Back!
-</span>
+                    </span>
                     <form onSubmit={this.handleSubmit}>
                         <label>
-                            <input placeholder="email" type="text" value={this.state.username} onChange={this.handleUserChange} />
+                            <input placeholder="username" type="text" value={this.state.username} onChange={this.handleUserChange} />
                         </label> <br /><br />
                         <label>
                             <input placeholder="password" type="password" value={this.state.password} onChange={this.handlePassChange} />
