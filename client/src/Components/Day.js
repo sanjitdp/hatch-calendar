@@ -212,6 +212,7 @@ class Day extends React.Component {
                 <div className = "col col-center">
                     <div className="buttons"> 
                         <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
+                        <button type="email" value="email" className="button buttons">send as email </button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
                             <DatePicker id="daydatepicker" s
