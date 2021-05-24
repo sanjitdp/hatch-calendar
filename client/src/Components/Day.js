@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import * as dateFns from "date-fns";
-import format from 'date-fns/format'
+import Card from "react-bootstrap/Card"
 
 
 class Day extends React.Component {
@@ -196,11 +196,17 @@ class Day extends React.Component {
     renderEvent() {
         //this.getEventsListed();
         return (
-            <div className="container">
-                <div className="col col-center">
+            <div className="container col col-center">
+                <div className="col col-start">
                     <div className="eventBox">
-                        <div id="eventsTitle"> EVENTS </div>
-                        <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
+                    <div id="eventsTitle"> EVENTS </div>
+                        <Card className ="scroll">
+                            <Card.Body>
+                                <Card.Text>
+                                <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                     </div>
                 </div>
                 <div className = "col col-center">
@@ -216,14 +222,12 @@ class Day extends React.Component {
                     </div>
                 </div>
             </div>
-            // make dropdown menu for goToDay button
-            // load events + times 
         )
     }
 
     renderFooter() {
         return (
-            <div className = "col col-center">
+            <div className = "col col-center bg-yellow">
                 <div className="footer">
                      <button type="addE" value="addE" className="button" onClick={this.goBack}>back to calendar</button>
                 </div>

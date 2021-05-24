@@ -66,6 +66,7 @@
     #eventsTitle {
         font-size: 30px;
         justify-content: center;
+        align-self: flex-end;
     }
 
     #growIcons {
@@ -86,7 +87,18 @@
 
 
     .footer {
-        margin: 15px
+        margin: 15px;
+        padding: 20px;
     }
+
+    .scroll {
+        max-height: 500px;
+        overflow-y: auto;
+        width: 150%;
+        border-radius: 15px;
+        border: 3px solid var(--lighter-blue);
+        align-self: flex-start;
+    }
+
 
 /* MISC */
