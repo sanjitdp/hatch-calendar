@@ -14,6 +14,7 @@ import register from './routes/register.js';
 import rest from './routes/REST.js';
 import dataBase from './routes/dataBaseConnection.js';
 import User from './models/userInfo.js';
+import emailRouter from './routes/emailSend.js';
 //import eventView from './routes/eventViewRouter.js'
 
 //Connects mongoose to database
@@ -53,7 +54,7 @@ app.use('/login', login);
 app.use('/register', register);
 app.use('/DBInfo', rest);
 app.use('/logout', logout);
-//app.use('/eventView', eventView);
+app.use('/sendEmail', emailRouter);
 
 
 //Listens on port 5000
