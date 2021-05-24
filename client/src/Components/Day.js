@@ -75,13 +75,6 @@ class Day extends React.Component {
         // temporary GET request, move as desired, gets object containing all of user's specific events
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
 
-
-        /*var weeklyInfo = this.getWeeklySchedule()
-            .then((response) => response.json())
-            .then((data) => {
-                return data;
-            });
-        console.log(weeklyInfo);*/
         const weekly_options = {
             method: 'get',
             mode: 'cors',
@@ -159,14 +152,14 @@ class Day extends React.Component {
                                 </ul>
                                     )
                                 });
-                        for(var obj of importantDates){
-                            const strTitle = obj.title;
-                            const strDate = "Date: " + obj.date;
-                            const fromTime = "From: " + obj.from;
-                            const timeTo = "To: " + obj.to;
+                        for(var obj1 of importantDates){
+                            const strTitle = obj1.title;
+                            const strDate = "Date: " + obj1.date;
+                            const fromTime = "From: " + obj1.from;
+                            const timeTo = "To: " + obj1.to;
                             const details = "Description: " + obj.details;
                             keysAndValues.push(
-                                <ul key={obj.title}>{strTitle}
+                                <ul key={obj1.title}>{strTitle}
                                     <li>{strDate}</li>
                                     <li>{fromTime}</li>
                                     <li>{timeTo}</li>
@@ -232,10 +225,9 @@ class Day extends React.Component {
         return (
             <div className = "col col-center">
                 <div className="footer">
-                     <button type="addE" value="addE" className="button">back to calendar</button>
+                     <button type="addE" value="addE" className="button" onClick={this.goBack}>back to calendar</button>
                 </div>
             </div>
-
         )
     }
 
