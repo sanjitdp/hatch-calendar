@@ -121,8 +121,8 @@
 }
 
 .calendar .body .notInMonth {
-  color: var(--text-color-light);
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .calendar .body .col {

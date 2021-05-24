@@ -37,7 +37,10 @@ class Register extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.username !== "" && this.state.password !== "" && this.state.email !== "" && this.state.password === this.state.confirm_password) {
+        if (!/[0-9]/.test(this.state.password) || !/[a-zA-Z]/.test(this.state.password) || this.state.password.length < 8) {
+            alert("Your password must be at least 8 characters long and contain at least one letter and one number.")
+        }
+        else if (this.state.username !== "" && this.state.password !== "" && this.state.email !== "" && this.state.password === this.state.confirm_password) {
             const register_options = {
                 method: 'post',
                 mode: 'cors',
@@ -56,7 +59,13 @@ class Register extends React.Component {
             }
 
             // console.log() for debugging purposes only, delete later
-            fetch('http://localhost:3000/register', register_options).then((data) => console.log(data));
+            fetch('http://localhost:3000/register', register_options)
+                .then((data) => (data.json()))
+                .then((result) => {
+                    if (result.user) {
+                        window.location.href = "/eventView";
+                    }
+                })
         } else {
             alert("You must enter a username and password! Passwords must match!"); // TODO: separate errors
         }
@@ -83,7 +92,7 @@ class Register extends React.Component {
                         <label>
                             <input placeholder="confirm password" type="password" value={this.state.confirm_password} onChange={this.handleConfirmPassChange} />
                         </label> <br />
-		      <button type="submit" value="Submit" class="button">register</button>
+                        <button type="submit" value="Submit" className="button">register</button>
                     </form>
                 </div>
             </div>

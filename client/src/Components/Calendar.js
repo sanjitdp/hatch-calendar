@@ -23,7 +23,7 @@ class Calendar extends React.Component {
             </div>
         </div>
         <div className="col col-center">
-          <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
+          <span style={{ "fontSize": "0.75em" }}>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
         </div>
         <div className="col col-end" onClick={this.nextMonth}>
           <div className="icon">chevron_right</div>
@@ -88,10 +88,6 @@ class Calendar extends React.Component {
   }
 
   onDateClick = day => {
-    this.setState({
-      selectedDate: day
-    });
-
     console.log(format(day, 'MM/dd/yyyy'));
 
     this.state.passDate(format(day, 'MM/dd/yyyy'));

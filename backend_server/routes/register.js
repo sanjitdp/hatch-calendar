@@ -7,7 +7,7 @@ import login_scripts from '../login_scripts/verifyLogin.js'
 const router = express.Router();
 
 //Registers a new user
-router.post('/', login_scripts.notLoggedIn, (req, res) => {
+router.post('/', (req, res) => {
     //Sets up query string for db
     var queryString = {};
     queryString.username = req.body.username;
@@ -41,8 +41,7 @@ router.post('/', login_scripts.notLoggedIn, (req, res) => {
 
                     //After registering, we authenticate
                     passport.authenticate("local")(req, res, () => {
-
-                        res.status(200).send("Success!");
+                        res.send({user: req.user});
                     });
 
                 });

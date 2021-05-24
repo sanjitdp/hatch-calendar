@@ -1,18 +1,20 @@
 import React from "react";
 import '../index.css';
-import './Login.css'
+import './Login.css';
 import egg from '../images/full_egg.png';
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
-            password: "",
+            password: ""
         };
 
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleUserChange(event) {
@@ -42,7 +44,13 @@ class Login extends React.Component {
             }
 
             // console.log() for debugging purposes only, can delete later
-            fetch('http://localhost:3000/login', login_options).then((data) => console.log(data));
+            fetch('http://localhost:3000/login', login_options)
+                .then((data) => (data.json()))
+                .then((result) => {
+                    if (result.user) {
+                        window.location.href = "/eventView";
+                    }
+                })
         } else {
             alert("You must enter a username and password!");
         }
@@ -56,17 +64,17 @@ class Login extends React.Component {
                 <div className="loginForm">
                     <span>
                         Welcome Back!
-</span>
+                    </span>
                     <form onSubmit={this.handleSubmit}>
                         <label>
-                            <input placeholder="email" type="text" value={this.state.username} onChange={this.handleUserChange} />
+                            <input placeholder="username" type="text" value={this.state.username} onChange={this.handleUserChange} />
                         </label> <br /><br />
                         <label>
                             <input placeholder="password" type="password" value={this.state.password} onChange={this.handlePassChange} />
                         </label> <br /><br />
-       
-            <button type="submit" value="Submit" class="button">login</button>
-        
+
+                        <button type="submit" value="Submit" className="button">login</button>
+
                     </form>
                 </div>
             </div>

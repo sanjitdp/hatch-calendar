@@ -13,7 +13,8 @@ import logout from './routes/logout.js';
 import register from './routes/register.js';
 import rest from './routes/REST.js';
 import dataBase from './routes/dataBaseConnection.js';
-import User from './models/userInfo.js'
+import User from './models/userInfo.js';
+//import eventView from './routes/eventViewRouter.js'
 
 //Connects mongoose to database
 dataBase.connectMongoose();
@@ -52,6 +53,7 @@ app.use('/login', login);
 app.use('/register', register);
 app.use('/DBInfo', rest);
 app.use('/logout', logout);
+//app.use('/eventView', eventView);
 
 
 //Listens on port 5000
