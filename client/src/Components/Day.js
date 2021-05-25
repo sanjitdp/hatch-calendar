@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import * as dateFns from "date-fns";
-import Card from "react-bootstrap/Card"
+import { CSVLink, CSVDownload} from 'react-csv';
+import Card from "react-bootstrap/Card";
 
 
 class Day extends React.Component {
@@ -15,7 +16,8 @@ class Day extends React.Component {
             currentDate: props.currentDate,
             events: null,
             dailyEvents: null,
-            weeklyEvents: null
+            weeklyEvents: null,
+            csvInformation: null
         };
 
         this.goBack = this.goBack.bind(this)
@@ -194,19 +196,16 @@ class Day extends React.Component {
         //return listElements;
     }
 
-    getEvents() {
+    getEventsCSV() {
+        console.log("HO")
+        this.setState({
+            csvInformation: (<CSVDownload data={this.presentObjectsasStrings()} filename='user_info.csv' target='_blank' > </CSVDownload>)
+        });
 
     }
 
     sendEmail(){
-        var sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
-        var strArray = "Here is your schedule for the day :) \n";
-
-        for(var obj of sendArray){
-            console.log(obj)
-            strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
-            strArray = strArray + "---------------------" + "\n";
-        }
+        var strArray = this.presentObjectsasStrings();
         const email_options = {
             method: 'post',
             mode: 'cors',
@@ -221,6 +220,17 @@ class Day extends React.Component {
         }
 
         fetch('http://localhost:3000/sendEmail', email_options);
+    }
+
+    presentObjectsasStrings(){
+        var sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
+        var strArray = "Here is your schedule for the day :) \n";
+
+        for(var obj of sendArray){
+            strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
+            strArray = strArray + "---------------------" + "\n";
+        }
+        return strArray;
     }
 
     goBack() {
@@ -245,7 +255,10 @@ class Day extends React.Component {
                 </div>
                 <div className = "col col-center">
                     <div className="buttons"> 
-                        <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
+                        <div>
+                            <button type="CSV" value="CSV" className="button buttons" onClick={() => {this.getEventsCSV()}}>export as CSV</button>
+                            {this.state.csvInformation}
+                        </div>
                         <button type="email" value="email" className="button buttons" onClick={() => this.sendEmail()}>send as email </button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
