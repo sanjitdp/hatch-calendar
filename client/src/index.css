@@ -18,6 +18,10 @@
   --darker-orange: #f5c106;
 }
 
+.bg-yellow {
+  background-color: #FFE37E;
+}
+
 /*General*/
 
 * {

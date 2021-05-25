@@ -7,15 +7,16 @@ import newEvent from './Components/NewEvent';
 import Home from './Components/Home';
 import Register from './Components/Register';
 import eventView from './Components/EventView';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class App extends React.Component {
     render() {
         return (
             <Router>
-                <div>
-                    <h1>Hatch Calendar</h1>
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className = "bg-yellow">
+                    <h1 className = "bg-yellow">Hatch Calendar</h1>
+                    <nav className="navbar navbar-expand-lg navbar-light navbar-yellow bg-yellow">
                         <ul className="navbar-nav mr-auto">
                             <li><Link to={'/'} className="nav-link">Home</Link></li>
                             <li><Link to={'/login'} className="nav-link">Login</Link></li>

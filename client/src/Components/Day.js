@@ -1,7 +1,11 @@
 import React from "react";
 import "./Day.css";
 import {Link} from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import * as dateFns from "date-fns";
+import Card from "react-bootstrap/Card"
+
 
 class Day extends React.Component {
     constructor(props) {
@@ -16,14 +20,41 @@ class Day extends React.Component {
         this.goBack = this.goBack.bind(this)
     }
 
+    setDateText(newDate) {
+        const DateFormat = "MMMM dd yyyy";
+        this.setState({
+            currentDateObject: newDate,
+            currentDateString: dateFns.format(newDate, DateFormat)
+        });
+    }
+
     renderHeader() {
+        const DateFormat = "MMDDYYYY";
         return (
             <div className="header row flex-middle">
-                <div className="col col-center">
-                    <span> {this.state.currentDate} </span>
-                </div>
+            <div className="col col-start" >
+              <div id="growIcons" className="icon" onClick={this.prevDay}> chevron_left</div>
+            </div>
+            <div className="col col-center">
+                <span id="makeDateSmall">
+                    {this.state.currentDateString} </span>
+            </div>
+            <div className="col col-end" onClick={this.nextDay}>
+              <div id="growIcons" className="icon">chevron_right</div>
+            </div>
+            </div>
+      );
+            // needs prev and next buttons to actually go to prev / next day
+            // load date in header
+    }
+    renderHeader2() {
+        const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        return(
+            <div className="header2 row flex-middle">
                 <div className="col col-center"  >
-                    <div id="weekdayBanner"> day of the week </div>
+                    <div id="weekdayBanner">
+                        {formattedDays[6]}
+                    </div>
                 </div>
             </div>
         );
@@ -44,13 +75,6 @@ class Day extends React.Component {
         // temporary GET request, move as desired, gets object containing all of user's specific events
         // similar request can be made at URL http://localhost:3000/DBInfo/Weekly
 
-
-        /*var weeklyInfo = this.getWeeklySchedule()
-            .then((response) => response.json())
-            .then((data) => {
-                return data;
-            });
-        console.log(weeklyInfo);*/
         const weekly_options = {
             method: 'get',
             mode: 'cors',
@@ -128,14 +152,14 @@ class Day extends React.Component {
                                 </ul>
                                     )
                                 });
-                        for(var obj of importantDates){
-                            const strTitle = obj.title;
-                            const strDate = "Date: " + obj.date;
-                            const fromTime = "From: " + obj.from;
-                            const timeTo = "To: " + obj.to;
+                        for(var obj1 of importantDates){
+                            const strTitle = obj1.title;
+                            const strDate = "Date: " + obj1.date;
+                            const fromTime = "From: " + obj1.from;
+                            const timeTo = "To: " + obj1.to;
                             const details = "Description: " + obj.details;
                             keysAndValues.push(
-                                <ul key={obj.title}>{strTitle}
+                                <ul key={obj1.title}>{strTitle}
                                     <li>{strDate}</li>
                                     <li>{fromTime}</li>
                                     <li>{timeTo}</li>
@@ -172,24 +196,43 @@ class Day extends React.Component {
     renderEvent() {
         //this.getEventsListed();
         return (
-            <div className="container">
-                <div className="col col-center">
+            <div className="container col col-center">
+                <div className="col col-start">
                     <div className="eventBox">
-                        <div id="eventsTitle"> EVENTS </div>
-                        <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
+                    <div id="eventsTitle"> EVENTS </div>
+                        <Card className ="scroll">
+                            <Card.Body>
+                                <Card.Text>
+                                <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                     </div>
                 </div>
-                <div className="col col-center">
-                    <div className="buttons">
-                        <button type="CSV" value="CSV" className="button" onClick={this.getEvents}>export as CSV</button>
-                        <Link to="/newEvent"><button type="addE" value="addE" className="button">add event</button></Link>
-                        <button type="back" value="back" className="button" onClick={this.goBack}>go back to calendar</button>
+                <div className = "col col-center">
+                    <div className="buttons"> 
+                        <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
+                        <button type="email" value="email" className="button buttons">send as email </button>
+                        <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
+                        <div className="goToDay">
+                            <DatePicker id="daydatepicker" s
+                            selected={this.state.currentDateObject} 
+                            onChange={date => this.setDateText(date)}
+                            showTimeSelect/>
+                        </div>
                     </div>
                 </div>
             </div>
-            // generate times (...idk how to do this)
-            // write TIMES and EVENTS as header
-            // load events (?)
+        )
+    }
+
+    renderFooter() {
+        return (
+            <div className = "col col-center bg-yellow">
+                <div className="footer">
+                     <button type="addE" value="addE" className="button" onClick={this.goBack}>back to calendar</button>
+                </div>
+            </div>
         )
     }
 
@@ -197,7 +240,9 @@ class Day extends React.Component {
         return (
             <div className="day">
                 {this.renderHeader()}
+                {this.renderHeader2()}
                 {this.renderEvent()}
+                {this.renderFooter()}
             </div>
         )
     }
