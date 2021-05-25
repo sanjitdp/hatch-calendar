@@ -8,7 +8,6 @@ const router = express.Router();
 //Email Sending
 
 router.post('/', loginScripts.isLoggedIn, (req, res) => {
-
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

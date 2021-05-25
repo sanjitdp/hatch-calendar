@@ -14,6 +14,7 @@ class Day extends React.Component {
             passDate: props.setDate,
             currentDate: props.currentDate,
             events: null,
+            dailyEvents: null,
             weeklyEvents: null
         };
 
@@ -91,7 +92,7 @@ class Day extends React.Component {
             .then((data) => {
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
                 .then((response2) => response2.json())
-                .then((data2) => {
+                .then(async (data2) => {
                 var dataArray = data2.dataWeekly;
                 var importantDates = [];
                 
@@ -108,7 +109,6 @@ class Day extends React.Component {
 
                 var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0,0,0,0);
                 var userdayOfWeek = userDate.getDay();
-                console.log(dataArray);
                 for(var obj of dataArray){
                     if(obj.date !== undefined){
                         var tempObj = obj.date;
@@ -134,11 +134,14 @@ class Day extends React.Component {
                 const currParam = (this.state.currentDate).toString();
                 if(data.dateSpecific !== undefined){
                     if(data.dateSpecific.hasOwnProperty(currParam)){
-                        
+                        var dailyEventArray = [];
                         var desiredValue = data.dateSpecific[currParam];
                         var ListOfKeys = Object.keys(desiredValue);
                         var keysAndValues = ListOfKeys.map((value)=>{ 
                             const strTitle = desiredValue[value].title;
+                            var tempObj = {};
+                            tempObj = desiredValue[value]; 
+                            dailyEventArray.push(tempObj);
                             const strDate = "Date: " + desiredValue[value].date;
                             const fromTime = "From: " + desiredValue[value].from;
                             const timeTo = "To: " + desiredValue[value].to;
@@ -152,8 +155,12 @@ class Day extends React.Component {
                                 </ul>
                                     )
                                 });
+                        var tempWeekly = [];
                         for(var obj1 of importantDates){
-                            const strTitle = obj1.title;
+                            const strTitle = obj1.title + " - Weekly";
+                            var tempObj = {};
+                            tempObj = obj1;
+                            tempWeekly.push(tempObj);
                             const strDate = "Date: " + obj1.date;
                             const fromTime = "From: " + obj1.from;
                             const timeTo = "To: " + obj1.to;
@@ -168,11 +175,13 @@ class Day extends React.Component {
 
                             )
                         }
-                        this.setState({ 
-
+                        await this.setState({ 
+                            dailyEvents: dailyEventArray,
+                            weeklyEvents: tempWeekly,
                             events: keysAndValues
                             
-                        })
+                        });
+                    
 
 
                     }
@@ -187,6 +196,31 @@ class Day extends React.Component {
 
     getEvents() {
 
+    }
+
+    sendEmail(){
+        var sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
+        var strArray = "Here is your schedule for the day :) \n";
+
+        for(var obj of sendArray){
+            console.log(obj)
+            strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
+            strArray = strArray + "---------------------" + "\n";
+        }
+        const email_options = {
+            method: 'post',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'message': strArray
+            }),
+        }
+
+        fetch('http://localhost:3000/sendEmail', email_options);
     }
 
     goBack() {
@@ -212,7 +246,7 @@ class Day extends React.Component {
                 <div className = "col col-center">
                     <div className="buttons"> 
                         <button type="CSV" value="CSV" className="button buttons">export as CSV</button>
-                        <button type="email" value="email" className="button buttons">send as email </button>
+                        <button type="email" value="email" className="button buttons" onClick={() => this.sendEmail()}>send as email </button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
                             <DatePicker id="daydatepicker" s
