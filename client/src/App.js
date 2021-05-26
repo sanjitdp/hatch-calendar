@@ -3,15 +3,50 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import "./index.css";
 import "./Components/Calendar.css"
 import Login from './Components/Login';
-import newEvent from './Components/NewEvent';
+import NewEvent from './Components/NewEvent';
 import Home from './Components/Home';
 import Register from './Components/Register';
-import eventView from './Components/EventView';
+import EventView from './Components/EventView';
+import { Redirect } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Component } from 'react';
 
 
 class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            redirection: null
+        }
+    }
+    async checkAuth(propType){
+        const verify_options = {
+            method: 'get',
+            mode: 'cors',
+            cache: 'no-cache', 
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            referrer: 'no-referrer'
+        }
+        await fetch('http://localhost:3000/login/verify', verify_options)
+        .then((data) => (data.json()))
+        .then((result) => {
+            if (result.user === undefined) {
+                this.setState({
+                    redirection: <Redirect to="/login"/>
+                })
+            }else{
+                this.setState({
+                    redirection: propType
+                })
+            }
+        });
+        
+    }
     render() {
+
         return (
             <Router>
                 <div className = "bg-yellow">
@@ -26,11 +61,16 @@ class App extends React.Component {
                     </nav>
                     <hr />
                     <Switch>
-                        <Route exact path='/' component={Home} />
+                        <Route exact path='/' component={Home}/>
                         <Route exact path='/login' component={Login} />
-                        <Route exact path='/newEvent' component={newEvent} />
+                        <Route exact path='/newEvent' render={() => {
+                            this.checkAuth(<NewEvent />);
+                            return this.state.redirection}}/>
                         <Route exact path='/register' component={Register} />
-                        <Route exact path='/eventView' component={eventView} />
+                        <Route exact path='/eventView' render={() => {
+                            this.checkAuth(<EventView/>);
+                            return this.state.redirection}}/>
+                        <Redirect from="*" to={"/"} />
                     </Switch>
                 </div>
             </Router>
