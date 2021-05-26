@@ -50,13 +50,13 @@ class App extends React.Component {
         return (
             <Router>
                 <div className = "bg-yellow">
-                    <h1 className = "bg-yellow">Hatch Calendar</h1>
+                    <h1 className = "bg-yellow">hatch calendar</h1>
                     <nav className="navbar navbar-expand-lg navbar-light navbar-yellow bg-yellow">
                         <ul className="navbar-nav mr-auto">
-                            <li><Link to={'/'} className="nav-link">Home</Link></li>
-                            <li><Link to={'/login'} className="nav-link">Login</Link></li>
-                            <li><Link to={'/register'} className="nav-link">Register</Link></li>
-                            <li><Link to={'/eventView'} className="nav-link">Event View</Link></li>
+                            <li><Link to={'/'} className="nav-link">home</Link></li>
+                            <li><Link to={'/login'} className="nav-link">login</Link></li>
+                            <li><Link to={'/register'} className="nav-link">register</Link></li>
+                            <li><Link to={'/eventView'} className="nav-link">event view</Link></li>
                         </ul>
                     </nav>
                     <hr />

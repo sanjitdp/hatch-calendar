@@ -72,7 +72,7 @@ class Calendar extends React.Component {
             key={day}
             onClick={() => this.onDateClick(cloneDay)}
           >
-            <span className="dayNum">{formattedDate}</span>
+            <span className={dateFns.isSameDay(day, selectedDate) ? "today" : "dayNum"}>{formattedDate}</span>
           </div>
         );
         day = dateFns.addDays(day, 1);
