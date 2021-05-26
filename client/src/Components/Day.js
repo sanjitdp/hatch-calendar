@@ -10,6 +10,7 @@ import Card from "react-bootstrap/Card";
 
 class Day extends React.Component {
     constructor(props) {
+        const DateFormat = "MMMM dd yyyy";
         super(props);
         this.state = {
             passDate: props.setDate,
@@ -17,11 +18,18 @@ class Day extends React.Component {
             events: null,
             dailyEvents: null,
             weeklyEvents: null,
-            csvInformation: null
+            csvInformation: null,
+            // to make current date string:
+            // take in current date
+            // parse date 
+            // date object -> format that
         };
-
-        this.goBack = this.goBack.bind(this)
+        this.goBack = this.goBack.bind(this);
     }
+    // to go forward / backward + to do calendar
+    // event passes passDate
+    // when someone submits a date, pass that date as MM DD YYYY to eventview
+    // should b good
 
     setDateText(newDate) {
         const DateFormat = "MMMM dd yyyy";
@@ -32,7 +40,8 @@ class Day extends React.Component {
     }
 
     renderHeader() {
-        const DateFormat = "MMDDYYYY";
+        const DateFormat = "MM dd yyyy";
+        this.setDateText(this.state.currentDate, DateFormat)
         return (
             <div className="header row flex-middle">
             <div className="col col-start" >
@@ -262,7 +271,7 @@ class Day extends React.Component {
                         <button type="email" value="email" className="button buttons" onClick={() => this.sendEmail()}>send as email </button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
-                            <DatePicker id="daydatepicker" s
+                            <DatePicker id="daydatepicker" 
                             selected={this.state.currentDateObject} 
                             onChange={date => this.setDateText(date)}
                             showTimeSelect/>
