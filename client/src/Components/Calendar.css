@@ -53,7 +53,7 @@
 .calendar .header {
   text-transform: uppercase;
   font-family:'Open Sans', sans-serif;
-  font-weight: 800;
+  font-weight: 400;
   font-size: 2.75em;
   padding: .05em 0;
   color: var(--text-blue);
@@ -75,7 +75,7 @@
 }
 
 .calendar .days {
-  font-weight: 800;
+  font-weight: 400;
   font-size: 1.2em;
   color: black;
   padding: .5em 0;
@@ -103,8 +103,8 @@
 }
 
 .calendar .body .today {
-  color: #f3bc26;
   font-weight: 800;
+  color: #f3bc26;
 }
 
 .calendar .body .row {

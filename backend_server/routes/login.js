@@ -15,4 +15,8 @@ router.post('/', (req, res) => {
     });
 });
 
+router.get('/verify', (req, res) =>{
+    res.send({user: req.user});
+});
+
 export default router;

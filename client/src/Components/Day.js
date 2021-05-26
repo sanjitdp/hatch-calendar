@@ -206,7 +206,6 @@ class Day extends React.Component {
     }
 
     getEventsCSV() {
-        console.log("HO")
         this.setState({
             csvInformation: (<CSVDownload data={this.presentObjectsasStrings()} filename='user_info.csv' target='_blank' > </CSVDownload>)
         });
