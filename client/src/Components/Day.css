@@ -94,8 +94,9 @@
     .scroll {
         max-height: 500px;
         min-height: 500px;
-        overflow-y: auto;
+        min-width: 500px;
         width: 150%;
+        overflow-y: auto;
         border-radius: 15px;
         border: 3px solid var(--lighter-blue);
         align-self: flex-start;

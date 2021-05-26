@@ -18,7 +18,7 @@ class EventView extends React.Component {
         if (this.state.currentDate === "") {
             return (<Calendar setDate={this.setDate} />)
         } else {
-            return (<Day currentDate={this.state.currentDate} setDate={this.setDate} />)
+            return (<Day key={this.state.currentDate} currentDate={this.state.currentDate} setDate={this.setDate} />)
         }
     }
 }

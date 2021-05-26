@@ -7,29 +7,40 @@ import * as dateFns from "date-fns";
 import { CSVLink, CSVDownload} from 'react-csv';
 import Card from "react-bootstrap/Card";
 
+// pass prop information every time i render
 
 class Day extends React.Component {
     constructor(props) {
         const DateFormat = "MMMM dd yyyy";
         super(props);
+        let dateObject = new Date(props.currentDate);
+        console.log(dateObject);
         this.state = {
             passDate: props.setDate,
             currentDate: props.currentDate,
+            currentDateObject: dateObject,
             events: null,
+            // maybe these should not be in the state
             dailyEvents: null,
             weeklyEvents: null,
             csvInformation: null,
-            // to make current date string:
-            // take in current date
-            // parse date 
-            // date object -> format that
         };
         this.goBack = this.goBack.bind(this);
+        this.prevDay = this.prevDay.bind(this);
+        this.nextDay = this.nextDay.bind(this);
+        this.currentDateString = dateFns.format(dateObject, DateFormat);
+        this.getHeaderDateString = this.getHeaderDateString.bind(this);
+        this.getEventsListed = this.getEventsListed.bind(this);
+        //this.goToDay = this.goToDay.bind(this);
     }
     // to go forward / backward + to do calendar
     // event passes passDate
     // when someone submits a date, pass that date as MM DD YYYY to eventview
     // should b good
+
+    componentDidMount() {
+        this.getEventsListed(this.props.dateObject);
+    }
 
     setDateText(newDate) {
         const DateFormat = "MMMM dd yyyy";
@@ -39,7 +50,23 @@ class Day extends React.Component {
         });
     }
 
-    renderHeader() {
+    prevDay() {
+        let yesterday = new Date(this.props.currentDate);
+        yesterday.setDate(yesterday.getDate()-1);
+        this.state.passDate(dateFns.format(yesterday, 'MM/dd/yyyy'));
+    }
+
+    nextDay() {
+        let tomorrow = new Date(this.props.currentDate);
+        tomorrow.setDate(tomorrow.getDate()+1);
+        this.state.passDate(dateFns.format(tomorrow, 'MM/dd/yyyy'));
+    }
+
+    getHeaderDateString(dateObject) {
+        return dateFns.format(dateObject, "MMMM dd yyyy")
+    }
+
+    renderHeader(dateObject) {
         const DateFormat = "MM dd yyyy";
         return (
             <div className="header row flex-middle">
@@ -48,7 +75,7 @@ class Day extends React.Component {
             </div>
             <div className="col col-center">
                 <span id="makeDateSmall">
-                    {this.state.currentDateString} </span>
+                    {this.getHeaderDateString(dateObject)} </span>
             </div>
             <div className="col col-end" onClick={this.nextDay}>
               <div id="growIcons" className="icon">chevron_right</div>
@@ -58,7 +85,7 @@ class Day extends React.Component {
             // needs prev and next buttons to actually go to prev / next day
             // load date in header
     }
-    renderHeader2() {
+    renderHeader2(dateObject) {
         const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         return(
             <div className="header2 row flex-middle">
@@ -71,7 +98,9 @@ class Day extends React.Component {
         );
     }
 
-    getEventsListed() {
+    // instead of setting the state
+    // return a string of the events for that day
+    getEventsListed(dateObject) {
         const daily_options = {
             method: 'get',
             mode: 'cors',
@@ -106,7 +135,7 @@ class Day extends React.Component {
                 var dataArray = data2.dataWeekly;
                 var importantDates = [];
                 
-                var tempUserInfo = this.state.currentDate;
+                var tempUserInfo = this.props.currentDate;
                 var monthUser = tempUserInfo.substr(0, 2);
                 var dayUser = tempUserInfo.substr(3, 2);
                 var yearUser = tempUserInfo.substr(6, 4);
@@ -136,12 +165,9 @@ class Day extends React.Component {
                         if(userdayOfWeek === dayOfWeek){
                             importantDates.push(obj);
                         }
-                    }
-                    
+                    }   
                 }
-                
-
-                const currParam = (this.state.currentDate).toString();
+                const currParam = (this.props.currentDate).toString();
                 if(data.dateSpecific !== undefined){
                     if(data.dateSpecific.hasOwnProperty(currParam)){
                         var dailyEventArray = [];
@@ -182,24 +208,16 @@ class Day extends React.Component {
                                     <li>{timeTo}</li>
                                     <li>{details}</li>
                                  </ul>
-
                             )
                         }
                         await this.setState({ 
                             dailyEvents: dailyEventArray,
                             weeklyEvents: tempWeekly,
                             events: keysAndValues
-                            
                         });
-                    
-
-
                     }
                 }
-
                 });
-                
-
             })
         //return listElements;
     }
@@ -244,8 +262,7 @@ class Day extends React.Component {
         this.state.passDate("")
     }
 
-    renderEvent() {
-        //this.getEventsListed();
+    renderEvent(dateObject) {
         return (
             <div className="container col col-center">
                 <div className="col col-start">
@@ -254,7 +271,7 @@ class Day extends React.Component {
                         <Card className ="scroll">
                             <Card.Body>
                                 <Card.Text>
-                                <ul textalign="left" onLoad={this.getEventsListed()}> {this.state.events} </ul>
+                                <ul textalign="left" > {this.state.events}</ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -271,6 +288,7 @@ class Day extends React.Component {
                         <div className="goToDay">
                             <DatePicker id="daydatepicker" 
                             selected={this.state.currentDateObject} 
+                            // this will become something else
                             onChange={date => this.setDateText(date)}
                             showTimeSelect/>
                         </div>
@@ -291,11 +309,20 @@ class Day extends React.Component {
     }
 
     render() {
+        // const DateFormat = "MMMM dd yyyy";
+        // let dateObject = new Date(this.props.currentDate);
+        // this.state = {
+        //     passDate: this.props.setDate,
+        //     currentDate: this.props.currentDate,
+        //     currentDateObject: dateObject,
+        //     currentDateString: dateFns.format(dateObject, DateFormat)
+        // };
+        let dateObject = new Date(this.props.currentDate);
         return (
             <div className="day">
-                {this.renderHeader()}
-                {this.renderHeader2()}
-                {this.renderEvent()}
+                {this.renderHeader(dateObject)}
+                {this.renderHeader2(dateObject)}
+                {this.renderEvent(dateObject)}
                 {this.renderFooter()}
             </div>
         )
