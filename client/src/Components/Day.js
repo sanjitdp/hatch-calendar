@@ -41,7 +41,6 @@ class Day extends React.Component {
 
     renderHeader() {
         const DateFormat = "MM dd yyyy";
-        this.setDateText(this.state.currentDate, DateFormat)
         return (
             <div className="header row flex-middle">
             <div className="col col-start" >
