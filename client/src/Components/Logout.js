@@ -14,6 +14,7 @@ class Logout extends React.Component {
             user: null
         }
     }
+
     async checkAuth(){
         const verify_options = {
             method: 'get',
@@ -40,6 +41,18 @@ class Logout extends React.Component {
         });
         
     }
+
+    async handleSubmit(event) {
+        if (this.state.username !== null) {
+            // console.log() for debugging purposes only, can delete later
+            await fetch('http://localhost:3000/logout');
+            window.location.href = "/";
+        } else {
+            alert("You must log in");
+        }
+        event.preventDefault();
+    }
+
     render() {
         this.checkAuth();
         return (
@@ -58,7 +71,11 @@ class Logout extends React.Component {
                 Come back soon!
                 <br></br>
                 </p>
-                <div><button className = 'button'>logout</button></div>
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        <button type="submit" value="Submit" className="button">logout</button>
+                    </form>
+                </div>
                 <span></span>
             </div>
         )
