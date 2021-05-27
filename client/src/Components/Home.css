@@ -34,9 +34,9 @@ position: absolute;
 
 .wording .logout{
     position: absolute;
-    top: 55%;
+    top: 54%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
-    font-size: 30px;
+    color: #096a91;
+    font-size: 25px;
 }

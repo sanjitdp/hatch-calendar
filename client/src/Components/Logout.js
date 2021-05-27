@@ -14,7 +14,7 @@ class Logout extends React.Component {
             user: null
         }
     }
-    async checkAuth(propType){
+    async checkAuth(){
         const verify_options = {
             method: 'get',
             mode: 'cors',
@@ -34,21 +34,22 @@ class Logout extends React.Component {
                 })
             }else{
                 this.setState({
-                    user: result.user
+                    user: result.user.username
                 })
             }
         });
         
     }
     render() {
+        this.checkAuth();
         return (
             <div className="wording">
                 <span></span>
                 <img src={sunny} alt="login" />
                 <p className="logout">
-                    {this.state.user}
+                    hello, {this.state.user}
                 <p><span></span>
-                <span></span>
+                
                 </p> 
                 </p>
                 <p>
