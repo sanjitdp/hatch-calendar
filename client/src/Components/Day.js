@@ -170,6 +170,7 @@ class Day extends React.Component {
                         var yearNum = parseInt(year);
 
                         var tempDate = new Date(yearNum, monthNum, dayNum, 0,0,0,0);
+                        
                         var dayOfWeek  = tempDate.getDay();
 
                         if(userdayOfWeek === dayOfWeek){
@@ -178,12 +179,13 @@ class Day extends React.Component {
                     }   
                 }
                 const currParam = (this.props.currentDate).toString();
+                var keysAndValues = [];
                 if(data.dateSpecific !== undefined){
                     if(data.dateSpecific.hasOwnProperty(currParam)){
                         var dailyEventArray = [];
                         var desiredValue = data.dateSpecific[currParam];
                         var ListOfKeys = Object.keys(desiredValue);
-                        var keysAndValues = ListOfKeys.map((value)=>{ 
+                        keysAndValues = ListOfKeys.map((value)=>{ 
                             const strTitle = desiredValue[value].title;
                             var tempObj = {};
                             tempObj = desiredValue[value]; 
@@ -201,17 +203,19 @@ class Day extends React.Component {
                                 </ul>
                                     )
                                 });
-                        var tempWeekly = [];
-                        for(var obj1 of importantDates){
-                            const strTitle = obj1.title + " - Weekly";
-                            var tempObj = {};
-                            tempObj = obj1;
-                            tempWeekly.push(tempObj);
-                            const strDate = "Date: " + obj1.date;
-                            const fromTime = "From: " + obj1.from;
-                            const timeTo = "To: " + obj1.to;
-                            const details = "Description: " + obj.details;
-                            keysAndValues.push(
+                    }
+                }
+                var tempWeekly = [];
+                for(var obj1 of importantDates){
+                    const strTitle = obj1.title + " - Weekly";
+                    var tempObj = {};
+                    tempObj = obj1;
+                    tempWeekly.push(tempObj);
+                    const strDate = "Date: " + obj1.date;
+                    const fromTime = "From: " + obj1.from;
+                    const timeTo = "To: " + obj1.to;
+                    const details = "Description: " + obj.details;
+                    keysAndValues.push(
                                 <ul key={obj1.title}>{strTitle}
                                     <li>{strDate}</li>
                                     <li>{fromTime}</li>
@@ -219,14 +223,14 @@ class Day extends React.Component {
                                     <li>{details}</li>
                                  </ul>
                             )
-                        }
-                        await this.setState({ 
-                            dailyEvents: dailyEventArray,
-                            weeklyEvents: tempWeekly,
-                            events: keysAndValues
-                        });
-                    }
                 }
+               await this.setState({ 
+                    dailyEvents: dailyEventArray,
+                    weeklyEvents: tempWeekly,
+                    events: keysAndValues
+                });
+                    
+                
                 });
             })
         //return listElements;
@@ -258,7 +262,12 @@ class Day extends React.Component {
     }
 
     presentObjectsasStrings(){
-        var sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
+        var sendArray;
+        if(this.state.weeklyEvents !== null){
+            sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
+        }else{
+            sendArray = this.state.dailyEvents;
+        }
         var strArray = "Here is your schedule for the day :) \n";
 
         for(var obj of sendArray){
