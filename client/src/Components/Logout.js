@@ -26,6 +26,8 @@ class Logout extends React.Component {
             },
             referrer: 'no-referrer'
         }
+
+
         await fetch('http://localhost:3000/login/verify', verify_options)
         .then((data) => (data.json()))
         .then((result) => {
@@ -42,11 +44,22 @@ class Logout extends React.Component {
         
     }
 
-    async handleSubmit(event) {
+    handleSubmit(event) {
+        const logout_options = {
+            method: 'get',
+            mode: 'cors',
+            cache: 'no-cache', 
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            referrer: 'no-referrer'
+        };
         if (this.state.username !== null) {
+            console.log("Asdf")
             // console.log() for debugging purposes only, can delete later
-            await fetch('http://localhost:3000/logout');
-            window.location.href = "/";
+            fetch('http://localhost:3000/logout', logout_options);
+            //window.location.href = "/";
         } else {
             alert("You must log in");
         }
@@ -72,7 +85,7 @@ class Logout extends React.Component {
                 <br></br>
                 </p>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={() => {this.handleSubmit()}}>
                         <button type="submit" value="Submit" className="button">logout</button>
                     </form>
                 </div>
