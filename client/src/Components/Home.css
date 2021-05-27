@@ -31,3 +31,12 @@ position: absolute;
     color: white;
     font-size: 30px;
 }
+
+.wording .logout{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+}
