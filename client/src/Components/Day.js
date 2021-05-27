@@ -32,6 +32,7 @@ class Day extends React.Component {
         this.getHeaderDateString = this.getHeaderDateString.bind(this);
         this.getEventsListed = this.getEventsListed.bind(this);
         this.goToDay = this.goToDay.bind(this);
+        this.getDayOfWeek = this.getDayOfWeek.bind(this);
     }
     // to go forward / backward + to do calendar
     // event passes passDate
@@ -72,6 +73,11 @@ class Day extends React.Component {
         return dateFns.format(dateObject, "MMMM dd yyyy")
     }
 
+    getDayOfWeek(dateObject){
+        let dayOfWeek = new Date(dateObject);
+        return dateFns.format(dayOfWeek, 'eeee');
+    }
+
     renderHeader(dateObject) {
         const DateFormat = "MM dd yyyy";
         return (
@@ -88,16 +94,15 @@ class Day extends React.Component {
             </div>
             </div>
       );
-            // needs prev and next buttons to actually go to prev / next day
-            // load date in header
     }
+
     renderHeader2(dateObject) {
         const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         return(
             <div className="header2 row flex-middle">
                 <div className="col col-center"  >
                     <div id="weekdayBanner">
-                        {formattedDays[6]}
+                        {this.getDayOfWeek(dateObject)}
                     </div>
                 </div>
             </div>
@@ -150,7 +155,6 @@ class Day extends React.Component {
                 var dayNumUser = parseInt(dayUser);
                 var yearNumUser = parseInt(yearUser);
 
-                                
 
                 var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0,0,0,0);
                 var userdayOfWeek = userDate.getDay();
