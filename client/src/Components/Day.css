@@ -65,8 +65,9 @@
 
     #eventsTitle {
         font-size: 30px;
-        justify-content: center;
-        align-self: flex-end;
+        margin-left: 175px;
+        margin-right: 175px;
+        align-items: center;        
     }
 
     #growIcons {
@@ -94,8 +95,7 @@
     .scroll {
         max-height: 500px;
         min-height: 500px;
-        min-width: 500px;
-        width: 150%;
+        width: 475px;
         overflow-y: auto;
         border-radius: 15px;
         border: 3px solid var(--lighter-blue);

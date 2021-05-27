@@ -31,7 +31,7 @@ class Day extends React.Component {
         this.currentDateString = dateFns.format(dateObject, DateFormat);
         this.getHeaderDateString = this.getHeaderDateString.bind(this);
         this.getEventsListed = this.getEventsListed.bind(this);
-        //this.goToDay = this.goToDay.bind(this);
+        this.goToDay = this.goToDay.bind(this);
     }
     // to go forward / backward + to do calendar
     // event passes passDate
@@ -60,6 +60,12 @@ class Day extends React.Component {
         let tomorrow = new Date(this.props.currentDate);
         tomorrow.setDate(tomorrow.getDate()+1);
         this.state.passDate(dateFns.format(tomorrow, 'MM/dd/yyyy'));
+    }
+
+    goToDay(goToDate) {
+        let toDate = new Date(goToDate);
+        toDate.setDate(toDate.getDate());
+        this.state.passDate(dateFns.format(toDate, 'MM/dd/yyyy'));
     }
 
     getHeaderDateString(dateObject) {
@@ -288,8 +294,7 @@ class Day extends React.Component {
                         <div className="goToDay">
                             <DatePicker id="daydatepicker" 
                             selected={this.state.currentDateObject} 
-                            // this will become something else
-                            onChange={date => this.setDateText(date)}
+                            onChange={date => this.goToDay(date)}
                             showTimeSelect/>
                         </div>
                     </div>
