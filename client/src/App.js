@@ -10,6 +10,7 @@ import EventView from './Components/EventView';
 import { Redirect } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logout from './Components/Logout';
+import About from './Components/About';
 import { Component } from 'react';
 
 
@@ -59,6 +60,7 @@ class App extends React.Component {
                             <li><Link to={'/register'} className="nav-link">register</Link></li>
                             <li><Link to={'/logout'} className="nav-link">logout</Link></li>
                             <li><Link to={'/eventView'} className="nav-link">event view</Link></li>
+                            <li><Link to={'/about'} className="nav-link">about</Link></li>
                         </ul>
                     </nav>
                     <hr />
@@ -66,6 +68,7 @@ class App extends React.Component {
                         <Route exact path='/' component={Home}/>
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/logout' component={Logout} />
+                        <Route exact path='/about' component={About} />
                         <Route exact path='/newEvent' render={() => {
                             this.checkAuth(<NewEvent />);
                             return this.state.redirection}}/>

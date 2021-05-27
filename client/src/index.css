@@ -66,11 +66,25 @@ header {
   border-bottom: 1px solid var(--border-color);
 }
 
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-blue);
+  font-weight: 100;
+  padding-top: 0.25em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
 main {
   display: block;
   margin: 0 auto;
   margin-top: 5em;
   max-width: 50em;
+}
+
+.underline{
+  text-decoration: underline;
+  padding: .5em;
 }
 
 /*buttons*/
@@ -203,5 +217,11 @@ color: #174774;
 .title {
   font-size:30px;
   color: var(--text-blue);
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
 }
 

@@ -1,19 +1,23 @@
 import React from "react";
 import './Home.css';
-
+import '../index.css';
 class About extends React.Component {
   render() {
     return (
       <div className="wording">
-        <p className="hatch">
-          What is HATCH?
-		</p>
+        <h1>What is HATCH?</h1>
         <p>
-        <span className="inlinehatch">HATCH</span> is an interactive calendar for all your scheduling needs. <br />
-        FEATURES:
-		<ul>
+        Built for UCLA's CS35L Spring '21 utilizing React.js and MongoDB,<br />
+        <span className="inlinehatch">HATCH</span> is an interactive full stack calendar application for all your scheduling needs. <br />
+        </p>
+        <h1>Features</h1>
+        <p>
+		<ul className = "no-bullets">
             <li>
                 Add your personal events
+            </li>
+            <li>
+                Create weekly events
             </li>
             <li>
                 Export your day's schedule as a CSV file
@@ -23,15 +27,24 @@ class About extends React.Component {
             </li>
         </ul>
 		</p>
+        <h1>Contributors</h1>
         <p>
-        CONTRIBUTERS:<br />
-        Built for CS35L Spring 2021 at UCLA<br />
-        <ul>
-            <li>
-                Vinay Shukla, CS 2024
+        <ul className = "no-bullets">
+            <li className = "underline">
+                BACKEND
             </li>
             <li>
                 Sanjit Dandapanthula, CS 2024
+            </li>
+            <li>
+                Vinay Shukla, CS 2024
+            </li>
+            
+            <li  className = "underline">
+                FRONTEND
+            </li>
+            <li>
+                Anna Anderson, CE 2023
             </li>
             <li>
                 Nitya Simhadri, CS 2023
@@ -39,10 +52,8 @@ class About extends React.Component {
             <li>
                 Katie Stahnke, CE 2023
             </li>
-            <li>
-                Anna Anderson, CE 2023
-            </li>
         </ul>
+        <span></span>
         </p>
       </div>
     )
