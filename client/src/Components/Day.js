@@ -120,7 +120,7 @@ class Day extends React.Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-            referrer: 'no-referrer'
+            referrer: 'no-referrer',
         }
 
         // temporary GET request, move as desired, gets object containing all of user's specific events
@@ -134,10 +134,10 @@ class Day extends React.Component {
             headers: {
                 'Content-Type': 'application/json',
             },
-            referrer: 'no-referrer'
+            referrer: 'no-referrer',
         }
-
-        fetch('http://localhost:3000/DBInfo/Specific', daily_options)
+        
+        fetch('http://localhost:3000/DBInfo/Specific/' + this.state.currentDate.replace(/\//g, '-'), daily_options)
             .then((response) => response.json())
             .then((data) => {
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
@@ -178,7 +178,9 @@ class Day extends React.Component {
                         }
                     }   
                 }
-                const currParam = (this.props.currentDate).toString();
+
+                //Processing individual event
+                /*const currParam = (this.props.currentDate).toString();
                 var keysAndValues = [];
                 if(data.dateSpecific !== undefined){
                     if(data.dateSpecific.hasOwnProperty(currParam)){
@@ -204,7 +206,33 @@ class Day extends React.Component {
                                     )
                                 });
                     }
+                }*/
+                var keysAndValues = [];
+                if(Object.keys(data).length !== 0){
+                    var dailyEventArray = [];
+                        var desiredValue = data;
+                        var ListOfKeys = Object.keys(desiredValue);
+                        keysAndValues = ListOfKeys.map((value)=>{ 
+                            const strTitle = desiredValue[value].title;
+                            var tempObj = {};
+                            tempObj = desiredValue[value]; 
+                            dailyEventArray.push(tempObj);
+                            const strDate = "Date: " + desiredValue[value].date;
+                            const fromTime = "From: " + desiredValue[value].from;
+                            const timeTo = "To: " + desiredValue[value].to;
+                            const details = "Description: " + desiredValue[value].details;
+                            return (
+                                <ul key={value}>{strTitle}
+                                    <li>{strDate}</li>
+                                    <li>{fromTime}</li>
+                                    <li>{timeTo}</li>
+                                    <li>{details}</li>
+                                </ul>
+                                    )
+                            });
                 }
+
+
                 var tempWeekly = [];
                 for(var obj1 of importantDates){
                     const strTitle = obj1.title + " - Weekly";

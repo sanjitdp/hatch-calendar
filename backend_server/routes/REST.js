@@ -34,12 +34,17 @@ router.get('/Weekly', login_scripts.isLoggedIn, (req, res)=> {
 });
 
 //Queries for user's specific events
-router.get('/Specific', login_scripts.isLoggedIn, (req, res)=> {
+router.get('/Specific/:date', login_scripts.isLoggedIn, (req, res)=> {
     var queryString = {};
     queryString.username = req.user.username;
+    const curr_date = req.params.date.replace(/-/g, '/');
     //Find based on username
     dataBase.findEvents(queryString, {dateSpecific: 1}).then((results)=>{
-        res.send(results);
+        if(results.dateSpecific.hasOwnProperty(req.body.curr_date)){
+            res.send(results.dateSpecific[curr_date]);
+        }else{
+            res.send({});
+        }
     });
     
 });
