@@ -20,7 +20,6 @@ class Day extends React.Component {
             currentDate: props.currentDate,
             currentDateObject: dateObject,
             events: null,
-            // maybe these should not be in the state
             dailyEvents: null,
             weeklyEvents: null,
             csvInformation: null,
@@ -34,10 +33,6 @@ class Day extends React.Component {
         this.goToDay = this.goToDay.bind(this);
         this.getDayOfWeek = this.getDayOfWeek.bind(this);
     }
-    // to go forward / backward + to do calendar
-    // event passes passDate
-    // when someone submits a date, pass that date as MM DD YYYY to eventview
-    // should b good
 
     componentDidMount() {
         this.getEventsListed(this.props.dateObject);
@@ -66,6 +61,8 @@ class Day extends React.Component {
     goToDay(goToDate) {
         let toDate = new Date(goToDate);
         toDate.setDate(toDate.getDate());
+        var beepbop = 0;
+        beepbop += 1;
         this.state.passDate(dateFns.format(toDate, 'MM/dd/yyyy'));
     }
 
