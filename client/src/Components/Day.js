@@ -20,7 +20,6 @@ class Day extends React.Component {
             currentDate: props.currentDate,
             currentDateObject: dateObject,
             events: null,
-            // maybe these should not be in the state
             dailyEvents: null,
             weeklyEvents: null,
             csvInformation: null,
@@ -34,10 +33,6 @@ class Day extends React.Component {
         this.goToDay = this.goToDay.bind(this);
         this.getDayOfWeek = this.getDayOfWeek.bind(this);
     }
-    // to go forward / backward + to do calendar
-    // event passes passDate
-    // when someone submits a date, pass that date as MM DD YYYY to eventview
-    // should b good
 
     componentDidMount() {
         this.getEventsListed(this.props.dateObject);
@@ -83,14 +78,14 @@ class Day extends React.Component {
         return (
             <div className="header row flex-middle">
             <div className="col col-start" >
-              <div id="growIcons" className="icon" onClick={this.prevDay}> chevron_left</div>
+              <div className="icon" id="growIcons" onClick={this.prevDay}> chevron_left</div>
             </div>
             <div className="col col-center">
                 <span id="makeDateSmall">
                     {this.getHeaderDateString(dateObject)} </span>
             </div>
-            <div className="col col-end" onClick={this.nextDay}>
-              <div id="growIcons" className="icon">chevron_right</div>
+            <div className="col col-end" >
+              <div className="icon" id="growIcons" onClick={this.nextDay}>chevron_right</div>
             </div>
             </div>
       );

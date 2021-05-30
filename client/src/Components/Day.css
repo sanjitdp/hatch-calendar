@@ -102,5 +102,11 @@
         align-self: flex-start;
     }
 
+    .icon:hover {
+        transform: scale(1.75);
+        transition: .1s ease-out;
+        color: var(--lighter-blue);
+      }
+
 
 /* MISC */
