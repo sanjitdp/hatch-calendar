@@ -61,8 +61,6 @@ class Day extends React.Component {
     goToDay(goToDate) {
         let toDate = new Date(goToDate);
         toDate.setDate(toDate.getDate());
-        var beepbop = 0;
-        beepbop += 1;
         this.state.passDate(dateFns.format(toDate, 'MM/dd/yyyy'));
     }
 
@@ -80,14 +78,14 @@ class Day extends React.Component {
         return (
             <div className="header row flex-middle">
             <div className="col col-start" >
-              <div id="growIcons" className="icon" onClick={this.prevDay}> chevron_left</div>
+              <div className="icon" id="growIcons" onClick={this.prevDay}> chevron_left</div>
             </div>
             <div className="col col-center">
                 <span id="makeDateSmall">
                     {this.getHeaderDateString(dateObject)} </span>
             </div>
-            <div className="col col-end" onClick={this.nextDay}>
-              <div id="growIcons" className="icon">chevron_right</div>
+            <div className="col col-end" >
+              <div className="icon" id="growIcons" onClick={this.nextDay}>chevron_right</div>
             </div>
             </div>
       );
