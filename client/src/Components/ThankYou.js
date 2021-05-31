@@ -54,7 +54,8 @@ class ThankYou extends React.Component {
               <h1>thank you.</h1>
                 <p>
                   Thank you for choosing 
-                  <span className="inlinehatch"> hatch</span> for all your scheduling needs. We truly value each and every single one of our users.<br />
+                  <span className="inlinehatch"> hatch</span> for all your scheduling needs.  <br></br>
+                  We truly value each and every single one of our users.<br />
                 </p>
                   <img src={chick} className="chick-logo" alt="Chick Logo" />
               <h1>users</h1>

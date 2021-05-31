@@ -25,7 +25,7 @@ h1 {
 
   ul.userList {
     list-style-type: none; /* Remove bullets */
-    padding: 20px; /* Remove padding */
+    padding: 50px; /* Remove padding */
     margin: 0; 
     columns: 4;
   }
