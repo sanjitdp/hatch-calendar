@@ -47,7 +47,7 @@ class Login extends React.Component {
             fetch('http://localhost:3000/login', login_options)
                 .then((data) => (data.json()))
                 .then((result) => {
-                    if (result.user) {
+                    if (result.user !== undefined) {
                         window.location.href = "/eventView";
                     }
                 })
