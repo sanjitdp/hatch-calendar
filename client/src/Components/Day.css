@@ -95,7 +95,7 @@
     .scroll {
         max-height: 500px;
         min-height: 500px;
-        width: 475px;
+        width: 400px;
         overflow-y: auto;
         border-radius: 15px;
         border: 3px solid var(--lighter-blue);
@@ -107,6 +107,19 @@
         transition: .1s ease-out;
         color: var(--lighter-blue);
       }
+    
+    #event_list {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margins */
+        align-items: left;
+      }
+    
+    #bold_title {
+        font-weight: 800;
+        align-self: center;
+    }
+
 
 
 /* MISC */

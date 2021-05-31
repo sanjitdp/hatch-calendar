@@ -217,7 +217,8 @@ class Day extends React.Component {
                             const timeTo = "To: " + desiredValue[value].to;
                             const details = "Description: " + desiredValue[value].details;
                             return (
-                                <ul key={value}>{strTitle}
+                                <ul id = "event_list" key={value}>
+                                    <div id = "bold_title">{strTitle}</div>
                                     <li>{strDate}</li>
                                     <li>{fromTime}</li>
                                     <li>{timeTo}</li>
@@ -239,7 +240,8 @@ class Day extends React.Component {
                     const timeTo = "To: " + obj1.to;
                     const details = "Description: " + obj.details;
                     keysAndValues.push(
-                                <ul key={obj1.title}>{strTitle}
+                                <ul id="event_list" key={obj1.title}>
+                                    <div id="bold_title">{strTitle}</div>
                                     <li>{strDate}</li>
                                     <li>{fromTime}</li>
                                     <li>{timeTo}</li>
@@ -313,7 +315,7 @@ class Day extends React.Component {
                         <Card className ="scroll">
                             <Card.Body>
                                 <Card.Text>
-                                <ul textalign="left" > {this.state.events}</ul>
+                                <ul id = "event_list" className = "col col-start"> {this.state.events}</ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
