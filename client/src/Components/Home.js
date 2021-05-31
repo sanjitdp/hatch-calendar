@@ -23,11 +23,9 @@ class Home extends React.Component {
             <Link to="/login">
               <button type="submit" value="Submit" className="button">log in!</button>
             </Link>
-            <br></br>
 
             <span /><span />
             <span className="home-text">Don't have an account?</span>
-            <br></br>
             <Link to="/register">
               <button type="submit" value="Submit" className="button">register!</button>
             </Link>
