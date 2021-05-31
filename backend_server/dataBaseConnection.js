@@ -1,5 +1,5 @@
 import express from 'express';
-import config from '../../config/config.js'
+import config from '../config/config.js'
 import mongodb from 'mongodb'
 import mongoose from 'mongoose';
 
@@ -60,6 +60,10 @@ const funcs = {
         var tempString = "dateSpecific." + String(dateDelete) + "." + String(evtTitle);
         tempObj[tempString] = "";
         await tempDb.collection(config.Database.Collection).updateOne(query, {$unset: tempObj});
+    },
+    async getAllUsers(query){
+        var tempDb = client.db(config.Database.Name);
+        return await tempDb.collection(config.Database.Collection).find(query, {projection: {username: 1}}).toArray();
     }
 
 

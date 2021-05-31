@@ -73,6 +73,10 @@ class Day extends React.Component {
         return dateFns.format(dayOfWeek, 'eeee');
     }
 
+    deleteEvent(titleEvent){
+        
+    }
+
     renderHeader(dateObject) {
         const DateFormat = "MM dd yyyy";
         return (
@@ -168,7 +172,7 @@ class Day extends React.Component {
                         
                         var dayOfWeek  = tempDate.getDay();
 
-                        if(userdayOfWeek === dayOfWeek){
+                        if(userdayOfWeek === dayOfWeek && userDate >= tempDate){
                             importantDates.push(obj);
                         }
                     }   

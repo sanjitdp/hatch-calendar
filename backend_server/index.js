@@ -11,10 +11,11 @@ import cookieParser from 'cookie-parser';
 import login from './routes/login.js';
 import logout from './routes/logout.js';
 import register from './routes/register.js';
-import rest from './routes/REST.js';
-import dataBase from './routes/dataBaseConnection.js';
+import eventRequest from './routes/eventRequests.js';
+import dataBase from './dataBaseConnection.js';
 import User from './models/userInfo.js';
 import emailRouter from './routes/emailSend.js';
+import hatchUsers from './routes/hatchUsers.js'
 //import eventView from './routes/eventViewRouter.js'
 
 //Connects mongoose to database
@@ -52,9 +53,10 @@ passport.deserializeUser(User.deserializeUser());
 //Sets up routes
 app.use('/login', login);
 app.use('/register', register);
-app.use('/DBInfo', rest);
+app.use('/DBInfo', eventRequest);
 app.use('/logout', logout);
 app.use('/sendEmail', emailRouter);
+app.use('/users', hatchUsers);
 
 
 //Listens on port 5000

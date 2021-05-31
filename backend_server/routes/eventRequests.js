@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/userInfo.js';
 import passport from 'passport';
-import dataBase from './dataBaseConnection.js'
+import dataBase from '../dataBaseConnection.js'
 import login_scripts from '../login_scripts/verifyLogin.js';
 
 const router = express.Router();

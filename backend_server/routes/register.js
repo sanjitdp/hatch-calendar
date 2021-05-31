@@ -1,5 +1,5 @@
 import express from 'express';
-import dataBase from './dataBaseConnection.js';
+import dataBase from '../dataBaseConnection.js';
 import passport from 'passport';
 import User from '../models/userInfo.js';
 import login_scripts from '../login_scripts/verifyLogin.js'

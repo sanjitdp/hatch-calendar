@@ -1,7 +1,7 @@
 import express from 'express';
 import loginScripts from '../login_scripts/verifyLogin.js';
 import passport from 'passport';
-import dataBase from '../routes/dataBaseConnection.js';
+import dataBase from '../dataBaseConnection.js';
 import cookieParser from 'cookie-parser';
 
 const router = express.Router();

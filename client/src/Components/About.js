@@ -37,7 +37,7 @@ class About extends React.Component {
                 Sanjit Dandapanthula, CS 2024
             </li>
             <li>
-                Vinay Shukla, CS 2024
+                Vinay Shukla, CSE 2024
             </li>
             
             <li  className = "underline">
