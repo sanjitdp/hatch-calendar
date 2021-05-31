@@ -53,12 +53,21 @@ router.get('/Specific/:date', login_scripts.isLoggedIn, (req, res)=> {
 router.post('/Weekly', login_scripts.isLoggedIn, (req, res)=> {
     var queryString = {};
     queryString.username = req.user.username;
-
-    dataBase.setWeeklySchedule(queryString, req.body.weekly);
+    dataBase.updateWeeklySchedule(queryString, req.body.weekly);
 
     res.status(200).send("Success!");
 
 });
+
+router.post('/WeeklySchedule', login_scripts.isLoggedIn, (req, res)=> {
+    var queryString = {};
+    queryString.username = req.user.username;
+    dataBase.setWeeklyArray(queryString, req.body.weekly);
+
+    res.status(200).send("Success!");
+
+});
+
 
 //Handles the adding of an individual unqiue event
 router.post('/Individual', login_scripts.isLoggedIn, (req, res)=> {
@@ -75,12 +84,15 @@ router.post('/Individual', login_scripts.isLoggedIn, (req, res)=> {
 });
 
 //Deletes a certain specific event
-router.delete('/DeleteEvent', (req, res)=> {
+router.delete('/DeleteEvent', login_scripts.isLoggedIn, (req, res)=> {
     var queryString = {};
     queryString.username = req.user.username;
 
     const dateRemove = req.body.dateRemove;
     const evtTitle = req.body.evtTitle;
+
+    console.log(dateRemove);
+    console.log(evtTitle);
 
     dataBase.deleteCertainEvent(queryString, dateRemove, evtTitle);
 

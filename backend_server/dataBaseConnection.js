@@ -38,9 +38,14 @@ const funcs = {
         mongoose.connect(uri);
     },
     //Call and modify weekly schedule
-    async setWeeklySchedule(query, newSchedule){
+    async updateWeeklySchedule(query, newSchedule){
         var tempDb = client.db(config.Database.Name); 
         await tempDb.collection(config.Database.Collection).updateOne(query, {$push: {dataWeekly: newSchedule}});
+    },
+
+    async setWeeklyArray(query, newSchedule){
+        var tempDb = client.db(config.Database.Name); 
+        await tempDb.collection(config.Database.Collection).updateOne(query, {$set: {dataWeekly: newSchedule}}); 
     },
 
     //Update the param of an object

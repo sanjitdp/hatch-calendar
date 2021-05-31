@@ -16,7 +16,11 @@ router.post('/', (req, res) => {
 });
 
 router.get('/verify', (req, res) =>{
-    res.send({user: req.user});
+    if(req.hasOwnProperty('user')){
+        res.send({user: req.user});
+    }else{
+        res.send({user: undefined});
+    }
 });
 
 export default router;

@@ -23,6 +23,9 @@ class Day extends React.Component {
             dailyEvents: null,
             weeklyEvents: null,
             csvInformation: null,
+            deleteObjects: null,
+            renderDeletes: null,
+            
         };
         this.goBack = this.goBack.bind(this);
         this.prevDay = this.prevDay.bind(this);
@@ -32,6 +35,8 @@ class Day extends React.Component {
         this.getEventsListed = this.getEventsListed.bind(this);
         this.goToDay = this.goToDay.bind(this);
         this.getDayOfWeek = this.getDayOfWeek.bind(this);
+        this.deleteEvent = this.deleteEvent.bind(this);
+        
     }
 
     componentDidMount() {
@@ -73,8 +78,73 @@ class Day extends React.Component {
         return dateFns.format(dayOfWeek, 'eeee');
     }
 
-    deleteEvent(titleEvent){
+    async deleteEvent(e){
         
+        var currDeleteObj = this.state.deleteObjects[parseInt(e.target.value)];
+        if(currDeleteObj.weekly === false){
+            const event_delete_options = {
+                method: 'delete',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                referrer: 'no-referrer',
+                body: JSON.stringify({
+                    'evtTitle': currDeleteObj.title,
+                    'dateRemove': currDeleteObj.date,
+                }),
+                
+            }
+            await fetch('http://localhost:3000/DBInfo/DeleteEvent', event_delete_options);
+            window.location.reload();
+
+        }else if(currDeleteObj.weekly === true){
+            const get_event_delete_weekly = {
+                method: 'get',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                referrer: 'no-referrer',
+            }
+
+            await fetch('http://localhost:3000/DBInfo/Weekly', get_event_delete_weekly)
+                .then((response)=>response.json())
+                .then(async (weeklyArrayObj)=>{
+                    var index = 0;
+                    var weeklyArray = weeklyArrayObj.dataWeekly;
+                    for(var evtObj of weeklyArray){
+                        if(evtObj.date === currDeleteObj.date && evtObj.title === currDeleteObj.title && 
+                            currDeleteObj.from === evtObj.from && currDeleteObj.to === evtObj.to && currDeleteObj.details === evtObj.details){
+                            weeklyArray.splice(index, 1);
+                        }else{
+                            index++;
+                        }
+                    }
+                    console.log(weeklyArray);
+                    const post_event_delete_weekly = {
+                        method: 'post',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        referrer: 'no-referrer',
+                        body: JSON.stringify({
+                            'weekly': weeklyArray
+                        })
+                    }  
+
+                    await fetch('http://localhost:3000/DBInfo/WeeklySchedule', post_event_delete_weekly);
+                    window.location.reload();
+
+                })
+        }
     }
 
     renderHeader(dateObject) {
@@ -142,6 +212,7 @@ class Day extends React.Component {
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
                 .then((response2) => response2.json())
                 .then(async (data2) => {
+                //Placing text into main text area
                 var dataArray = data2.dataWeekly;
                 var importantDates = [];
                 
@@ -253,10 +324,36 @@ class Day extends React.Component {
                                  </ul>
                             )
                 }
-               await this.setState({ 
+
+
+                //Set delete params
+                var optionsRender = [];
+                var deleteObjects = [];
+                var index = 0;
+                if(tempWeekly !== undefined){          
+                    for(var objDelete of tempWeekly){
+                        var tempStr = objDelete.date + " - " + objDelete.title;
+                        objDelete.weekly = true;
+                        deleteObjects.push(objDelete);
+                        optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
+                        index++
+                    }
+                }
+                if(dailyEventArray !== undefined){
+                    for(var objDelete of dailyEventArray){
+                        var tempStr = objDelete.date + " - " + objDelete.title;
+                        objDelete.weekly = false;
+                        deleteObjects.push(objDelete);
+                        optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
+                        index++;
+                    }
+                }
+                await this.setState({ 
                     dailyEvents: dailyEventArray,
                     weeklyEvents: tempWeekly,
-                    events: keysAndValues
+                    events: keysAndValues,
+                    renderDeletes: optionsRender,
+                    deleteObjects: deleteObjects,
                 });
                     
                 
@@ -338,6 +435,12 @@ class Day extends React.Component {
                             selected={this.state.currentDateObject} 
                             onChange={date => this.goToDay(date)}
                             showTimeSelect/>
+                        </div>
+                        <div>
+                            <select onChange={this.deleteEvent}>
+                                <option>Delete an Event</option>
+                                {this.state.renderDeletes}
+                            </select>
                         </div>
                     </div>
                 </div>
