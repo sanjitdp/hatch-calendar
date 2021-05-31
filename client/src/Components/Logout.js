@@ -8,18 +8,18 @@ import '../index.css';
 
 
 class Logout extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             user: null
         }
     }
 
-    async checkAuth(){
+    async checkAuth() {
         const verify_options = {
             method: 'get',
             mode: 'cors',
-            cache: 'no-cache', 
+            cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,26 +29,26 @@ class Logout extends React.Component {
 
 
         await fetch('http://localhost:3000/login/verify', verify_options)
-        .then((data) => (data.json()))
-        .then((result) => {
-            if (result.user === undefined) {
-                this.setState({
-                    user: null
-                })
-            }else{
-                this.setState({
-                    user: result.user.username
-                })
-            }
-        });
-        
+            .then((data) => (data.json()))
+            .then((result) => {
+                if (result.user === undefined) {
+                    this.setState({
+                        user: null
+                    })
+                } else {
+                    this.setState({
+                        user: result.user.username
+                    })
+                }
+            });
+
     }
 
     handleSubmit(event) {
         const logout_options = {
             method: 'get',
             mode: 'cors',
-            cache: 'no-cache', 
+            cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,26 +73,28 @@ class Logout extends React.Component {
                 <span></span>
                 <img src={sunny} alt="login" />
                 <p className="logout">
-                    hello, {this.state.user}
-                <p><span></span>
-                
-                </p> 
+                    goodbye, {this.state.user}
+                    <p><span></span>
+
+                    </p>
                 </p>
-                <p>
-                <br></br>
-                Thank you for choosing <span className="inlinehatch">HATCH</span>, the interactive calendar for all your scheduling needs. <br />
-                Come back soon!
-                <br></br>
+                <br />
+                <p className="home-text">
+                    <br></br>
+                Thank you for choosing <span className="inlinehatch">hatch</span>, the interactive calendar for all your scheduling needs.
                 </p>
+                <br />
                 <div>
-                    <form onSubmit={() => {this.handleSubmit()}}>
-                        <button type="submit" value="Submit" className="button">logout</button>
+                    <form onSubmit={() => { this.handleSubmit() }}>
+                        <span className="home-text">Come back soon!</span>
+                        <span />
+                        <button type="submit" value="Submit" className="button">log out</button>
                     </form>
                 </div>
                 <span></span>
             </div>
         )
-  }
+    }
 }
 
 export default Logout;
