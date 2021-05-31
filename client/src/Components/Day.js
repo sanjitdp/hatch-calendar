@@ -1,10 +1,10 @@
 import React from "react";
 import "./Day.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import * as dateFns from "date-fns";
-import { CSVLink, CSVDownload} from 'react-csv';
+import { CSVLink, CSVDownload } from 'react-csv';
 import Card from "react-bootstrap/Card";
 
 // pass prop information every time i render
@@ -25,7 +25,7 @@ class Day extends React.Component {
             csvInformation: null,
             deleteObjects: null,
             renderDeletes: null,
-            
+
         };
         this.goBack = this.goBack.bind(this);
         this.prevDay = this.prevDay.bind(this);
@@ -36,7 +36,7 @@ class Day extends React.Component {
         this.goToDay = this.goToDay.bind(this);
         this.getDayOfWeek = this.getDayOfWeek.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
-        
+
     }
 
     componentDidMount() {
@@ -53,13 +53,13 @@ class Day extends React.Component {
 
     prevDay() {
         let yesterday = new Date(this.props.currentDate);
-        yesterday.setDate(yesterday.getDate()-1);
+        yesterday.setDate(yesterday.getDate() - 1);
         this.state.passDate(dateFns.format(yesterday, 'MM/dd/yyyy'));
     }
 
     nextDay() {
         let tomorrow = new Date(this.props.currentDate);
-        tomorrow.setDate(tomorrow.getDate()+1);
+        tomorrow.setDate(tomorrow.getDate() + 1);
         this.state.passDate(dateFns.format(tomorrow, 'MM/dd/yyyy'));
     }
 
@@ -73,15 +73,15 @@ class Day extends React.Component {
         return dateFns.format(dateObject, "MMMM dd yyyy")
     }
 
-    getDayOfWeek(dateObject){
+    getDayOfWeek(dateObject) {
         let dayOfWeek = new Date(dateObject);
         return dateFns.format(dayOfWeek, 'eeee');
     }
 
-    async deleteEvent(e){
-        
+    async deleteEvent(e) {
+
         var currDeleteObj = this.state.deleteObjects[parseInt(e.target.value)];
-        if(currDeleteObj.weekly === false){
+        if (currDeleteObj.weekly === false) {
             const event_delete_options = {
                 method: 'delete',
                 mode: 'cors',
@@ -95,12 +95,12 @@ class Day extends React.Component {
                     'evtTitle': currDeleteObj.title,
                     'dateRemove': currDeleteObj.date,
                 }),
-                
+
             }
             await fetch('http://localhost:3000/DBInfo/DeleteEvent', event_delete_options);
             window.location.reload();
 
-        }else if(currDeleteObj.weekly === true){
+        } else if (currDeleteObj.weekly === true) {
             const get_event_delete_weekly = {
                 method: 'get',
                 mode: 'cors',
@@ -113,15 +113,15 @@ class Day extends React.Component {
             }
 
             await fetch('http://localhost:3000/DBInfo/Weekly', get_event_delete_weekly)
-                .then((response)=>response.json())
-                .then(async (weeklyArrayObj)=>{
+                .then((response) => response.json())
+                .then(async (weeklyArrayObj) => {
                     var index = 0;
                     var weeklyArray = weeklyArrayObj.dataWeekly;
-                    for(var evtObj of weeklyArray){
-                        if(evtObj.date === currDeleteObj.date && evtObj.title === currDeleteObj.title && 
-                            currDeleteObj.from === evtObj.from && currDeleteObj.to === evtObj.to && currDeleteObj.details === evtObj.details){
+                    for (var evtObj of weeklyArray) {
+                        if (evtObj.date === currDeleteObj.date && evtObj.title === currDeleteObj.title &&
+                            currDeleteObj.from === evtObj.from && currDeleteObj.to === evtObj.to && currDeleteObj.details === evtObj.details) {
                             weeklyArray.splice(index, 1);
-                        }else{
+                        } else {
                             index++;
                         }
                     }
@@ -138,7 +138,7 @@ class Day extends React.Component {
                         body: JSON.stringify({
                             'weekly': weeklyArray
                         })
-                    }  
+                    }
 
                     await fetch('http://localhost:3000/DBInfo/WeeklySchedule', post_event_delete_weekly);
                     window.location.reload();
@@ -151,23 +151,23 @@ class Day extends React.Component {
         const DateFormat = "MM dd yyyy";
         return (
             <div className="header row flex-middle">
-            <div className="col col-start" >
-              <div className="icon" id="growIcons" onClick={this.prevDay}> chevron_left</div>
+                <div className="col col-start" >
+                    <div className="icon" id="growIcons" onClick={this.prevDay}> chevron_left</div>
+                </div>
+                <div className="col col-center">
+                    <span id="makeDateSmall">
+                        {this.getHeaderDateString(dateObject)} </span>
+                </div>
+                <div className="col col-end" >
+                    <div className="icon" id="growIcons" onClick={this.nextDay}>chevron_right</div>
+                </div>
             </div>
-            <div className="col col-center">
-                <span id="makeDateSmall">
-                    {this.getHeaderDateString(dateObject)} </span>
-            </div>
-            <div className="col col-end" >
-              <div className="icon" id="growIcons" onClick={this.nextDay}>chevron_right</div>
-            </div>
-            </div>
-      );
+        );
     }
 
     renderHeader2(dateObject) {
         const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        return(
+        return (
             <div className="header2 row flex-middle">
                 <div className="col col-center"  >
                     <div id="weekdayBanner">
@@ -205,159 +205,160 @@ class Day extends React.Component {
             },
             referrer: 'no-referrer',
         }
-        
+
         fetch('http://localhost:3000/DBInfo/Specific/' + this.state.currentDate.replace(/\//g, '-'), daily_options)
             .then((response) => response.json())
             .then((data) => {
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
-                .then((response2) => response2.json())
-                .then(async (data2) => {
-                //Placing text into main text area
-                var dataArray = data2.dataWeekly;
-                var importantDates = [];
-                
-                var tempUserInfo = this.props.currentDate;
-                var monthUser = tempUserInfo.substr(0, 2);
-                var dayUser = tempUserInfo.substr(3, 2);
-                var yearUser = tempUserInfo.substr(6, 4);
+                    .then((response2) => response2.json())
+                    .then(async (data2) => {
+                        //Placing text into main text area
+                        var dataArray = data2.dataWeekly;
+                        var importantDates = [];
 
-                var monthNumUser = parseInt(monthUser);
-                var dayNumUser = parseInt(dayUser);
-                var yearNumUser = parseInt(yearUser);
+                        var tempUserInfo = this.props.currentDate;
+                        var monthUser = tempUserInfo.substr(0, 2);
+                        var dayUser = tempUserInfo.substr(3, 2);
+                        var yearUser = tempUserInfo.substr(6, 4);
+
+                        var monthNumUser = parseInt(monthUser);
+                        var dayNumUser = parseInt(dayUser);
+                        var yearNumUser = parseInt(yearUser);
 
 
-                var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0,0,0,0);
-                var userdayOfWeek = userDate.getDay();
-                for(var obj of dataArray){
-                    if(obj.date !== undefined){
-                        var tempObj = obj.date;
-                        var month = tempObj.substr(0, 2);
-                        var day = tempObj.substr(3, 2);
-                        var year = tempObj.substr(6, 4);
+                        var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0, 0, 0, 0);
+                        var userdayOfWeek = userDate.getDay();
+                        for (var obj of dataArray) {
+                            if (obj.date !== undefined) {
+                                var tempObj = obj.date;
+                                var month = tempObj.substr(0, 2);
+                                var day = tempObj.substr(3, 2);
+                                var year = tempObj.substr(6, 4);
 
-                        var monthNum = parseInt(month);
-                        var dayNum = parseInt(day);
-                        var yearNum = parseInt(year);
+                                var monthNum = parseInt(month);
+                                var dayNum = parseInt(day);
+                                var yearNum = parseInt(year);
 
-                        var tempDate = new Date(yearNum, monthNum, dayNum, 0,0,0,0);
-                        
-                        var dayOfWeek  = tempDate.getDay();
+                                var tempDate = new Date(yearNum, monthNum, dayNum, 0, 0, 0, 0);
 
-                        if(userdayOfWeek === dayOfWeek && userDate >= tempDate){
-                            importantDates.push(obj);
+                                var dayOfWeek = tempDate.getDay();
+
+                                if (userdayOfWeek === dayOfWeek && userDate >= tempDate) {
+                                    importantDates.push(obj);
+                                }
+                            }
                         }
-                    }   
-                }
 
-                //Processing individual event
-                /*const currParam = (this.props.currentDate).toString();
-                var keysAndValues = [];
-                if(data.dateSpecific !== undefined){
-                    if(data.dateSpecific.hasOwnProperty(currParam)){
-                        var dailyEventArray = [];
-                        var desiredValue = data.dateSpecific[currParam];
-                        var ListOfKeys = Object.keys(desiredValue);
-                        keysAndValues = ListOfKeys.map((value)=>{ 
-                            const strTitle = desiredValue[value].title;
-                            var tempObj = {};
-                            tempObj = desiredValue[value]; 
-                            dailyEventArray.push(tempObj);
-                            const strDate = "Date: " + desiredValue[value].date;
-                            const fromTime = "From: " + desiredValue[value].from;
-                            const timeTo = "To: " + desiredValue[value].to;
-                            const details = "Description: " + desiredValue[value].details;
-                            return (
-                                <ul key={value}>{strTitle}
-                                    <li>{strDate}</li>
-                                    <li>{fromTime}</li>
-                                    <li>{timeTo}</li>
-                                    <li>{details}</li>
-                                </ul>
-                                    )
-                                });
-                    }
-                }*/
-                var keysAndValues = [];
-                if(Object.keys(data).length !== 0){
-                    var dailyEventArray = [];
-                        var desiredValue = data;
-                        var ListOfKeys = Object.keys(desiredValue);
-                        keysAndValues = ListOfKeys.map((value)=>{ 
-                            const strTitle = desiredValue[value].title;
-                            var tempObj = {};
-                            tempObj = desiredValue[value]; 
-                            dailyEventArray.push(tempObj);
-                            const strDate = "Date: " + desiredValue[value].date;
-                            const fromTime = "From: " + desiredValue[value].from;
-                            const timeTo = "To: " + desiredValue[value].to;
-                            const details = "Description: " + desiredValue[value].details;
-                            return (
-                                <ul id = "event_list" key={value}>
-                                    <div id = "bold_title">{strTitle}</div>
-                                    <li>{strDate}</li>
-                                    <li>{fromTime}</li>
-                                    <li>{timeTo}</li>
-                                    <li>{details}</li>
-                                </ul>
-                                    )
+                        //Processing individual event
+                        /*const currParam = (this.props.currentDate).toString();
+                        var keysAndValues = [];
+                        if(data.dateSpecific !== undefined){
+                            if(data.dateSpecific.hasOwnProperty(currParam)){
+                                var dailyEventArray = [];
+                                var desiredValue = data.dateSpecific[currParam];
+                                var ListOfKeys = Object.keys(desiredValue);
+                                keysAndValues = ListOfKeys.map((value)=>{ 
+                                    const strTitle = desiredValue[value].title;
+                                    var tempObj = {};
+                                    tempObj = desiredValue[value]; 
+                                    dailyEventArray.push(tempObj);
+                                    const strDate = "Date: " + desiredValue[value].date;
+                                    const fromTime = "From: " + desiredValue[value].from;
+                                    const timeTo = "To: " + desiredValue[value].to;
+                                    const details = "Description: " + desiredValue[value].details;
+                                    return (
+                                        <ul key={value}>{strTitle}
+                                            <li>{strDate}</li>
+                                            <li>{fromTime}</li>
+                                            <li>{timeTo}</li>
+                                            <li>{details}</li>
+                                        </ul>
+                                            )
+                                        });
+                            }
+                        }*/
+                        var keysAndValues = [];
+                        if (Object.keys(data).length !== 0) {
+                            var dailyEventArray = [];
+                            var desiredValue = data;
+                            var ListOfKeys = Object.keys(desiredValue);
+                            keysAndValues = ListOfKeys.map((value) => {
+                                const strTitle = desiredValue[value].title;
+                                var tempObj = {};
+                                tempObj = desiredValue[value];
+                                dailyEventArray.push(tempObj);
+                                const strDate = "Date: " + desiredValue[value].date;
+                                const fromTime = "From: " + desiredValue[value].from;
+                                const timeTo = "To: " + desiredValue[value].to;
+                                const details = "Description: " + desiredValue[value].details;
+                                return (
+                                    <ul id="event_list" key={value}>
+                                        <div id="bold_title">{strTitle}</div>
+                                        <li>{strDate}</li>
+                                        <li>{fromTime}</li>
+                                        <li>{timeTo}</li>
+                                        <li>{details}</li>
+                                        <br />
+                                    </ul>
+                                )
                             });
-                }
+                        }
 
 
-                var tempWeekly = [];
-                for(var obj1 of importantDates){
-                    const strTitle = obj1.title + " - Weekly";
-                    var tempObj = {};
-                    tempObj = obj1;
-                    tempWeekly.push(tempObj);
-                    const strDate = "Date: " + obj1.date;
-                    const fromTime = "From: " + obj1.from;
-                    const timeTo = "To: " + obj1.to;
-                    const details = "Description: " + obj.details;
-                    keysAndValues.push(
+                        var tempWeekly = [];
+                        for (var obj1 of importantDates) {
+                            const strTitle = obj1.title + " - Weekly";
+                            var tempObj = {};
+                            tempObj = obj1;
+                            tempWeekly.push(tempObj);
+                            const strDate = "Date: " + obj1.date;
+                            const fromTime = "From: " + obj1.from;
+                            const timeTo = "To: " + obj1.to;
+                            const details = "Description: " + obj.details;
+                            keysAndValues.push(
                                 <ul id="event_list" key={obj1.title}>
                                     <div id="bold_title">{strTitle}</div>
                                     <li>{strDate}</li>
                                     <li>{fromTime}</li>
                                     <li>{timeTo}</li>
                                     <li>{details}</li>
-                                 </ul>
+                                </ul>
                             )
-                }
+                        }
 
 
-                //Set delete params
-                var optionsRender = [];
-                var deleteObjects = [];
-                var index = 0;
-                if(tempWeekly !== undefined){          
-                    for(var objDelete of tempWeekly){
-                        var tempStr = objDelete.date + " - " + objDelete.title;
-                        objDelete.weekly = true;
-                        deleteObjects.push(objDelete);
-                        optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
-                        index++
-                    }
-                }
-                if(dailyEventArray !== undefined){
-                    for(var objDelete of dailyEventArray){
-                        var tempStr = objDelete.date + " - " + objDelete.title;
-                        objDelete.weekly = false;
-                        deleteObjects.push(objDelete);
-                        optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
-                        index++;
-                    }
-                }
-                await this.setState({ 
-                    dailyEvents: dailyEventArray,
-                    weeklyEvents: tempWeekly,
-                    events: keysAndValues,
-                    renderDeletes: optionsRender,
-                    deleteObjects: deleteObjects,
-                });
-                    
-                
-                });
+                        //Set delete params
+                        var optionsRender = [];
+                        var deleteObjects = [];
+                        var index = 0;
+                        if (tempWeekly !== undefined) {
+                            for (var objDelete of tempWeekly) {
+                                var tempStr = objDelete.date + " - " + objDelete.title;
+                                objDelete.weekly = true;
+                                deleteObjects.push(objDelete);
+                                optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
+                                index++
+                            }
+                        }
+                        if (dailyEventArray !== undefined) {
+                            for (var objDelete of dailyEventArray) {
+                                var tempStr = objDelete.date + " - " + objDelete.title;
+                                objDelete.weekly = false;
+                                deleteObjects.push(objDelete);
+                                optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
+                                index++;
+                            }
+                        }
+                        await this.setState({
+                            dailyEvents: dailyEventArray,
+                            weeklyEvents: tempWeekly,
+                            events: keysAndValues,
+                            renderDeletes: optionsRender,
+                            deleteObjects: deleteObjects,
+                        });
+
+
+                    });
             })
         //return listElements;
     }
@@ -369,7 +370,7 @@ class Day extends React.Component {
 
     }
 
-    sendEmail(){
+    sendEmail() {
         var strArray = this.presentObjectsasStrings();
         const email_options = {
             method: 'post',
@@ -387,16 +388,16 @@ class Day extends React.Component {
         fetch('http://localhost:3000/sendEmail', email_options);
     }
 
-    presentObjectsasStrings(){
+    presentObjectsasStrings() {
         var sendArray;
-        if(this.state.weeklyEvents !== null){
+        if (this.state.weeklyEvents !== null) {
             sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
-        }else{
+        } else {
             sendArray = this.state.dailyEvents;
         }
         var strArray = "Here is your schedule for the day :) \n";
 
-        for(var obj of sendArray){
+        for (var obj of sendArray) {
             strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
             strArray = strArray + "---------------------" + "\n";
         }
@@ -412,33 +413,35 @@ class Day extends React.Component {
             <div className="container col col-center">
                 <div className="col col-start">
                     <div className="eventBox">
-                    <div id="eventsTitle"> EVENTS </div>
-                        <Card className ="scroll">
+                        <div id="eventsTitle"> EVENTS </div>
+                        <Card className="scroll">
                             <Card.Body>
                                 <Card.Text>
-                                <ul id = "event_list" className = "col col-start"> {this.state.events}</ul>
+                                    <ul id="event_list" className="col col-start"> {this.state.events}</ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </div>
                 </div>
-                <div className = "col col-center">
-                    <div className="buttons"> 
+                <div className="col col-center">
+                    <div className="buttons">
                         <div>
-                            <button type="CSV" value="CSV" className="button buttons" onClick={() => {this.getEventsCSV()}}>export as CSV</button>
+                            <button type="CSV" value="CSV" className="button buttons" onClick={() => { this.getEventsCSV() }}>export as CSV</button>
                             {this.state.csvInformation}
                         </div>
                         <button type="email" value="email" className="button buttons" onClick={() => this.sendEmail()}>send as email </button>
                         <Link to="/newEvent"><button type="addE" value="addE" className="button buttons">add event</button></Link>
                         <div className="goToDay">
-                            <DatePicker id="daydatepicker" 
-                            selected={this.state.currentDateObject} 
-                            onChange={date => this.goToDay(date)}
-                            showTimeSelect/>
+                            <div><span style={{ fontWeight: 500, fontSize: 20 }}>Jump to:</span><br /></div>
+                            <DatePicker id="daydatepicker"
+                                selected={this.state.currentDateObject}
+                                onChange={date => this.goToDay(date)}
+                                showTimeSelect />
                         </div>
                         <div>
+                            <div style={{ paddingBottom: 10 }}><span style={{ fontWeight: 500, fontSize: 20 }}>Delete Event:</span><br /></div>
                             <select onChange={this.deleteEvent}>
-                                <option>Delete an Event</option>
+                                <option>--none selected--</option>
                                 {this.state.renderDeletes}
                             </select>
                         </div>
@@ -450,9 +453,9 @@ class Day extends React.Component {
 
     renderFooter() {
         return (
-            <div className = "col col-center bg-yellow">
+            <div className="col col-center bg-yellow">
                 <div className="footer">
-                     <button type="addE" value="addE" className="button" onClick={this.goBack}>back to calendar</button>
+                    <button type="addE" value="addE" className="button" onClick={this.goBack}>back to calendar</button>
                 </div>
             </div>
         )

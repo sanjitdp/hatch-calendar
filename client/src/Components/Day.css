@@ -54,7 +54,9 @@
     .goToDay {
         display: flex;
         flex-direction: row;
-        margin-top: 100px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+        margin-bottom: 25px;
         gap: 10px;
     }
 
@@ -106,7 +108,12 @@
         transform: scale(1.75);
         transition: .1s ease-out;
         color: var(--lighter-blue);
-      }
+        cursor: pointer;
+    }
+    
+    .icon {
+        user-select: none;
+    }
     
     #event_list {
         list-style-type: none; /* Remove bullets */

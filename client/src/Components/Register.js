@@ -76,9 +76,9 @@ class Register extends React.Component {
             <div className="registerMain">
                 <img src={egg} alt="register" />
                 <div className="registerForm">
-                    <span className="registerHeader">
-                        Thank you for choosing HATCH!
-</span>
+                    <span className="registerHeader" style={{ fontWeight: 800, fontSize: 35 }}>
+                        Join us!
+                    </span>
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             <input placeholder="username" type="text" value={this.state.username} onChange={this.handleUserChange} />
