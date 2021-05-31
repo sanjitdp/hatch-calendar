@@ -62,16 +62,17 @@ class Login extends React.Component {
             <div className="loginPageMain">
                 <img src={egg} alt="login" />
                 <div className="loginForm">
-                    <span>
+                    <span style={{ fontWeight: 800, fontSize: 35 }}>
                         Welcome Back!
                     </span>
+                    <br />
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             <input placeholder="username" type="text" value={this.state.username} onChange={this.handleUserChange} />
-                        </label> <br /><br />
+                        </label> <br />
                         <label>
                             <input placeholder="password" type="password" value={this.state.password} onChange={this.handlePassChange} />
-                        </label> <br /><br />
+                        </label> <br />
 
                         <button type="submit" value="Submit" className="button">login</button>
 
