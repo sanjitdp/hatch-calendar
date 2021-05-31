@@ -417,7 +417,7 @@ class Day extends React.Component {
                         <Card className="scroll">
                             <Card.Body>
                                 <Card.Text>
-                                    <ul id="event_list" className="col col-start"> {this.state.events}</ul>
+                                    <ul id="event_list" className="col col-start" style={{fontSize: 20}}> {this.state.events}</ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
