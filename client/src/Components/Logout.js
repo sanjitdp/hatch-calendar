@@ -2,6 +2,7 @@ import React from "react";
 import sunny from '../images/sunny.png';
 import './Home.css';
 import '../index.css';
+import { Redirect, withRouter } from 'react-router-dom';
 
 //TO DO: Fetch the username and display it
 //Add logout functionality
@@ -33,7 +34,7 @@ class Logout extends React.Component {
             .then((result) => {
                 if (result.user === undefined) {
                     this.setState({
-                        user: null
+                        user: undefined
                     })
                 } else {
                     this.setState({
@@ -55,33 +56,33 @@ class Logout extends React.Component {
             },
             referrer: 'no-referrer'
         };
-        if (this.state.username !== null) {
+        if (this.state.user !== undefined) {
             console.log("Asdf")
             // console.log() for debugging purposes only, can delete later
-            fetch('http://localhost:3000/logout', logout_options);
-            //window.location.href = "/";
+            fetch('http://localhost:3000/logout', logout_options)
         } else {
-            alert("You must log in");
+            alert("You must log in first!");
         }
         event.preventDefault();
     }
 
     render() {
         this.checkAuth();
+        if (this.state.user === undefined) {
+            return (<Redirect to="/" />)
+        }
         return (
             <div className="wording">
                 <span></span>
                 <img src={sunny} alt="login" />
                 <p className="logout">
                     goodbye, {this.state.user}
-                    <p><span></span>
-
-                    </p>
                 </p>
+                <span></span>
                 <br />
                 <p className="home-text">
                     <br></br>
-                Thank you for choosing <span className="inlinehatch">hatch</span>, the interactive calendar for all your scheduling needs.
+                    Thank you for choosing <span className="inlinehatch">hatch</span>, the interactive calendar for all your scheduling needs.
                 </p>
                 <br />
                 <div>

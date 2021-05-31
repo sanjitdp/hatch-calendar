@@ -8,14 +8,14 @@ img {
 }
 
 .home {
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .wording .logout {
     position: absolute;
-    top: 50%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #096a91;
