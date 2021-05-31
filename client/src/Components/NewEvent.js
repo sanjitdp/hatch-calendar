@@ -113,9 +113,7 @@ class newEvent extends React.Component {
 
             fetch('http://localhost:3000/DBInfo/Weekly', update_Event_options)
         }
-
-        
-
+        window.location.href = "/eventView";
     }
 
     render() {
