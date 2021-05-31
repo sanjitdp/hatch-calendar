@@ -321,6 +321,7 @@ class Day extends React.Component {
                                     <li>{fromTime}</li>
                                     <li>{timeTo}</li>
                                     <li>{details}</li>
+                                    <br />
                                 </ul>
                             )
                         }
@@ -397,7 +398,7 @@ class Day extends React.Component {
             sendArray = this.state.weeklyEvents;
         }
         var strArray = "Here is your schedule for the day :) \n";
-        if(sendArray [0] !== undefined){
+        if (sendArray[0] !== undefined) {
             for (var obj of sendArray) {
                 strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
                 strArray = strArray + "---------------------" + "\n";
@@ -419,7 +420,7 @@ class Day extends React.Component {
                         <Card className="scroll">
                             <Card.Body>
                                 <Card.Text>
-                                    <ul id="event_list" className="col col-start"> {this.state.events}</ul>
+                                    <ul id="event_list" className="col col-start" style={{ fontSize: 20 }}> {this.state.events}</ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
