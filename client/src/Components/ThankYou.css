@@ -25,4 +25,8 @@ h1 {
     font-weight: 500;
     line-height: 1.2;
   }
-  
+
+  ul {
+    columns: 4;
+    font-size: 20px;
+  }

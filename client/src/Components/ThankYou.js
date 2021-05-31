@@ -58,6 +58,7 @@ class ThankYou extends React.Component {
                 </p>
                   <img src={chick} className="chick-logo" alt="Chick Logo" />
               <h1>users</h1>
+              <br></br>
 		          <ul className = "no-bullets text-center">
                 {this.state.userArray}
               </ul>
