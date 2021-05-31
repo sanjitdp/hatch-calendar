@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import * as dateFns from "date-fns";
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVDownload } from 'react-csv';
 import Card from "react-bootstrap/Card";
 
 // pass prop information every time i render
@@ -148,7 +148,7 @@ class Day extends React.Component {
     }
 
     renderHeader(dateObject) {
-        const DateFormat = "MM dd yyyy";
+        //const DateFormat = "MM dd yyyy";
         return (
             <div className="header row flex-middle">
                 <div className="col col-start" >
@@ -166,7 +166,7 @@ class Day extends React.Component {
     }
 
     renderHeader2(dateObject) {
-        const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        //const formattedDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         return (
             <div className="header2 row flex-middle">
                 <div className="col col-center"  >
@@ -307,9 +307,9 @@ class Day extends React.Component {
                         var tempWeekly = [];
                         for (var obj1 of importantDates) {
                             const strTitle = obj1.title + " - Weekly";
-                            var tempObj = {};
-                            tempObj = obj1;
-                            tempWeekly.push(tempObj);
+                            var tempObjWeekly = {};
+                            tempObjWeekly = obj1;
+                            tempWeekly.push(tempObjWeekly);
                             const strDate = "Date: " + obj1.date;
                             const fromTime = "From: " + obj1.from;
                             const timeTo = "To: " + obj1.to;
@@ -341,11 +341,11 @@ class Day extends React.Component {
                             }
                         }
                         if (dailyEventArray !== undefined) {
-                            for (var objDelete of dailyEventArray) {
-                                var tempStr = objDelete.date + " - " + objDelete.title;
-                                objDelete.weekly = false;
-                                deleteObjects.push(objDelete);
-                                optionsRender.push(<option key={objDelete.title} value={index}>{tempStr}</option>);
+                            for (var objDeleteDaily of dailyEventArray) {
+                                var tempStr2 = objDeleteDaily.date + " - " + objDeleteDaily.title;
+                                objDeleteDaily.weekly = false;
+                                deleteObjects.push(objDeleteDaily);
+                                optionsRender.push(<option key={objDeleteDaily.title} value={index}>{tempStr2}</option>);
                                 index++;
                             }
                         }

@@ -2,7 +2,7 @@ import React from "react";
 import sunny from '../images/sunny.png';
 import './Home.css';
 import '../index.css';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 //TO DO: Fetch the username and display it
 //Add logout functionality

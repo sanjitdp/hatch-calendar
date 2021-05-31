@@ -12,7 +12,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Logout from './Components/Logout';
 import About from './Components/About';
 import ThankYou from './Components/ThankYou';
-import { Component } from 'react';
 
 
 class App extends React.Component {
