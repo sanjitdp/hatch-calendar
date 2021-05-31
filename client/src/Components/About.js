@@ -5,12 +5,12 @@ class About extends React.Component {
     render() {
         return (
             <div className="wording">
-                <h1>What is HATCH?</h1>
+                <h1>what is hatch?</h1>
                 <p>
                     Built for UCLA's CS35L Spring '21 utilizing React.js and MongoDB,<br />
-                    <span className="inlinehatch">HATCH</span> is an interactive full stack calendar application for all your scheduling needs. <br />
+                    <span className="inlinehatch">hatch</span> is an interactive full stack calendar application for all your scheduling needs. <br />
                 </p>
-                <h1>Features</h1>
+                <h1>features</h1>
                 <p>
                     <ul className="no-bullets">
                         <li>
@@ -27,7 +27,7 @@ class About extends React.Component {
             </li>
                     </ul>
                 </p>
-                <h1>Contributors</h1>
+                <h1>contributors</h1>
                 <p>
                     <ul className="no-bullets">
                         <li>

@@ -10,7 +10,7 @@
 :root {
   --main-color: #FFE37E;
   --border-color: #FFE37E;
-  --text-blue: #174774;
+  --text-blue:     #1681AB;
   --lighter-blue: #1681AB;
   --bg-color: #FFE37E;
   --text-color: black;
@@ -67,7 +67,8 @@ header {
 }
 
 h1 {
-  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   color: var(--text-blue);
   font-weight: 100;
   padding-top: 0.25em;

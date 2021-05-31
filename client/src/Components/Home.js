@@ -16,11 +16,24 @@ class Home extends React.Component {
           Welcome to <span className="inlinehatch">hatch</span>, the interactive calendar for all your scheduling needs. <br />
 		    We invite you to come hatch your plans with us and see your goals come to fruition.
 		    </p>
-        <br />
+       
+     
         <div className="center">
-          <Link to="/login" className="home-link"> log in. </Link> <span />
-          <span className="home-text">Don't have an account?</span>
-          <Link to="/register" className="home-link"> register. </Link></div>
+                  <form onSubmit={this.handleSubmit}>
+                  <Link to="/login">
+                       <button type="submit" value="Submit" className="button">login</button>
+                       </Link>
+                       <br></br>
+                       <span className="home-text">Don't have an account?</span>
+                       <br></br>
+                  <Link to="/register">
+                       <button type="submit" value="Submit" className="button">register</button>
+                    </Link>
+                   </form>
+          {/* <Link to="/login" className="home-link"> log in. </Link> <span /> */}
+          
+          
+          </div>
         <br />
       </div>
     )

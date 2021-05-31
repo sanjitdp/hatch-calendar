@@ -1,7 +1,9 @@
 
 import React from "react";
 import '../index.css';
-import './Login.css';
+import './ThankYou.css';
+
+import chick from '../images/chick1.png';
 
 
 class ThankYou extends React.Component {
@@ -49,12 +51,13 @@ class ThankYou extends React.Component {
     render() {
         return (
             <div className="wording">
-              <h1>Thank You</h1>
+              <h1>thank you.</h1>
                 <p>
-                  Thank you for using 
-                  <span className="inlinehatch"> HATCH</span> CHANGE for all your scheduling needs. We truly value each and every single one of our users.<br />
+                  Thank you for choosing 
+                  <span className="inlinehatch"> hatch</span> for all your scheduling needs. We truly value each and every single one of our users.<br />
                 </p>
-              <h1>Users</h1>
+                  <img src={chick} className="chick-logo" alt="Chick Logo" />
+              <h1>users</h1>
 		          <ul className = "no-bullets text-center">
                 {this.state.userArray}
               </ul>
