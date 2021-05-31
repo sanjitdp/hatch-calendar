@@ -209,6 +209,7 @@ class Day extends React.Component {
         fetch('http://localhost:3000/DBInfo/Specific/' + this.state.currentDate.replace(/\//g, '-'), daily_options)
             .then((response) => response.json())
             .then((data) => {
+                console.log("HI");
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
                     .then((response2) => response2.json())
                     .then(async (data2) => {
@@ -242,7 +243,8 @@ class Day extends React.Component {
                                 var tempDate = new Date(yearNum, monthNum, dayNum, 0, 0, 0, 0);
 
                                 var dayOfWeek = tempDate.getDay();
-
+                                console.log(userDate);
+                                console.log(tempDate);
                                 if (userdayOfWeek === dayOfWeek && userDate >= tempDate) {
                                     importantDates.push(obj);
                                 }
@@ -314,7 +316,7 @@ class Day extends React.Component {
                             const strDate = "Date: " + obj1.date;
                             const fromTime = "From: " + obj1.from;
                             const timeTo = "To: " + obj1.to;
-                            const details = "Description: " + obj.details;
+                            const details = "Description: " + obj1.details;
                             keysAndValues.push(
                                 <ul id="event_list" key={obj1.title}>
                                     <div id="bold_title">{strTitle}</div>
@@ -389,17 +391,18 @@ class Day extends React.Component {
     }
 
     presentObjectsasStrings() {
-        var sendArray;
+        var sendArray = null;
         if (this.state.weeklyEvents !== null) {
             sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
         } else {
             sendArray = this.state.dailyEvents;
         }
         var strArray = "Here is your schedule for the day :) \n";
-
-        for (var obj of sendArray) {
-            strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
-            strArray = strArray + "---------------------" + "\n";
+        if(sendArray != null){
+            for (var obj of sendArray) {
+                strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
+                strArray = strArray + "---------------------" + "\n";
+            }
         }
         return strArray;
     }

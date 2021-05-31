@@ -40,8 +40,12 @@ router.get('/Specific/:date', login_scripts.isLoggedIn, (req, res)=> {
     const curr_date = req.params.date.replace(/-/g, '/');
     //Find based on username
     dataBase.findEvents(queryString, {dateSpecific: 1}).then((results)=>{
-        if(results.dateSpecific.hasOwnProperty(req.body.curr_date)){
-            res.send(results.dateSpecific[curr_date]);
+        if(results.dateSpecific !== undefined){
+            if(results.dateSpecific.hasOwnProperty(req.body.curr_date)){
+                res.send(results.dateSpecific[curr_date]);
+            }else{
+                res.send({});
+            }
         }else{
             res.send({});
         }
