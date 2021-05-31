@@ -30,7 +30,7 @@ class Home extends React.Component {
               <button type="submit" value="Submit" className="button">register!</button>
             </Link>
           </form>
-          {/* <Link to="/login" className="home-link"> log in. </Link> <span /> */}
+          
 
 
         </div>
