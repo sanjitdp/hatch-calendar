@@ -396,7 +396,7 @@ class Day extends React.Component {
             sendArray = this.state.dailyEvents;
         }
         var strArray = "Here is your schedule for the day :) \n";
-        if (sendArray != null) {
+        if (sendArray[0] !== undefined) {
             for (var obj of sendArray) {
                 strArray = strArray + "Title: " + obj.title + "\n" + "Date: " + obj.date + "\n" + "From: " + obj.from + "\n" + "To: " + obj.to + "\n" + "Details: " + obj.details + "\n";
                 strArray = strArray + "---------------------" + "\n";
