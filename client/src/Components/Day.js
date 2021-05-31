@@ -389,10 +389,12 @@ class Day extends React.Component {
 
     presentObjectsasStrings() {
         var sendArray = null;
-        if (this.state.weeklyEvents !== null) {
+        if (this.state.weeklyEvents !== undefined && this.state.dailyEvents !== undefined) {
             sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
-        } else {
+        } else if(this.state.weeklyEvents === undefined){
             sendArray = this.state.dailyEvents;
+        }else{
+            sendArray = this.state.weeklyEvents;
         }
         var strArray = "Here is your schedule for the day :) \n";
         if(sendArray [0] !== undefined){
