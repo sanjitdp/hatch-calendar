@@ -32,6 +32,8 @@ display: flex;
 p {
     text-align: center;
     color: black;
+    font-size: 32px;
+    font-weight: 300;
 }
 
 .wording {
