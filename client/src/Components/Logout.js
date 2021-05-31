@@ -88,6 +88,7 @@ class Logout extends React.Component {
                     <form onSubmit={() => { this.handleSubmit() }}>
                         <span className="home-text">Come back soon!</span>
                         <span />
+                        <br></br>
                         <button type="submit" value="Submit" className="button">log out</button>
                     </form>
                 </div>
