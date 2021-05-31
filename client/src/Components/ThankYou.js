@@ -59,8 +59,8 @@ class ThankYou extends React.Component {
                   <img src={chick} className="chick-logo" alt="Chick Logo" />
               <h1>users</h1>
               <br></br>
-		          <ul className = "no-bullets text-center">
-                {this.state.userArray}
+              <ul className ="userList">
+                  {this.state.userArray}
               </ul>
             </div>
         )
