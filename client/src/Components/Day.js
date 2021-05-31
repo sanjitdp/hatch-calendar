@@ -205,11 +205,10 @@ class Day extends React.Component {
             },
             referrer: 'no-referrer',
         }
-
         fetch('http://localhost:3000/DBInfo/Specific/' + this.state.currentDate.replace(/\//g, '-'), daily_options)
             .then((response) => response.json())
             .then((data) => {
-                console.log("HI");
+                console.log(data);
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
                     .then((response2) => response2.json())
                     .then(async (data2) => {
@@ -243,8 +242,6 @@ class Day extends React.Component {
                                 var tempDate = new Date(yearNum, monthNum, dayNum, 0, 0, 0, 0);
 
                                 var dayOfWeek = tempDate.getDay();
-                                console.log(userDate);
-                                console.log(tempDate);
                                 if (userdayOfWeek === dayOfWeek && userDate >= tempDate) {
                                     importantDates.push(obj);
                                 }
@@ -420,7 +417,7 @@ class Day extends React.Component {
                         <Card className="scroll">
                             <Card.Body>
                                 <Card.Text>
-                                    <ul id="event_list" className="col col-start" style={{fontSize: 20}}> {this.state.events}</ul>
+                                    <ul id="event_list" className="col col-start"> {this.state.events}</ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
