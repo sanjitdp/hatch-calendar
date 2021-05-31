@@ -208,7 +208,6 @@ class Day extends React.Component {
         fetch('http://localhost:3000/DBInfo/Specific/' + this.state.currentDate.replace(/\//g, '-'), daily_options)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 fetch('http://localhost:3000/DBInfo/Weekly', weekly_options)
                     .then((response2) => response2.json())
                     .then(async (data2) => {
@@ -225,8 +224,7 @@ class Day extends React.Component {
                         var dayNumUser = parseInt(dayUser);
                         var yearNumUser = parseInt(yearUser);
 
-
-                        var userDate = new Date(yearNumUser, monthNumUser, dayNumUser, 0, 0, 0, 0);
+                        var userDate = new Date(yearNumUser, monthNumUser - 1, dayNumUser, 0, 0, 0, 0);
                         var userdayOfWeek = userDate.getDay();
                         for (var obj of dataArray) {
                             if (obj.date !== undefined) {
@@ -239,9 +237,10 @@ class Day extends React.Component {
                                 var dayNum = parseInt(day);
                                 var yearNum = parseInt(year);
 
-                                var tempDate = new Date(yearNum, monthNum, dayNum, 0, 0, 0, 0);
+                                var tempDate = new Date(yearNum, monthNum - 1, dayNum);
 
                                 var dayOfWeek = tempDate.getDay();
+
                                 if (userdayOfWeek === dayOfWeek && userDate >= tempDate) {
                                     importantDates.push(obj);
                                 }
