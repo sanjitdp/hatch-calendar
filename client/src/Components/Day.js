@@ -247,34 +247,6 @@ class Day extends React.Component {
                             }
                         }
 
-                        //Processing individual event
-                        /*const currParam = (this.props.currentDate).toString();
-                        var keysAndValues = [];
-                        if(data.dateSpecific !== undefined){
-                            if(data.dateSpecific.hasOwnProperty(currParam)){
-                                var dailyEventArray = [];
-                                var desiredValue = data.dateSpecific[currParam];
-                                var ListOfKeys = Object.keys(desiredValue);
-                                keysAndValues = ListOfKeys.map((value)=>{ 
-                                    const strTitle = desiredValue[value].title;
-                                    var tempObj = {};
-                                    tempObj = desiredValue[value]; 
-                                    dailyEventArray.push(tempObj);
-                                    const strDate = "Date: " + desiredValue[value].date;
-                                    const fromTime = "From: " + desiredValue[value].from;
-                                    const timeTo = "To: " + desiredValue[value].to;
-                                    const details = "Description: " + desiredValue[value].details;
-                                    return (
-                                        <ul key={value}>{strTitle}
-                                            <li>{strDate}</li>
-                                            <li>{fromTime}</li>
-                                            <li>{timeTo}</li>
-                                            <li>{details}</li>
-                                        </ul>
-                                            )
-                                        });
-                            }
-                        }*/
                         var keysAndValues = [];
                         if (Object.keys(data).length !== 0) {
                             var dailyEventArray = [];
@@ -391,9 +363,9 @@ class Day extends React.Component {
         var sendArray = null;
         if (this.state.weeklyEvents !== undefined && this.state.dailyEvents !== undefined) {
             sendArray = this.state.weeklyEvents.concat(this.state.dailyEvents);
-        } else if(this.state.weeklyEvents === undefined){
+        } else if (this.state.weeklyEvents === undefined) {
             sendArray = this.state.dailyEvents;
-        }else{
+        } else {
             sendArray = this.state.weeklyEvents;
         }
         var strArray = "Here is your schedule for the day :) \n";
