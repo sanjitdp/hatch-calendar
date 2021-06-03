@@ -32,7 +32,7 @@ class Logout extends React.Component {
         await fetch('http://localhost:3000/login/verify', verify_options)
             .then((data) => (data.json()))
             .then((result) => {
-                if (result.user === undefined) {
+                if (result.hasOwnProperty('user') === false) {
                     this.setState({
                         user: undefined
                     })
@@ -45,7 +45,7 @@ class Logout extends React.Component {
 
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         const logout_options = {
             method: 'get',
             mode: 'cors',
@@ -57,9 +57,9 @@ class Logout extends React.Component {
             referrer: 'no-referrer'
         };
         if (this.state.user !== undefined) {
-            console.log("Asdf")
+            //console.log("Asdf");
             // console.log() for debugging purposes only, can delete later
-            fetch('http://localhost:3000/logout', logout_options)
+            await fetch('http://localhost:3000/logout', logout_options)
         } else {
             alert("You must log in first!");
         }
