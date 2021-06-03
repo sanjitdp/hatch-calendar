@@ -1,6 +1,6 @@
 # hatch-calendar
 
-![Hatch Calendar Logo](client/src/images/sunny.png)
+<img src="client/src/images/sunny.png" alt="Hatch Calendar Logo" width="200" height="200" /><br />
 
 Full-stack calendar web application. Created for CS 35L at UCLA in Spring 2021. For personal use only - do not copy. Written using React.js, Node.js, Express.js, and MongoDB.
 
