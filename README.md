@@ -1,4 +1,7 @@
 # hatch-calendar
+
+![Hatch Calendar Logo](client/src/images/sunny.png)
+
 Full-stack calendar web application. Created for CS 35L at UCLA in Spring 2021. For personal use only - do not copy. Written using React.js, Node.js, Express.js, and MongoDB.
 
 ## How to Use
@@ -33,3 +36,11 @@ Hatch Calendar is a full-fledged calendar application with standard calendar fun
 - Thank you page containing a list of registered users
 - Display events based on day (weekly events) or date (one-time events)
 - Jump to date with calendar and date picker
+
+## Contributors
+
+- Sanjit Dandapanthula
+- Vinay Shukla
+- Anna Anderson
+- Katie Stahnke
+- Nitya Simhadri
